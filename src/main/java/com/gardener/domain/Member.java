@@ -1,5 +1,4 @@
 package com.gardener.domain;
-
 import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
@@ -15,14 +14,13 @@ import lombok.ToString;
 @ToString
 public class Member {
 
-	private int id; // pk
-	private String loginid; // 아이디
-	private String pwd; // 패스워드
-	private String email; // 이메일
-	private String name; // 필명
-	private String intro; // 자기소개
-	private String joinDate; // 가입날짜
-	private String profile; // 프로필사진
+	private String loginid; 
+	private String pwd; 
+	private String email; 
+	private String name; 
+	private String intro; 
+	private String joinDate; 
+	private String profile; 
 
 	public Member(String loginid, String pwd, String email, String name) {
 		this.loginid = loginid;
@@ -31,7 +29,7 @@ public class Member {
 		this.name = name;
 	}
 
-	// 겨운
+	
 	public Member(String loginid, String pwd, String email, String name, String intro, String profile) {
 		this.loginid = loginid;
 		this.pwd = pwd;
@@ -46,9 +44,6 @@ public class Member {
 		return gson.toJson(this);
 	}
 
-	public void setId(String loginId) {
-		this.loginid = loginId;
-	}
 
 	public void print() {
 

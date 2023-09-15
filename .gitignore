@@ -3,7 +3,7 @@
 
 .springBeans
 assets
-
+src/test/**
 ### Eclipse ###
 .metadata
 bin/
