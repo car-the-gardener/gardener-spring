@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gardener.aop.exception.FindException;
 import com.gardener.aop.exception.UpdateException;
 import com.gardener.domain.Member;
-import com.gardener.service.MemberMypageService;
+import com.gardener.service.MypageService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -25,25 +25,26 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 @RequestMapping("/member")
-public class MemberUpdateController {
+public class MypageController {
 	
-	@Setter(onMethod_ = @Autowired)
-	private MemberMypageService service;
+	@Autowired
+	private MypageService service;
 	
 	@GetMapping
 	public void mypage() {
 	}
 	
-	/*mypage클릭 시 내 정보 확인하기 
-	 * */
+	/**
+	 * Mypage 내 정보 확인 
+	 */
 	@PostMapping
 	public String mypage(
-		@RequestParam("loginid") String loginid,
-		@RequestParam("pwd") String pwd,
-		@RequestParam("email")String email,
-		@RequestParam("name") String name,
-		@RequestParam("intro")String intro,
-		@RequestParam("profile")String profile,
+		String loginid,
+		String pwd,
+		String email,
+		String name,
+		String intro,
+		String profile,
 		RedirectAttributes redirectAttributes)
 		{
 		
@@ -51,8 +52,7 @@ public class MemberUpdateController {
 		 
 		 try {
 			service.updateMember(member);
-		} catch (UpdateException e) {
-			// TODO Auto-generated catch block
+		} catch (UpdateException e) {			
 			e.printStackTrace();
 		}
 		 
@@ -60,9 +60,9 @@ public class MemberUpdateController {
 	
 		}
 	
-
-		/*계정 삭제 시
-		 * */
+		/**
+		 * 계정 삭제 
+		 */
 	    @PostMapping("/delete")
 	    @ResponseBody
 	    public ResponseEntity<String> deleteMember(@RequestParam("loginid") String loginid, HttpSession session) {
@@ -86,35 +86,10 @@ public class MemberUpdateController {
 	        }
 	    }
 	    
-	    /*계정 찾아서 수정하기
-	     * */	
-	    @GetMapping("/findmember")
-	    public ResponseEntity<?> findMember(@RequestParam String id) {
-	        try {
-	            Member member = service.findByMember(id);
-	            return ResponseEntity.ok(member);
-	        } catch (FindException e) {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member not found");
-	        }
-	    }
+	    /**
+	     * 계정 내 정보 수정하기
+	     */
+	
 	    
-	    @PostMapping("/updatemember")
-	    public ResponseEntity<?> updateMember(@RequestParam String id, @RequestParam String pwd, 
-	                                          @RequestParam String email, @RequestParam String name, 
-	                                          @RequestParam String intro, @RequestParam String profile) throws FindException {
-	        Member member = service.findByMember(id);
-	        member.setPwd(pwd);
-	        member.setEmail(email);
-	        member.setName(name);
-	        member.setIntro(intro);
-	        member.setProfile(profile);
-
-	        try {
-	            service.updateMember(member);
-	            return ResponseEntity.ok("Update successful.");
-	        } catch (UpdateException e) {
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
-	        }
-	    }
 
 }

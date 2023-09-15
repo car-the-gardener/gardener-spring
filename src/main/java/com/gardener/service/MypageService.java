@@ -12,19 +12,15 @@ import lombok.extern.log4j.Log4j;
 
 @Service
 @Log4j
-public class MemberMypageService {
+public class MypageService {
 	
-	@Setter(onMethod_ =@Autowired)
+	@Autowired
 	private MemberMapper mapper;
 	
-//	public void findMember(Member m) {
-//			mapper.findMember(m);
-//
-//	}
 
 	public Member findByMember(String loginid) throws FindException {
 		Member m = new Member();
-		m.setLoginId(loginid);
+		m.setLoginid(loginid);
 		mapper.findMember(m);
 		return m;
 	}

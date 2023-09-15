@@ -29,7 +29,7 @@ public class Member {
 		this.name = name;
 	}
 
-	// 寃⑥슫
+	
 	public Member(String loginid, String pwd, String email, String name, String intro, String profile) {
 		this.loginid = loginid;
 		this.pwd = pwd;
@@ -44,9 +44,6 @@ public class Member {
 		return gson.toJson(this);
 	}
 
-	public void setLoginId(String loginId) {
-		this.loginid = loginId;
-	}
 
 	public void print() {
 

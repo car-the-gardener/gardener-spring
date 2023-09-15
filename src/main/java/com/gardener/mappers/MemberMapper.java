@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.gardener.domain.Member;
 
-@Mapper
+
 public interface MemberMapper {
 
 	
