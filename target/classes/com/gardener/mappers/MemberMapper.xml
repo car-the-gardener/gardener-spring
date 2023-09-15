@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gardener.mappers.MemberMapper">
+
+
+	<select id="selectById" resultType="com.gardener.domain.Member"
+		parameterType="string">
+    <![CDATA[
+    SELECT * FROM member WHERE loginid= #{loginid}
+    ]]>
+	</select>
+
+	<!-- select id="selectByName" resultType="Member"
+		parameterType="string">
+		<![CDATA[
+		SELECT * FROM member WHERE name= #{name}
+		]]>
+	</select>
+
+	<select id="selectByEmail" resultType="Member"
+		parameterType="string">
+		<![CDATA[
+		SELECT * FROM member WHERE email= #{email}
+		]]>
+	</select>
+
+	<insert id="insertMember" parameterType="Member">
+	<![CDATA[
+		INSERT INTO member (id,loginid,pwd,email,name,intro,joindate,profile) VALUES
+		(member_seq.nextval,#{loginid}, #{pwd}, #{email},
+		#{name},null,null,null)
+		]]>
+	</insert-->
+
+	<!-- 겨운 -->
+	<select id="findMember" parameterType="map"
+		resultType="com.gardener.domain.Member">
+		<![CDATA[
+		SELECT loginid, pwd, email, name, intro, profile
+		FROM member
+		WHERE LOGINID = #{loginid}
+		]]>
+	</select>
+
+
+	<update id="updateMember" 
+		parameterType="com.gardener.domain.Member">
+		<![CDATA[
+		UPDATE member
+		SET pwd = #{pwd},
+		email = #{email},
+		name = #{name},
+		intro = #{intro},
+		profile = #{profile}
+		WHERE LOGINID = #{loginid}
+		]]>
+	</update>
+
+
+	<delete id="deleteMember" parameterType="String">
+		DELETE FROM member WHERE LOGINID = #{loginid}
+	</delete>
+
+</mapper>
