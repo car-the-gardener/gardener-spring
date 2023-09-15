@@ -4,6 +4,7 @@
 .springBeans
 assets
 src/java/test/**
+target
 ### Eclipse ###
 .metadata
 bin/
