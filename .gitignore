@@ -3,8 +3,9 @@
 
 .springBeans
 assets
-src/java/test/**
+src/test/**
 target
+root-context.xml
 ### Eclipse ###
 .metadata
 bin/
