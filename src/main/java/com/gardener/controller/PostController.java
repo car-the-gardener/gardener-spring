@@ -73,7 +73,7 @@ public class PostController {
     }
   }
 
-  // 메인 이미지 불러오기 , 왜 안될까 기존것으로
+  // 메인 이미지 불러오기 
   @GetMapping("/image-print-main")
   @ResponseBody
   public ResponseEntity<byte[]> getImage(String filename) {
@@ -140,11 +140,9 @@ public class PostController {
     }
 
     File uploadFile = new File(fileFullPath);
-    log.info("uploadFile => {}", uploadFile);
-    /*if (!uploadFile.exists()) {
+    if (!uploadFile.exists()) {
       throw new RuntimeException();
-    }*/
-
+    }
     try {
       //이미지 파일을 byte[]로 변환 후 반환
       byte[] imgBytes = Files.readAllBytes(uploadFile.toPath());
