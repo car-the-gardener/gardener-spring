@@ -1,191 +1,157 @@
 $(() => {
-
-  let imgs = [];
-
-  // 클릭시 라디오버튼 체크 시작
-  $("div.category li").click((e) => {
-    e.stopPropagation();
-    const radioButton = $(e.currentTarget).find("input[type='radio']");
-    radioButton.prop("checked", true);
-  });
-  // 클릭시 라디오버튼 체크 끝
-
-  // 본문 메인 이미지 선택 시작
-  const imgBtn = $("input[name='image']");
-  imgBtn.change((e) => {
-    const reader = new FileReader();
-    const file = e.target.files[0];
-    console.log(file);
-
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      let formData = new FormData();
-      formData.append("image", file);
-      $.ajax({
-        url        : "https://api.imgur.com/3/image",
-        method     : "POST",
-        contentType: false,
-        processData: false,
-        data       : formData,
-        headers    : {
-          Authorization: "Bearer 40d90d890e71afc566ae5ce0d4379ac17fda5182",
-          Accept       : "application/json",
-        },
-        success    : (response) => {
-          $(".main-image").css(
-              "background-image",
-              `url(${response.data.link})`
-          );
-        },
-      });
-    };
-  });
-  // 본문 메인 이미지 선택 끝
-
-  // 본문에서 이미지 선택 시작
   const editor = new toastui.Editor({
-    el             : document.querySelector("#editor"),
-    height         : "600px",
-    initialEditType: "markdown",
-    initialValue   : "내용을 입력해 주세요.",
-    previewStyle   : "vertical",
-    hooks          : {
-      addImageBlobHook: (blob, cb) => {
-        console.log(imgs.length);
-        if (imgs.length > 2) {
-          swal("사진은 5장 까지만 가능합니다.", "", "error");
-          return;
+    el: document.querySelector("#editor"), // 에디터를 적용할 요소 (컨테이너)
+    height: "600px", // 에디터 영역의 높이 값 (OOOpx || auto)
+    initialEditType: "markdown", // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
+    initialValue: "", // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
+    previewStyle: "vertical", // 마크다운 프리뷰 스타일 (tab || vertical)
+    placeholder: "내용을 입력해 주세요.",
+    /* start of hooks */
+    hooks: {
+      addImageBlobHook(blob, callback) {
+        // 이미지 업로드 로직 커스텀
+        try {
+          /**
+           * 1. 에디터 업로드한 이미지를 FormData 객체에 저장
+           * (이때, 컨트롤러 uploadEditorImage 메서드의 파라미터인 'image'와 formData에 append 하는 key('image')값은 동일해야 함)
+           */
+          const formData = new FormData();
+          formData.append("image", blob);
+          // 2. FileApiController - uploadEditorImage 메소드 호출
+          $.ajax({
+            url: "/posting",
+            method: "POST",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: (response) => {
+              const filename = response;
+              console.log("서버에 저장될 filename: ", filename);
+              const imageUrl = `/image-print?filename=${filename}&sort=content`;
+              callback(imageUrl, "image alt attribute");
+            },
+          });
+        } catch (error) {
+          console.error("업로드 실패: ", error);
         }
-
-        let formData = new FormData();
-        formData.append("image", blob);
-        console.log(formData);
-        $.ajax({
-          url        : "https://api.imgur.com/3/image",
-          method     : "POST",
-          processData: false,
-          contentType: false,
-          headers    : {
-            Authorization: "Bearer 40d90d890e71afc566ae5ce0d4379ac17fda5182",
-            Accept       : "application/json",
-          },
-          data       : formData,
-          success    : (response) => {
-            imgs.push(response?.data?.link);
-            console.log(response);
-            cb(response.data.link);
-          },
-          error      : (status) => {
-            console.log(status);
-          },
-        });
       },
     },
+    /* end of hooks */
   });
-  // 본문에서 이미지 선택 끝
 
-  $("div.post-btn > button:nth-child(2)").click(() => {
-    const title = $("input[name='title']").val();
+  // 카테고리 선택
+  $(".category li").click((e) => {
+    const radioBtn = $(e.currentTarget).find("input[type='radio']");
+    radioBtn.prop("checked", true);
+  });
+
+  // 글 저장
+  $(".post-btn > button:last-child").click(() => {
+    const mainTitle = $("input[name='title']").val();
     const subTitle = $("input[name='subtitle']").val();
-    const content = editor.getMarkdown();
-    const mainImage = $(".main-image").css("background-image");
-    const mainImgUrl = mainImage.slice(
-        mainImage.indexOf('"') + 1,
-        mainImage.lastIndexOf('"')
+    const mainTitleImgUrl = $(".main-image").css("background-image");
+    const mainTitleImg = mainTitleImgUrl.slice(
+      mainTitleImgUrl.indexOf("/image"),
+      mainTitleImgUrl.lastIndexOf('"')
     );
-    let secret = $("#secret:checked").val();
-    const cate = $("input[name='cate']:checked").val();
+    const content = editor.getHTML();
 
-    if (typeof secret === "undefined") {
-      secret = 0;
+    if (mainTitle.length === 0) {
+      alert("제목 적어라");
+    }
+    // 콘텐츠 입력 유효성 검사
+    if (editor.getMarkdown().length < 1) {
+      alert("에디터 내용 입력 ㄱ");
+      throw new Error("editor content is required");
+    }
+    console.log(editor.getMarkdown());
+
+    let publicYn = $("input[name='secret']:checked").val();
+    if (typeof publicYn == "undefined") {
+      publicYn = false;
+    } else {
+      publicYn = true;
     }
 
-    if (typeof cate === "undefined") {
-      swal("카테고리를 하나 선택해 주세요");
+    let category = $("input[name='cate']:checked").val();
+    if (typeof category === "undefined") {
+      alert("카테고리 하나 이상 선택");
       return;
     }
 
     const data = {
-      title   : title,
-      subtitle: subTitle,
-      content : content,
-      mainImg : mainImgUrl,
-      imgs    : imgs,
-      secret  : secret,
-      cate    : cate,
+      mainTitle,
+      subTitle,
+      content,
+      category,
+      publicYn,
+      mainTitleImg,
+      favorite: 0,
     };
-    if ($(".post-btn > button:nth-child(2)").text() === "글쓰기") {
-      submitBtn("post", data);
-    }
-  });
+    console.log(data, "data");
 
-  $("#st").click((e) => {
-    location.href = "../html/posts.html";
-  });
-
-  // 수정 시작,. 끝나면 꼭 세션 삭제
-  const update = JSON.parse(sessionStorage.getItem("article"));
-
-  if (update !== null) {
-    $(".post-btn > button:nth-child(2)").text("수정");
-    $(".section-header-title > input").val(update.mainTitle);
-    $(".section-header-title > .section-header-subtitle > input").val(
-        update.subTitle
-    );
-    $(".ProseMirror div").html(update.content);
-
-    $(".post-btn > button:nth-child(2)").click((e) => {
-      const title = $("input[name='title']").val();
-      const subTitle = $("input[name='subtitle']").val();
-      const content = editor.getMarkdown();
-      const mainImage = $(".main-image").css("background-image");
-      const mainImgUrl = mainImage.slice(
-          mainImage.indexOf('"') + 1,
-          mainImage.lastIndexOf('"')
-      );
-      let secret = $("#secret:checked").val();
-      const cate = $("input[name='cate']:checked").val();
-
-      if (typeof secret === "undefined") {
-        secret = 0;
-      }
-
-      if (typeof cate === "undefined") {
-        swal("카테고리를 하나 선택해 주세요");
-        return;
-      }
-
-      const data = {
-        title   : title,
-        subtitle: subTitle,
-        content : content,
-        mainImg : mainImgUrl,
-        imgs    : imgs,
-        secret  : secret,
-        cate    : cate,
-        num     : sessionStorage.getItem("num"),
-      };
-      submitBtn("updatepost", data);
+    $.ajax({
+      url: "/post",
+      method: "POST",
+      data: JSON.stringify(data),
+      contentType: "application/json",
+      success: (response) => {
+        console.log(response, " 데이터 저장 후 반환");
+        alert(`${response} 글 저장 완료`);
+        location.href = `/post/${response}`;
+      },
+      error: (status) => {
+        console.error(status);
+      },
     });
-  }
-  // 수정 끝
-});
-
-// ajax 메소드를 만들고, then으로 후속처리 할 수 있을듯
-
-const submitBtn = (url, data) => {
-  $.ajax({
-    url    : `/back/${url}`,
-    method : "POST",
-    data   : data,
-    success: (response) => {
-      console.log(response);
-      sessionStorage.setItem("num", response);
-      sessionStorage.removeItem("article");
-      location.href = "../html/post.html"
-    },
-    errer  : (err) => {
-      console.log(err);
-    },
   });
-};
+
+  // 메인 이미지에서 이미지만 올리게끔
+  const checkExtention = (fileName, fileSize) => {
+    const regex = new RegExp("(.*?).(exe|sh|zip|alz|txt)$");
+    const maxSize = 1024 * 1024 * 5; // 5mb
+
+    if (fileSize > maxSize) {
+      alert("너무 크다. 5mb 이하로");
+      return false;
+    }
+
+    if (regex.test(fileName)) {
+      alert("해당 파일은 업로드 안됨, 이지만 부탁");
+      return false;
+    }
+    return true;
+  };
+
+  // 메인 이미지 저장
+  $(".img-pic input").change((e) => {
+    const file = $(e.target)[0].files[0];
+    console.log(file.name);
+    console.log(file.size);
+
+    if (!checkExtention(file.name, file.size)) {
+      return false;
+    }
+    const formData = new FormData();
+    formData.append("image", file);
+    $.ajax({
+      url: "/main-image",
+      method: "POST",
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      data: formData,
+      success: (response) => {
+        console.log(response, "main 반환값");
+        const endodeUrl = encodeURIComponent(
+          response.uploadPath + "/" + "main" + "/" + response.fileName
+        );
+        const url = `/image-print?filename=${endodeUrl}&sort=main`;
+        $(".main-image").css("background-image", `url(${url})`);
+      },
+      error: (status) => {
+        console.log(status);
+      },
+    });
+  });
+});

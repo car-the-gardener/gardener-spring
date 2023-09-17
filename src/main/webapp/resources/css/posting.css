@@ -106,11 +106,11 @@ section div.img-pic {
     position: relative;
     top: -113px;
     margin: 0 auto;
-    cursor: pointer;
 }
 
 section div.img-pic img {
     width: 100%;
+    cursor: pointer;
 }
 
 /* 메인이미지 끝 */

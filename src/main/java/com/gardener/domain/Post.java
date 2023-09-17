@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,9 +27,8 @@ public class Post {
   private Comments comments; // 댓글 dto
   private Member member; // member DTO
 
-  public Post(String memberLoginid, String mainTitle, String subTitle, String content, String mainTitleImg,
-              String category, boolean publicYn, int favorite) {
-    super();
+  // 요청
+  public Post(String memberLoginid, String mainTitle, String subTitle, String content, String mainTitleImg, String category, boolean publicYn, int favorite) {
     this.memberLoginid = memberLoginid;
     this.mainTitle = mainTitle;
     this.subTitle = subTitle;

@@ -1,285 +1,313 @@
 @font-face {
-  font-family: "Diphylleia";
-  src: url(../assets/font/TitleFont/Diphylleia-Regular.ttf);
+    font-family: "Diphylleia";
+    src: url(../assets/font/TitleFont/Diphylleia-Regular.ttf);
 }
+
 @font-face {
-  font-family: "article";
-  src: url(../assets/font/article-font/KoPubDotumMedium.ttf);
+    font-family: "article";
+    src: url(../assets/font/article-font/KoPubDotumMedium.ttf);
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
+    box-sizing: border-box;
+    margin: 0;
 }
 
+img {
+    max-width: 500px;
+}
 
 
 /* 헤더 시작 */
 /*header CSS*/
 h1 {
-  text-align: center;
+    text-align: center;
 }
 
 h1 > a > img {
-  width: 250px;
-  height: 150px;
+    width: 250px;
+    height: 150px;
 }
 
 header > nav > ul {
-  list-style-type: none;
-  padding-left: 200px;
-  width: 100%;
+    list-style-type: none;
+    padding-left: 200px;
+    width: 100%;
 }
 
 header > nav > ul > li {
-  display: inline-block;
-  width: 19%;
+    display: inline-block;
+    width: 19%;
 }
 
 header > nav > ul > li > a {
-  text-decoration: none;
-  color: black;
+    text-decoration: none;
+    color: black;
 }
+
 /*header CSS*//* 헤더 끝 */
 
 
 hr {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 
 .content-img {
-  text-align: center;
+    text-align: center;
 }
 
 .content-img > img {
-  max-width: 400px;
+    max-width: 400px;
 }
+
 /* 헤더 시작 */
 .main-logo {
-  margin: 0px auto;
-  max-width: 1400px;
-  text-align: center;
+    margin: 0px auto;
+    max-width: 1400px;
+    text-align: center;
 }
+
 .main-logo > img {
-  height: 100%;
+    height: 100%;
 }
+
 /* 헤더 끝 */
 
 /* 섹션 시작 */
 section {
-  margin: 0 auto;
+    margin: 0 auto;
 }
+
 /* 섹션 헤더 제목 시작 */
 .section-header-image {
-  height: 400px;
-  width: 100vw;
+    height: 400px;
 }
+
 .section-header-image > .main-image {
-  background-repeat: no-repeat;
-  margin: 0 auto;
-  height: 500px;
-  background-image: url(https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg);
-  background-size: cover;
-  position: relative;
-  margin-left: -500px;
-  opacity: 0.4;
-  z-index: -1;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    height: 500px;
+    background-image: url(https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/09/18/1e586277-48ba-4e8a-9b98-d8cdbe075d86.jpg);
+    background-size: cover;
+    position: relative;
+    opacity: 0.4;
+    z-index: -1;
 }
+
 /* 섹션 헤더 제목 끝 */
 
 /* 섹션 헤더 타이틀 시작 */
 .section-header-title > .section-header-main-title {
-  font-size: 53px;
-  text-align: center;
-  font-weight: bold;
-  font-size: xx-large;
+    font-size: 53px;
+    text-align: center;
+    font-weight: bold;
+    font-size: xx-large;
 }
+
 .section-header-title > .section-header-main-subtitle {
-  text-align: center;
-  font-size: large;
-  font-weight: 700;
-  height: 24px;
+    text-align: center;
+    font-size: large;
+    font-weight: 700;
+    height: 24px;
 }
 
 /* 섹션 헤더 글 정보 시작 */
 .section-header-info {
-  display: flex;
-  position: relative;
-  top: 40px;
-  right: -10px;
-  justify-content: end;
-  font-weight: bold;
+    display: flex;
+    position: relative;
+    top: 40px;
+    justify-content: end;
+    font-weight: bold;
 }
+
 .section-header-info > .section-header-info-writer {
-  margin-right: 10px;
+    margin-right: 10px;
 }
+
 .section-header-info > .section-header-info-date {
-  /* 숫자 수평정렬 */
-  line-height: 1.4;
-  margin-right: 10px;
+    /* 숫자 수평정렬 */
+    line-height: 1.4;
+    margin-right: 10px;
 }
+
 /* 섹션 헤더 글 정보 끝 */
 
 /* 섹션 헤더 끝 */
 
 /* 아티클 시작 */
 section article {
-  max-width: 900px;
-  margin: 50px auto 0;
-  min-height: 600px;
-  height: 100%;
+    max-width: 900px;
+    margin: 50px auto 0;
+    min-height: 600px;
+    height: 100%;
 }
+
 /* 아티클 끝 */
 
 /* 버튼 섹션 시작 */
 .btn-wrap {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 }
 
 .section-header-icon {
-  display: flex;
-  flex-direction: row-reverse;
-  position: relative;
-  width: 50px;
-  height: 40px;
+    display: flex;
+    flex-direction: row-reverse;
+    position: relative;
+    width: 50px;
+    height: 40px;
 }
+
 .section-header-icon:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
+
 .section-header-icon > div {
-  display: flex;
+    display: flex;
 }
+
 .section-header-icon > div > span {
-  position: relative;
-  top: 17px;
+    position: relative;
+    top: 17px;
 }
 
 .section-header-icon img {
-  height: 40px;
+    height: 40px;
 }
 
 .modify-btn {
-  width: 450px;
-  display: flex;
-  justify-content: end;
+    width: 450px;
+    display: flex;
+    justify-content: end;
 }
+
 /* 버튼 섹션 끝 */
 
 /* 작가 프로필 시작 */
 .writer-profile {
-  display: flex;
-  margin: 0 auto;
-  width: 900px;
-  height: 170px;
-  margin-top: 30px;
-  padding-left: 15px;
+    display: flex;
+    margin: 0 auto;
+    width: 900px;
+    height: 170px;
+    margin-top: 30px;
+    padding-left: 15px;
 }
+
 .writer-profile > .writer-profile-info {
-  display: flex;
-  flex-direction: column;
-  width: 730px;
+    display: flex;
+    flex-direction: column;
+    width: 730px;
 }
+
 .writer-profile > .writer-profile-info > .writer-profile-name {
-  font-weight: bold;
+    font-weight: bold;
 }
+
 /* 작가 프로필 사진 시작*/
 .writer-profile > .writer-profile-pic {
-  width: 170px;
-  height: 170px;
+    width: 170px;
+    height: 170px;
 }
+
 .writer-profile > .writer-profile-pic > img {
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
 }
+
 /* 작가 프로필 사진 끝*/
 /* 작가 프로필 끝 */
 
 /* 댓글 시작 */
 .section-comment > div {
-  margin-bottom: 30px;
-  text-align: end;
+    margin-bottom: 30px;
+    text-align: end;
 }
+
 .section-comment > div > h3 {
-  display: flex;
+    display: flex;
 }
 
 .section-comment > div > button {
-  width: 60px;
-  height: 40px;
+    width: 60px;
+    height: 40px;
 }
 
 .section-comment > div > textarea {
-  width: 900px;
-  height: 150px;
-  resize: none;
+    width: 900px;
+    height: 150px;
+    resize: none;
 }
 
 .section-comment {
-  width: 900px;
-  margin: 0 auto;
-  margin-top: 50px;
+    width: 900px;
+    margin: 0 auto;
+    margin-top: 50px;
 }
+
 .section-comment > .section-comment-wrap > .section-comment-write {
-  display: flex;
+    display: flex;
 }
+
 .section-comment > .section-comment-wrap > .section-comment-write + p {
-  margin: 0 0 20px;
-  text-align: start;
+    margin: 0 0 20px;
+    text-align: start;
 }
 
 .section-comment
-  > .section-comment-wrap
-  > .section-comment-write
-  > div:nth-child(1) {
-  width: 720px;
-  text-align: start;
+> .section-comment-wrap
+> .section-comment-write
+> div:nth-child(1) {
+    width: 720px;
+    text-align: start;
 }
 
 .section-comment
-  > .section-comment-wrap
-  > .section-comment-write
-  > div:nth-child(2) {
-  display: flex;
-  justify-content: space-between;
-  height: 50px;
-  width: 180px;
+> .section-comment-wrap
+> .section-comment-write
+> div:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    width: 180px;
 }
+
 /* 댓글 끝 */
 
 /* 페이지 네이션 시작 */
 .pagination {
-  font-size: x-large;
-  text-align: center;
+    font-size: x-large;
+    text-align: center;
 }
 
 .pagination span {
-  cursor: pointer;
-  display: inline-block;
-  width: 50px;
-  border: 1px solid;
+    cursor: pointer;
+    display: inline-block;
+    width: 50px;
+    border: 1px solid;
 }
+
 /* 페이지 네이션 끝 */
 
 
 div.footer > footer > div > p.footer-center {
-  text-align: center;
+    text-align: center;
 }
 
 div.footer > footer {
-  display: block;
-  background-color: black;
-  color: white;
-  bottom: 0;
-  width: 100%;
-  height: 30px;
-  position: relative;
-  /* position: fixed;
-  bottom: 0; */
-  width: 100%;
+    display: block;
+    background-color: black;
+    color: white;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    position: relative;
+    /* position: fixed;
+    bottom: 0; */
+    width: 100%;
 }
+
 /*footer CSS*/
 /* 섹션 끝 */

@@ -7,15 +7,12 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="/resources/js/postTest.js"></script>
+    <script src="/resources/js/post.js"></script>
     <link rel="stylesheet" href="/resources/css/post.css">
     <title>Document</title>
 </head>
 
 <body>
-<!-- 헤더 시작 -->
-<div class="header"></div>
-<!-- 헤더 끝 -->
 
 <!-- 섹션 시작 -->
 <section>
@@ -35,8 +32,6 @@
         <div class="section-header-info-date">2023-07-26</div>
     </div>
     <!-- 섹션 헤더 글 정보 끝 -->
-
-
     <!-- 섹션 헤더 끝 -->
 
     <!-- 아티클 시작 -->
@@ -119,8 +114,19 @@
 <div class="footer"></div>
 
 <script>
+  const response = ${post};
   console.log(${post}, "model로 넘겨받은 데이터")
-
+  
+  $(".main-image").css("background-image", `url(\${response.mainTitleImg})`)
+  $(".section-header-main-title").html(response.mainTitle);
+  $(".section-header-main-subtitle").html(response?.subTitle || "");
+  $(".section-header-info-writer").html(response.member.nickname);
+  $(".section-header-info-date").html(response.createDate);
+  $("article").html(response.content);
+  $(".section-header-icon span").html(response.favorite);
+  $(".writer-profile-name").html(response.member.nickname);
+  $(".writer-profile-intro").html(response.member.intro);
+  $(".writer-profile-pic img").attr("src", response.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
 </script>
 
 </body>

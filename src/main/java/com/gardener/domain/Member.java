@@ -17,24 +17,24 @@ public class Member {
 	private String loginid; 
 	private String pwd; 
 	private String email; 
-	private String name; 
+	private String nickname; 
 	private String intro; 
 	private String joinDate; 
 	private String profile; 
 
-	public Member(String loginid, String pwd, String email, String name) {
+	public Member(String loginid, String pwd, String email, String nickname) {
 		this.loginid = loginid;
 		this.pwd = pwd;
 		this.email = email;
-		this.name = name;
+		this.nickname = nickname;
 	}
 
 	
-	public Member(String loginid, String pwd, String email, String name, String intro, String profile) {
+	public Member(String loginid, String pwd, String email, String nickname, String intro, String profile) {
 		this.loginid = loginid;
 		this.pwd = pwd;
 		this.email = email;
-		this.name = name;
+		this.nickname = nickname;
 		this.intro = intro;
 		this.profile = profile;
 	}

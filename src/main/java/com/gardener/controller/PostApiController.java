@@ -12,15 +12,15 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @RestController
-@RequestMapping("/post")
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/post")
 public class PostApiController {
 
   private final PostService postService;
 
   // 게시글 저장
-  @PostMapping
+  @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public Long savePost(@RequestBody Post post) {
     log.info("requestbody {}", post);
     return postService.savePost(post);
@@ -30,6 +30,7 @@ public class PostApiController {
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ModelAndView findPostById(@PathVariable Long id) {
     Post post = postService.findPostById(id);
+    log.info("시발 post {}", post);
     ModelAndView mv = new ModelAndView();
     Gson gson = new Gson();
     mv.addObject("post", gson.toJson(post));
@@ -37,11 +38,6 @@ public class PostApiController {
     return mv;
   }
 
-  // 모든 게시글 조회
-  @GetMapping
-  public List<Post> findAllPost() {
-    List<Post> posts = postService.findAllPost();
-    return posts;
-  }
+
 
 }
