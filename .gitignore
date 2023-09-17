@@ -5,7 +5,7 @@
 assets
 src/test/**
 target
-root-context.xml
+src/main/webapp/WEB-INF/spring/root-context.xml
 ### Eclipse ###
 .metadata
 bin/
