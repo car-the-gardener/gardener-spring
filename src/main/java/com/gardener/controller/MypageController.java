@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,14 +25,24 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/member")
+@RequestMapping("/mypage")
 public class MypageController {
 	
 	@Autowired
 	private MypageService service;
 	
+
+	
 	@GetMapping
-	public void mypage() {
+	public void mypage(Model model) {
+		 Member member = null;		 
+		 try {
+			 member = service.selectById("rudns10");
+			 log.warn(member);
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+		model.addAttribute("member",member);
 	}
 	
 	/**
@@ -56,7 +67,7 @@ public class MypageController {
 			e.printStackTrace();
 		}
 		 
-		return "redirect:/gardener/member" ;
+		return "redirect:/gardener/mypage" ;
 	
 		}
 	
@@ -89,7 +100,34 @@ public class MypageController {
 	    /**
 	     * 계정 내 정보 수정하기
 	     */
-	
-	    
+//	    @GetMapping("/findmember")
+//	       public ResponseEntity<Member> findMember(@RequestParam String id) {
+//	           try {
+//	               Member member = service.findByMember(id);
+//	               return ResponseEntity.ok(member);
+//	           } catch (FindException e) {
+//	               return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//	           }
+//	       }
+//	       
+//	       @PostMapping("/updatemember")
+//	       public ResponseEntity<?> updateMember(@RequestParam String id, @RequestParam String pwd, 
+//	                                             @RequestParam String email, @RequestParam String name, 
+//	                                             @RequestParam String intro, @RequestParam String profile) throws FindException {
+//	           Member member = service.findByMember(id);
+//	           member.setPwd(pwd);
+//	           member.setEmail(email);
+//	           member.setName(name);
+//	           member.setIntro(intro);
+//	           member.setProfile(profile);
+//
+//	           try {
+//	               service.updateMember(member);
+//	               return ResponseEntity.ok("Update successful.");
+//	           } catch (UpdateException e) {
+//	               return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
+//	           }
+//	       }
+//	    
 
 }

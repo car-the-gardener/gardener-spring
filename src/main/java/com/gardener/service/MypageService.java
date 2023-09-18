@@ -18,15 +18,12 @@ public class MypageService {
 	private MemberMapper mapper;
 	
 
-	public Member findByMember(String loginid) throws FindException {
-		Member m = new Member();
-		m.setLoginid(loginid);
-		mapper.findMember(m);
+	public Member selectById(String loginid) throws FindException {
+		Member m = mapper.selectById(loginid);
 		return m;
 	}
 
 	public Member findByMember(Object attribute) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
