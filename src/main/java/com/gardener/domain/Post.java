@@ -6,15 +6,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 public class Post {
-  private Long id; // 글번호
   private String memberLoginid; // 회원.아이디(번호)시퀀스
   private String mainTitle; // 제목
   private String subTitle; // 소제목

@@ -13,40 +13,30 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Member {
+	
+	private String loginid; // 아이디, PK
+	private String pwd; // 패스워드
+	private String email; // 이메일
+	private String nickname; // 필명
+	private String intro; // 자기소개
+	private String createDate; // 가입날짜
+	private String profile; // 프로필사진
 
-	private String loginid; 
-	private String pwd; 
-	private String email; 
-	private String nickname; 
-	private String intro; 
-	private String joinDate; 
-	private String profile; 
-
-	public Member(String loginid, String pwd, String email, String nickname) {
+	public Member(String loginid, String pwd, String email, String name) {
 		this.loginid = loginid;
 		this.pwd = pwd;
 		this.email = email;
-		this.nickname = nickname;
+		this.nickname = name;
 	}
 
-	
-	public Member(String loginid, String pwd, String email, String nickname, String intro, String profile) {
+	// 겨운
+	public Member(String loginid, String pwd, String email, String name, String intro, String profile) {
 		this.loginid = loginid;
 		this.pwd = pwd;
 		this.email = email;
-		this.nickname = nickname;
+		this.nickname = name;
 		this.intro = intro;
 		this.profile = profile;
-	}
-
-	public String toJsonString() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
-	}
-
-
-	public void print() {
-
 	}
 
 }
