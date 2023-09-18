@@ -15,7 +15,7 @@
 	<!-- 겨운 -->
 	<select id="findMember" parameterType="map" resultType="Member">
 		<![CDATA[
-		SELECT loginid, pwd, email, name, intro, profile
+		SELECT loginid, pwd, email, nickname, intro, profile
 		FROM member
 		WHERE LOGINID = #{loginid}
 		]]>
@@ -27,7 +27,7 @@
 		UPDATE member
 		SET pwd = #{pwd},
 		email = #{email},
-		name = #{name},
+		name = #{nickname},
 		intro = #{intro},
 		profile = #{profile}
 		WHERE LOGINID = #{loginid}

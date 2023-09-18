@@ -67,7 +67,7 @@ public class MypageController {
 			e.printStackTrace();
 		}
 		 
-		return "redirect:/gardener/mypage" ;
+		return "redirect:/mypage" ;
 	
 		}
 	
@@ -82,10 +82,10 @@ public class MypageController {
 	            return ResponseEntity.badRequest().body(errorMessage);
 	        }
 
-	        // 회원 탈퇴 로직 수행
+	        
 	        boolean isDeleted = service.deleteMember(loginid);
 
-	        // 회원 탈퇴 결과에 따라 응답을 보냄
+	        
 	        if (isDeleted) {
 	            String successMessage = "회원탈퇴가 성공적으로 처리되었습니다.";
 	            session.removeAttribute("loginid");
@@ -100,34 +100,25 @@ public class MypageController {
 	    /**
 	     * 계정 내 정보 수정하기
 	     */
-//	    @GetMapping("/findmember")
-//	       public ResponseEntity<Member> findMember(@RequestParam String id) {
-//	           try {
-//	               Member member = service.findByMember(id);
-//	               return ResponseEntity.ok(member);
-//	           } catch (FindException e) {
-//	               return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//	           }
-//	       }
-//	       
-//	       @PostMapping("/updatemember")
-//	       public ResponseEntity<?> updateMember(@RequestParam String id, @RequestParam String pwd, 
-//	                                             @RequestParam String email, @RequestParam String name, 
-//	                                             @RequestParam String intro, @RequestParam String profile) throws FindException {
-//	           Member member = service.findByMember(id);
-//	           member.setPwd(pwd);
-//	           member.setEmail(email);
-//	           member.setName(name);
-//	           member.setIntro(intro);
-//	           member.setProfile(profile);
-//
-//	           try {
-//	               service.updateMember(member);
-//	               return ResponseEntity.ok("Update successful.");
-//	           } catch (UpdateException e) {
-//	               return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
-//	           }
-//	       }
-//	    
+	 
+		@PostMapping("/updatemember")
+		public ResponseEntity<?> updateMember(@RequestParam String id, @RequestParam String pwd,
+				@RequestParam String email, @RequestParam String name, @RequestParam String intro,
+				@RequestParam String profile) throws FindException {
+			Member member = service.findByMember(id);
+			member.setPwd(pwd);
+			member.setEmail(email);
+			member.setNickname(name);
+			member.setIntro(intro);
+			member.setProfile(profile);
+
+			try {
+				service.updateMember(member);
+				return ResponseEntity.ok("Update successful.");
+			} catch (UpdateException e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
+			}
+	       }
+	    
 
 }

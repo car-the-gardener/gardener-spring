@@ -19,8 +19,8 @@ public class MypageService {
 	
 
 	public Member selectById(String loginid) throws FindException {
-		Member m = mapper.selectById(loginid);
-		return m;
+		Member member = mapper.selectById(loginid);
+		return member;
 	}
 
 	public Member findByMember(Object attribute) {

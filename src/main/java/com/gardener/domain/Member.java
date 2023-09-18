@@ -19,7 +19,7 @@ public class Member {
 	private String email; 
 	private String nickname; 
 	private String intro; 
-	private String joinDate; 
+	private String createDate; 
 	private String profile; 
 
 	public Member(String loginid, String pwd, String email, String nickname) {
