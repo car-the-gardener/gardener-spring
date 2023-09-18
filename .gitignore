@@ -1,6 +1,7 @@
 # Creiated by https://www.toptal.com/developers/gitignore/api/visualstudiocode,intellij,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,intellij,eclipse
 
+target
 .springBeans
 assets
 root-context.xml
