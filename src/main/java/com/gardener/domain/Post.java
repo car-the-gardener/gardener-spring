@@ -12,6 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Post {
+  private Long id; // 회원.아이디(번호)시퀀스
   private String memberLoginid; // 회원.아이디(번호)시퀀스
   private String mainTitle; // 제목
   private String subTitle; // 소제목

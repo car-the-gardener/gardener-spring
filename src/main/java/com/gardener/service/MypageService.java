@@ -21,7 +21,7 @@ public class MypageService {
 	public Member findByMember(String loginid) throws FindException {
 		Member m = new Member();
 		m.setLoginid(loginid);
-		mapper.findMember(m);
+		mapper.findMember(loginid);
 		return m;
 	}
 
