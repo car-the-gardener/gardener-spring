@@ -25,7 +25,7 @@ $(() => {
       method: "post",
       data: data,
       success: (responseData) => {
-		  console.log(responseData, " dd")
+		  console.log(responseData, "dd")
         if (responseData.trim() == 0) {
           //로그인 실패인 경우
           swal("로그인실패");
@@ -34,7 +34,7 @@ $(() => {
           //로그인 성공인 경우
           swal("환영합니다");
           sessionStorage.setItem("name", responseData);
-          location.href = `index.jsp`; //페이지 이동
+          location.href = `/`; //페이지 이동
         }
       },
       error: (xhr) => {

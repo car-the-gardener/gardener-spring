@@ -22,12 +22,12 @@ form.login {
   zoom: 1.5;
 }
 
-form.login>input[name="id"] {
+form.login>input[name="loginid"] {
   width: 200px;
   margin: 0px 20px 5px;
 }
 
-form.login > input[name="pwd"] {
+form.login > input[name="password"] {
   width: 200px;
   margin: 0px 20px 15px;
 }

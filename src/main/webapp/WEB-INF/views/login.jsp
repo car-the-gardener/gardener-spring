@@ -21,12 +21,12 @@
 
     <!--내용 입력란-->
     <form class="login" method="post" name="f1">
-      <input type="text" name="id" placeholder="아이디" /><br />
-      <input type="password" name="pwd" placeholder="비밀번호" /><br />
+      <input type="text" name="loginid" placeholder="아이디" /><br />
+      <input type="password" name="password" placeholder="비밀번호" /><br />
 
       <div><input class="checkbox" type="checkbox" />아이디 저장</div>
       <br />
-      <input class="loginbtn" type="submit" value="로그인"><a href="./index.jsp"></a><br />
+      <input class="loginbtn" type="submit" value="로그인"><br />
       <!--<button class="loginbtn"><a href="../index.html">로그인</a></button><br />-->
 
       <!--링크-->

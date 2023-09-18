@@ -10,7 +10,7 @@ import com.gardener.mappers.MemberMapper;
 
 @Service
 public class MemberService {
-	
+
 	@Autowired
 	private MemberMapper mapper;
 
@@ -19,9 +19,9 @@ public class MemberService {
 	}
 
 	public void idDupChk(String loginId) throws FindException {
-		Member m = null;	
-		m = mapper.selectById(loginId);
-		
+		Member m = null;
+		m = mapper.selectByLoginid(loginId);
+
 		if (m != null) {
 			throw new FindException("이미 사용중인 아이디 입니다");
 			// loginId에 해당 고객이 있는 경우(중복인 경우)
@@ -32,9 +32,9 @@ public class MemberService {
 	}
 
 	public void NicknameDupChk(String nickname) throws FindException {
-		Member m = null;	
+		Member m = null;
 		m = mapper.selectByNickname(nickname);
-		
+
 		if (m != null) {
 			throw new FindException("이미 사용중인 필명입니다");
 			// 필명에 해당 고객이 있는 경우(중복인 경우)
@@ -45,7 +45,7 @@ public class MemberService {
 	}
 
 	public Member login(String loginId, String pwd) throws FindException {
-		Member m = mapper.selectById(loginId);
+		Member m = mapper.selectByLoginid(loginId);
 		if (pwd.equals(m.getPwd())) {
 			return m; // 로그인 성공
 		} else {
@@ -60,11 +60,10 @@ public class MemberService {
 		} else {
 			throw new FindException("잘못된 정보입니다");
 		}
-
 	}
 
 	public String findPwd(String loginId, String email) throws FindException {
-		Member m = mapper.selectById(loginId);
+		Member m = mapper.selectByLoginid(loginId);
 		if (loginId.equals(m.getLoginid()) && email.equals(m.getEmail())) {
 			return m.getPwd();
 		} else {
