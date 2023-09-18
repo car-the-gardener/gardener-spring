@@ -20,7 +20,7 @@ public class MemberService {
 
 	public void idDupChk(String loginId) throws FindException {
 		Member m = null;	
-		m = mapper.selectById(loginId);
+		m = mapper.selectByLoginid(loginId);
 		
 		if (m != null) {
 			throw new FindException("이미 사용중인 아이디 입니다");
@@ -45,7 +45,7 @@ public class MemberService {
 	}
 
 	public Member login(String loginId, String pwd) throws FindException {
-		Member m = mapper.selectById(loginId);
+		Member m = mapper.selectByLoginid(loginId);
 		if (pwd.equals(m.getPwd())) {
 			return m; // 로그인 성공
 		} else {
@@ -64,7 +64,7 @@ public class MemberService {
 	}
 
 	public String findPwd(String loginId, String email) throws FindException {
-		Member m = mapper.selectById(loginId);
+		Member m = mapper.selectByLoginid(loginId);
 		if (loginId.equals(m.getLoginid()) && email.equals(m.getEmail())) {
 			return m.getPwd();
 		} else {

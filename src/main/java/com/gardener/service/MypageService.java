@@ -19,7 +19,7 @@ public class MypageService {
 	
 
 	public Member selectById(String loginid) throws FindException {
-		Member member = mapper.selectById(loginid);
+		Member member = mapper.selectByLoginid(loginid);
 		return member;
 	}
 

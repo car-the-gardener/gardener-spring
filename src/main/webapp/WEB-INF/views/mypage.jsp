@@ -9,8 +9,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/resources/js/applybtn.js"></script>
     <script src="/resources/js/mypage.js"></script>
-
     <script src="/resources/js/delete.js"></script>
+    <script src="/resources/js/cancel.js"></script>
 
     <title>Member</title>
   </head>
@@ -36,23 +36,24 @@
         <!--내 정보 내용 시작-->
         <nav>
           <p>
-            <span>아이디:</span><input type="text" id="loginId" value="${member.loginid}" readonly />
+            <span> 아이디 </span><input type="text" id="loginid" value="${member.loginid}" readonly />
           </p>
           <p>
-            <span>비밀번호:</span><input type="text" id="pwd" value="${member.pwd}" readonly />
+            <span>비밀번호 </span><input type="password" id="pwd" value="${member.pwd}" readonly />
           </p>
           <p>
-            <span>필 명:</span><input type="text" id="nickname" value="${member.nickname}" readonly />
+            <span>필 명 </span><input type="text" id="nickname" value="${member.nickname}" readonly />
           </p>
           <p>
-            <span>이메일:</span><input type="text" id="email" value="${member.email}" readonly />
+            <span>이메일 </span><input type="text" id="email" value="${member.email}" readonly />
           </p>
           <p>
-            <span>가입날:</span><input type="text" id="joinDate" value="2023년07월26일" readonly />
+            <span>가입날 </span><input type="text" id="createDate" value="${member.createDate.substring(0, 10)}" readonly />
           </p>
           <p>
-            <span>자기소개:</span><input class="intro" type="text" id="intro" value="${member.intro}" readonly />
-          </p>
+            <span>자기소개 </span>
+            <textarea class="intro" id="intro" readonly rows="3">${member.intro}</textarea>
+		</p>
         </nav>
         <!--내 정보 내용 끝-->
       </dl>
@@ -61,9 +62,8 @@
     <!--버튼 클릭 시작-->
     <div class="container">
       <button class="modifybtn btn">회원정보수정</button>
-      <button class="cancelbtn btn">작가신청</button>
-      <div class="cancel">
-        <button class="deletebtn">회원탈퇴</button>
+      <button class="apply btn">작가신청</button>
+      <button class="deletebtn">회원탈퇴</button>
       </div>
     </div>
     <!--버튼 클릭 끝-->

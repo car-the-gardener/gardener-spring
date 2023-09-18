@@ -9,22 +9,24 @@
   //div.header class속성에 header.html불러오기
   footer.load('./footer.html');
 	 
+	  alert(1);
     // 페이지 로드 시에 사용자 정보 가져오기
     $.ajax({
-          url: "http://localhost:8888/back/findmember",
-          method: "POST",
+          
+          url: "http://localhost:8888/mypage",
+          method: "get",
+          dataType: "JSON",
           success: (response) => { 
-			  console.log(response)
-//            const userInfo = JSON.parse(response);
+			console.log(response)
             const userInfo = response;
             
-            $("#loginId").val(userInfo.loginid);         
-            $("#name").val(userInfo.name);
-            $("#email").val(userInfo.email);
-            $("#intro").val(userInfo.intro);
+            $("#loginid")   .val(userInfo.loginid);  
+            $("#pwd")       .val(userInfo.pwd);       
+            $("#nickname")  .val(userInfo.nickname);
+            $("#email")     .val(userInfo.email);
+            $("#createDate").val(userInfo.createDate);
+            $("#intro")     .val(userInfo.intro);
             
-            const maskedPwd = userInfo.pwd.replace(/./g, "*");
-      $("#pwd").val(maskedPwd);
           },
           error: (error) => {
             console.error(
@@ -66,7 +68,7 @@
   // 정보 수정 버튼 클릭 시 이벤트 연결
   $(".modifybtn.btn").on("click", btnClick, () => {
     $.ajax({
-      url: "http://localhost:8888/back/member",
+      url: "http://localhost:8888/mypage",
       method: "POST",
       data: JSON.stringify(data),
       contentType: "application/json; charset=utf-8",

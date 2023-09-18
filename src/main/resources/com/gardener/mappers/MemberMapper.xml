@@ -7,7 +7,7 @@
 	<!-- 지윤, 겨운 -->
 	<select id="selectByLoginid" resultType="Member" parameterType="string">
     <![CDATA[
-    SELECT * FROM member WHERE loginid= #{loginid}
+    SELECT * FROM member WHERE loginid= 'suwan'
     ]]>
 	</select>
 
@@ -32,6 +32,7 @@ SELECT * FROM member WHERE email= #{email}
 		email = #{email},
 		name = #{nickname},
 		intro = #{intro},
+		createDate = #{createDate},
 		profile = #{profile}
 		WHERE LOGINID = #{loginid}
 		]]>
