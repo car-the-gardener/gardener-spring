@@ -1,17 +1,12 @@
 package com.gardener.mappers;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.gardener.domain.Member;
 
-
 public interface MemberMapper {
-
-	
-	public Member selectById(String id);
-	public void findMember(Member m);
+	public Member selectByLoginid(String loginid);
+	public Member selectByNickname(String nickname);
+	public void insert(Member m);
+	public Member findMember(String loginid);
 	public void updateMember(Member m);
-	public boolean deleteMember(String loginId);
-	
-	
+	public boolean deleteMember(String loginid);
 }

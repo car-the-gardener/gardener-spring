@@ -5,21 +5,24 @@
 <mapper namespace="com.gardener.mappers.MemberMapper">
 
 	<!-- 지윤, 겨운 -->
-	<select id="selectById" resultType="Member" parameterType="string">
+	<select id="selectByLoginid" resultType="Member" parameterType="string">
     <![CDATA[
     SELECT * FROM member WHERE loginid= #{loginid}
     ]]>
 	</select>
 
-	
-	<!-- 겨운 -->
-	<select id="findMember" parameterType="map" resultType="Member">
-		<![CDATA[
-		SELECT loginid, pwd, email, nickname, intro, profile
-		FROM member
-		WHERE LOGINID = #{loginid}
-		]]>
-	</select>
+<select id="selectByNickName" resultType="Member" >
+SELECT * FROM member WHERE nickname= #{nickname}
+</select>
+
+<select id="selectByEmail" resultType="Member" >
+SELECT * FROM member WHERE email= #{email}
+</select>
+
+<insert id="insert" parameterType="Member">
+ INSERT INTO member (loginid,pwd,email,nickname,intro,profile,createdate) 
+ VALUES (#{loginid}, #{pwd}, #{email}, #{nickname},null,null,null)
+</insert>
 
 
 	<update id="updateMember" parameterType="Member">
