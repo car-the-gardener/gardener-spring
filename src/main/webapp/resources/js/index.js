@@ -1,6 +1,4 @@
 $(() => {
-  const header = $("body>div.header");
-  header.load("/resources/common/header.jsp");
 
   const body = $("div.search-body");
 
@@ -11,9 +9,9 @@ $(() => {
     const selectValue = $("select.dropdown").val();
 
     $.ajax({
-      url: "/back/search",
-      method: "get",
-      data: { select: selectValue, text: textValue },
+      url    : "/back/search",
+      method : "get",
+      data   : {select: selectValue, text: textValue},
       success: (resultData) => {
         if (resultData.length != 0) {
           const resultlength = resultData.length;
@@ -44,7 +42,7 @@ $(() => {
           alert("검색하는 결과가 없습니다.");
         }
       },
-      error: function () {
+      error  : function () {
         alert("검색 실패");
       },
     });
@@ -74,9 +72,9 @@ $(() => {
     alert(categorieValue);
 
     $.ajax({
-      url: "/back/category",
-      method: "get",
-      data: { category: categorieValue },
+      url    : "/back/category",
+      method : "get",
+      data   : {category: categorieValue},
       success: (categoryData) => {
         if (categoryData.length != 0) {
           const length = categoryData.length;
@@ -86,12 +84,12 @@ $(() => {
 
             //어떤 카테고리를 선택했는지 해더 출력
             const categoryHeading = $("<h2>").html(
-              "카테고리 -> " + categorieValue
+                "카테고리 -> " + categorieValue
             );
             categoryHeading.css({
               "margin-bottom": "30px",
-              "font-weight": "bold",
-              display: "block",
+              "font-weight"  : "bold",
+              display        : "block",
             });
             viewtable.prepend(categoryHeading);
 
@@ -118,7 +116,7 @@ $(() => {
           alert("해당카테고리의 글이 없습니다.");
         }
       }, //success end
-      error: function () {
+      error  : function () {
         alert("잠시만 기다려주세요");
       },
     }); //ajax end

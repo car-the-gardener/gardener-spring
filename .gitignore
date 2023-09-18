@@ -4,6 +4,8 @@
 .springBeans
 assets
 src/test/**
+target
+src/main/webapp/WEB-INF/spring/root-context.xml
 ### Eclipse ###
 .metadata
 bin/
