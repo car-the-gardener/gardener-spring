@@ -1,11 +1,11 @@
-# Creiated by https://www.toptal.com/developers/gitignore/api/visualstudiocode,intellij,eclipse
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,intellij,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,intellij,eclipse
 
-target
 .springBeans
 assets
-root-context.xml
-*test*.*
+src/test/**
+target
+src/main/webapp/WEB-INF/spring/root-context.xml
 ### Eclipse ###
 .metadata
 bin/

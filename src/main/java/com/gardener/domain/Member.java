@@ -1,5 +1,4 @@
 package com.gardener.domain;
-
 import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
@@ -38,19 +37,6 @@ public class Member {
 		this.nickname = name;
 		this.intro = intro;
 		this.profile = profile;
-	}
-
-	public String toJsonString() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
-	}
-
-	public void setId(String loginId) {
-		this.loginid = loginId;
-	}
-
-	public void print() {
-
 	}
 
 }

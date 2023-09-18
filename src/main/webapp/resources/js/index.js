@@ -1,7 +1,4 @@
 $(() => {
-  const header = $("body>div.header");
-  header.load("/resources/common/header.jsp");
-
   const body = $("div.search-body");
 
   const searchbtn = $("input.search-button");

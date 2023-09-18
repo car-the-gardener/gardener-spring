@@ -4,10 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gardener.mappers.MemberMapper">
 
-
-<select id="selectById" resultType="Member" >
-SELECT * FROM member WHERE loginid= #{loginid}
-</select>
+	<!-- 지윤, 겨운 -->
+	<select id="selectByLoginid" resultType="Member" parameterType="string">
+    <![CDATA[
+    SELECT * FROM member WHERE loginid= #{loginid}
+    ]]>
+	</select>
 
 <select id="selectByNickName" resultType="Member" >
 SELECT * FROM member WHERE nickname= #{nickname}
@@ -17,9 +19,27 @@ SELECT * FROM member WHERE nickname= #{nickname}
 SELECT * FROM member WHERE email= #{email}
 </select>
 
-<insert id="insertMember" parameterType="Member">
+<insert id="insert" parameterType="Member">
  INSERT INTO member (loginid,pwd,email,nickname,intro,profile,createdate) 
  VALUES (#{loginid}, #{pwd}, #{email}, #{nickname},null,null,null)
 </insert>
+
+
+	<update id="updateMember" parameterType="Member">
+		<![CDATA[
+		UPDATE member
+		SET pwd = #{pwd},
+		email = #{email},
+		name = #{name},
+		intro = #{intro},
+		profile = #{profile}
+		WHERE LOGINID = #{loginid}
+		]]>
+	</update>
+
+
+	<delete id="deleteMember" parameterType="String">
+		DELETE FROM member WHERE LOGINID = #{loginid}
+	</delete>
 
 </mapper>
