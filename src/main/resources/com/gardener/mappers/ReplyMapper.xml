@@ -35,7 +35,7 @@
     <select id="findAll" resultMap="commentResultMap">
         <![CDATA[
         select /*+ INDEX(r index_reply) */ *
-        from (select  rownum rn, r.id,r.post_id, r.member_loginid,r.content, r.report ,to_char(r.create_date, 'yyyy-MM-dd') create_date
+        from (select  rownum rn, r.id,r.post_id, r.member_loginid,r.content, r.report ,to_char(r.create_date, 'yyyy-MM-dd') create_date, nickname
         from reply r join member m on r.member_loginid = m.loginid WHERE post_id = #{postId})
         where rn > (#{cri.pageNum} - 1) * #{cri.amount} and rn <= #{cri.pageNum} * #{cri.amount}
         ]]>

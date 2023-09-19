@@ -110,37 +110,21 @@
         <div class="section-reply-list--top">
             <div><img src="https://blog.kakaocdn.net/dn/mUBTw/btsn6GEWiIK/u5SOAGPvwccu3Qrz3j2RRK/img.jpg" alt="개인이미지">
             </div>
-            <div class="">
-                <div>이수완</div>
-                <div>yyyy-mm-dd</div>
-                <div>
-                    <button>삭제</button>
-                    <button>수정</button>
-                </div>
-            </div>
-        </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aut earum ipsum nihil, optio
-            pariatur quia reprehenderit soluta? Ducimus eveniet id ipsa laudantium officiis porro quos reprehenderit
-            velit voluptas voluptatibus.</p>
-        <hr>
-    </div>
-    <div class="section-reply-list">
-        <div>
-            <div><img src="https://blog.kakaocdn.net/dn/mUBTw/btsn6GEWiIK/u5SOAGPvwccu3Qrz3j2RRK/img.jpg" alt="개인이미지">
-            </div>
             <div>
-                <div>
-                    <div>이수완</div>
-                    <div>yyyy-mm-dd</div>
-                </div>
-                <div>
+                <div class="reply-list--name">이수완</div>
+                <div class="reply-list--date">yyyy-mm-dd</div>
+                <div class="reply-list--remove--btn">
                     <button>삭제</button>
                     <button>수정</button>
                 </div>
             </div>
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aut earum ipsum nihil, optio
-        </p>
+        <div contenteditable="false">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aut earum
+            ipsum
+            nihil, optio Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad assumenda at culpa cumque delectus
+            ducimus fugit in incidunt, nam nulla odio pariatur placeat quisquam, rem repellendus tenetur ullam voluptas
+            voluptatibus!
+        </div>
         <hr>
     </div>
 
@@ -174,12 +158,23 @@
   $(".writer-profile-intro").html(response.member.intro);
   $(".writer-profile-pic img").attr("src", response.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
 
-
   // 댓글 리스트 불러오기
   replyService.getAllReply({postId: response.id, page: 1}, (response) => {
+    let reply = "";
     for (let i = 0, len = response.length || 0; i < len; i++) {
-      console.log(response[i], "getList")
+      console.log(i, "asdasasd")
+      reply += "<div class='section-reply-list'><div>"
+      reply += `<img src=https://blog.kakaocdn.net/dn/mUBTw/btsn6GEWiIK/u5SOAGPvwccu3Qrz3j2RRK/img.jpg alt="유저 이미지">`
+      reply += "</div><div>"
+      reply += `<div class='reply-list--name'>\${response[i].member.nickname}</div>`
+      reply += `<div class='reply-list--date'>\${response[i].createDate}</div>`
+      reply += `<div class='reply-list--remove--btn'>`
+      reply += `<button>삭제</button> <button>수정</button>`
+      reply += `</div></div>`
+      reply += `<div contenteditable = "false" >\${response[i].content} </div>`
+      reply += `</div> <hr>`
     }
+    $(".section-reply-list").append(reply);
   })
 
   // 댓글 추가
@@ -204,6 +199,18 @@
   })
 
   // 댓글 수정
+  $(".section-reply-list button:last-child").click((e) => {
+    console.log($(e.target))
+    /*$("div[contenteditable='false']").addClass("edit-mode")
+    $("div[contenteditable='false']").prop("contenteditable", "true")*/
+    data = {
+      content: $(".section-reply textarea").val(),
+      postId : response.id
+    }
+    replyService.modify(data, (response) => {
+
+    })
+  })
 
 </script>
 </body>

@@ -292,6 +292,10 @@ section article {
     border-radius: 50%;
 }
 
+.edit-mode {
+    border: 1px solid #007bff;
+}
+
 /* 댓글 목록 끝*/
 
 /* 페이지 네이션 시작 */
