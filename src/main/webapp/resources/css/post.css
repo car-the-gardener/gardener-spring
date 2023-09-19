@@ -295,6 +295,15 @@ section article {
 
 .section-reply-list > .section-reply-list--top {
     display: flex;
+    justify-content: space-between;
+}
+
+.section-reply-list > .section-reply-list--top > div {
+    display: flex;
+}
+
+.reply-list--btn {
+    height: 30px;
 }
 
 .section-reply-list img {

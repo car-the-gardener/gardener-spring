@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.nio.file.Path;
 import java.time.format.ResolverStyle;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class ReplyController {
   public ResponseEntity<String> insertReply(@RequestBody Reply reply, HttpSession session) {
     String loginid = (String) session.getAttribute("loginid");
     reply.setMemberLoginid(loginid);
-    log.info("reply => {}", reply);
+    log.info("엄지야 => {}", reply);
     int result = service.insert(reply);
 
     return result == 1 ? new ResponseEntity<>("Success", HttpStatus.OK)
@@ -50,7 +51,9 @@ public class ReplyController {
   }
 
   @RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value = "/{id}")
-  public ResponseEntity<String> modify(@RequestBody Reply reply) {
+  public ResponseEntity<String> modify(@RequestBody Reply reply, @PathVariable Long id) {
+    log.info("넘겨받은 reply id => {}", id);
+    log.info("수정할 reply => {}", reply);
     int result = service.update(reply);
 
     return result == 1

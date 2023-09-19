@@ -142,6 +142,7 @@ public class PostController {
     if (!uploadFile.exists()) {
       throw new RuntimeException();
     }
+
     try {
       //이미지 파일을 byte[]로 변환 후 반환
       byte[] imgBytes = Files.readAllBytes(uploadFile.toPath());

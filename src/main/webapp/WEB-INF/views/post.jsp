@@ -133,26 +133,28 @@
 
   // 댓글 리스트 불러오기
   const showList = (page) => replyService.getAllReply({postId: response.id, page}, (response) => {
+    console.error("다시 호출")
     let reply = "";
-    if (response.length == 0 || response == null) {
+    if (response.length === 0 || response === null) {
       reply = "";
       return;
     }
 
     for (let i = 0, len = response.length || 0; i < len; i++) {
+      let dateTime = replyService.displyTime(response[i].createDate);
       reply += `<div class='section-reply-list--top'>`
-      reply += `<div><img src=https://blog.kakaocdn.net/dn/mUBTw/btsn6GEWiIK/u5SOAGPvwccu3Qrz3j2RRK/img.jpg alt="유저 이미지"></div>`
-      reply += "<div>"
-      reply += `<div class='reply-list--name'>\${response[i].member.nickname}</div>`
-      reply += `<div class='reply-list--date'>\${response[i].createDate}</div>`
-      reply += `<div class='reply-list--btn'><button>삭제</button> <button>수정</button></div>`
-      reply += `</div></div>`
+      reply += `<div><img src="https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg" alt="유저 이미지">`
+      reply += `<div><p class='reply-list--name'>\${response[i].member.nickname}</p>`
+      reply += `<p class='reply-list--date'><small>\${dateTime}</small></p></div></div>`
+      reply += `<div class='reply-list--btn'><button class="reply-list--btn--remove" data-id=\${response[i].id}>삭제</button> <button class="reply-list--btn--modify" data-id=\${response[i].id}>수정</button></div>`
+      reply += `</div>`
       reply += `<div contenteditable = "false" data-id=\${response[i].id}>\${response[i].content} </div>`
       reply += `</div> <hr>`
     }
-    $(".section-reply-list").append(reply);
+    console.log(reply, "첨가할 reply")
+    $(".section-reply-list").html(reply);
   })
-  showList(2)
+  showList(5);
 
   // 댓글 추가
   $(".section-reply button").click(() => {
@@ -162,7 +164,9 @@
     }
     replyService.add(data, (response) => {
       $(".section-reply textarea").val("");
+      showList(5);
     })
+    // 새로 추가하고 글 불러오기
   })
 
   // 댓글 삭제
@@ -175,20 +179,34 @@
     })
   })
 
-  console.log($(".section-reply-list .reply"), " - -")
   // 댓글 수정
-  $(".section-reply-list button:last-child").on(".section-reply-list", "click", (e) => {
-    console.log($(e.currentTarget).data("id"))
-    alert("ㅎㅇ")
-    /*$("div[contenteditable='false']").addClass("edit-mode")
-    $("div[contenteditable='false']").prop("contenteditable", "true")*/
-    data = {
-      content: $(".section-reply textarea").val(),
-      postId : response.id
-    }
-    /*    replyService.modify(data, (response) => {
+  $(".section-reply-list").on("click", ".reply-list--btn--modify", (e) => {
+    const replyId = $(e.currentTarget).data("id");
+    const replyDiv = $(`div[data-id="\${replyId}"]`);
 
-        })*/
+    if ($(e.currentTarget).text() === "수정") {
+      replyDiv.addClass("edit-mode");
+      replyDiv.prop("contenteditable", "true");
+      replyDiv.focus();
+      $(e.currentTarget).text("변경");
+      return;
+    }
+
+    if (($(e.currentTarget).text() === "변경")) {
+      console.log($(".edit-mode"), "에디터");
+      console.log($(".edit-mode").html(), " 데이터 ")
+      const reply = {
+        content: replyDiv.html(),
+        id     : replyId
+      };
+      replyService.modify(reply, (response) => {
+        alert(response);
+        replyDiv.removeClass("edit-mode");
+        replyDiv.prop("contenteditable", "false");
+        replyDiv.html()
+        $(e.currentTarget).text("수정");
+      })
+    }
   })
 
 </script>
