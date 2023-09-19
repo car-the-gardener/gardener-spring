@@ -11,7 +11,7 @@
     ]]>
 	</select>
 
-<select id="selectByNickName" resultType="Member" >
+<select id="selectByNickname" resultType="Member" >
 SELECT * FROM member WHERE nickname= #{nickname}
 </select>
 

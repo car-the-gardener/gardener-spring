@@ -1,5 +1,5 @@
 $(() => {	
-	const backURL = "http://localhost:8888/back";
+	const url = "http://localhost:8888";
 	//필명 입력란 객체찾기
 	const inputNameObj = $('form.find-loginId>input[name=name]')
 
@@ -14,19 +14,19 @@ $(() => {
 		const name = $("input[name='name']").val();
 		const email = $("input[name='email']").val();
 		$.ajax({
-			url: 'http://localhost:8888/back/findloginid',
+			url: 'http://localhost:8888/find_id',
 			method: 'post',
-			data: { 'name': name, email: email },
-			success: (responseData) => {
-				if (responseData != '0') {
-					alert('고객님의 아이디는 ' + responseData + ' 입니다')
-					location.href =`${backURL}/front/html/login.html`
+			data: { 'nickname': name, email: email },	
+			success: (response) => {		
+				if (response != '0') {
+					alert('고객님의 아이디는 ' + response + ' 입니다')
+					location.href =`/`
 				} else {
 					alert('잘못된 정보입니다, 다시 입력해주세요')
 				}
 			},
 			error: ()=> {
-				alert("에러발생~~~~")
+					alert('잘못된 정보입니다, 다시 입력해주세요')
 			}
 		})
 		return false;
