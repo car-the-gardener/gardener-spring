@@ -221,52 +221,52 @@ section article {
 /* 작가 프로필 끝 */
 
 /* 댓글 시작 */
-.section-comment > div {
+.section-reply > div {
     margin-bottom: 30px;
     text-align: end;
 }
 
-.section-comment > div > h3 {
+.section-reply > div > h3 {
     display: flex;
 }
 
-.section-comment > div > button {
+.section-reply > div > button {
     width: 60px;
     height: 40px;
 }
 
-.section-comment > div > textarea {
+.section-reply > div > textarea {
     width: 900px;
     height: 150px;
     resize: none;
 }
 
-.section-comment {
+.section-reply {
     width: 900px;
     margin: 0 auto;
     margin-top: 50px;
 }
 
-.section-comment > .section-comment-wrap > .section-comment-write {
+.section-reply > .section-reply-wrap > .section-reply-write {
     display: flex;
 }
 
-.section-comment > .section-comment-wrap > .section-comment-write + p {
+.section-reply > .section-reply-wrap > .section-reply-write + p {
     margin: 0 0 20px;
     text-align: start;
 }
 
-.section-comment
-> .section-comment-wrap
-> .section-comment-write
+.section-reply
+> .section-reply-wrap
+> .section-reply-write
 > div:nth-child(1) {
     width: 720px;
     text-align: start;
 }
 
-.section-comment
-> .section-comment-wrap
-> .section-comment-write
+.section-reply
+> .section-reply-wrap
+> .section-reply-write
 > div:nth-child(2) {
     display: flex;
     justify-content: space-between;
@@ -275,6 +275,24 @@ section article {
 }
 
 /* 댓글 끝 */
+
+/* 댓글 목록 시작*/
+.section-reply-list {
+    max-width: 900px;
+    height: 140px;
+    margin: 0 auto;
+}
+
+.section-reply-list > .section-reply-list--top {
+    display: flex;
+}
+
+.section-reply-list img {
+    width: 50px;
+    border-radius: 50%;
+}
+
+/* 댓글 목록 끝*/
 
 /* 페이지 네이션 시작 */
 .pagination {

@@ -68,9 +68,7 @@
 
         <div class="modify-btn">
             <div>
-                <!-- 수정시 수정 페이지로 ... /post/{id}-->
                 <button>수정</button>
-                <!-- 삭제시 수정 페이지로 ... /post/{id} -->
                 <button>삭제</button>
             </div>
         </div>
@@ -91,7 +89,7 @@
     <!-- 작가 프로필 끝 -->
 
     <!-- 댓글 시작 -->
-    <div class="section-comment">
+    <div class="section-reply">
         <!-- 댓글 작성 시작 -->
         <div>
             <div style="display: flex; justify-content: space-between">
@@ -106,6 +104,45 @@
 
     </div>
     <!-- 댓글 끝 -->
+
+    <%--댓글 표시--%>
+    <div class="section-reply-list">
+        <div class="section-reply-list--top">
+            <div><img src="https://blog.kakaocdn.net/dn/mUBTw/btsn6GEWiIK/u5SOAGPvwccu3Qrz3j2RRK/img.jpg" alt="개인이미지">
+            </div>
+            <div class="">
+                <div>이수완</div>
+                <div>yyyy-mm-dd</div>
+                <div>
+                    <button>삭제</button>
+                    <button>수정</button>
+                </div>
+            </div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aut earum ipsum nihil, optio
+            pariatur quia reprehenderit soluta? Ducimus eveniet id ipsa laudantium officiis porro quos reprehenderit
+            velit voluptas voluptatibus.</p>
+        <hr>
+    </div>
+    <div class="section-reply-list">
+        <div>
+            <div><img src="https://blog.kakaocdn.net/dn/mUBTw/btsn6GEWiIK/u5SOAGPvwccu3Qrz3j2RRK/img.jpg" alt="개인이미지">
+            </div>
+            <div>
+                <div>
+                    <div>이수완</div>
+                    <div>yyyy-mm-dd</div>
+                </div>
+                <div>
+                    <button>삭제</button>
+                    <button>수정</button>
+                </div>
+            </div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aut earum ipsum nihil, optio
+        </p>
+        <hr>
+    </div>
 
     <!-- 페이지네이션 시작 -->
     <div class="pagination">
@@ -146,18 +183,25 @@
   })
 
   // 댓글 추가
-  $(".section-comment button").click(() => {
+  $(".section-reply button").click(() => {
     const data = {
-      content: $(".section-comment textarea").val(),
+      content: $(".section-reply textarea").val(),
       postId : response.id
     }
     replyService.add(data, (response) => {
-      $(".section-comment textarea").val("");
+      $(".section-reply textarea").val("");
     })
   })
 
   // 댓글 삭제
-
+  $(".section-reply-list button:first-child").click(() => {
+    replyService.remove(68, (response) => {
+      alert(response.statusCode);
+      if (response === "undefined") {
+        alert("??")
+      }
+    })
+  })
 
   // 댓글 수정
 

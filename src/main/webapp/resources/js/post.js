@@ -33,9 +33,14 @@ const replyService = (() => {
 
   const remove = (id, callback, error) => {
     $.ajax({
-      url    : `/reply/${id}`,
-      method : "DELETE",
-      success: (response) => {
+      url       : `/reply/${id}`,
+      method    : "DELETE",
+      statusCode: {
+        500: (response) => {
+          swal("이미 삭제된 댓글입니다.");
+        }
+      },
+      success   : (response) => {
         if (callback) {
           callback(response);
         }
@@ -43,5 +48,16 @@ const replyService = (() => {
     })
   }
 
-  return {add, getAllReply}
+  const modify = (reply, callback, Error) => {
+    $.ajax({
+      url    : `/reply/${reply.id}`,
+      method : "PUT",
+      data   : JSON.stringify(reply),
+      success: (response) => {
+        alert
+      }
+    })
+  }
+
+  return {add, getAllReply, remove, modify}
 })()
