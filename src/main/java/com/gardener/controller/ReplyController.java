@@ -38,7 +38,7 @@ public class ReplyController {
 
   @GetMapping(value = "/{postId}/{page}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<List<Reply>> getAllReply(@PathVariable Long postId, @PathVariable int page) throws FindException {
-    Criteria cri = new Criteria(page, 10);
+    Criteria cri = new Criteria(page, 5);
     List<Reply> allReply = service.findAll(cri, postId);
     log.info("all reply => {}", allReply);
 

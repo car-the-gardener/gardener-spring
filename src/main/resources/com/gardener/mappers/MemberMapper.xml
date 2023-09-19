@@ -30,9 +30,8 @@ SELECT * FROM member WHERE email= #{email}
 		UPDATE member
 		SET pwd = #{pwd},
 		email = #{email},
-		name = #{name},
-		intro = #{intro},
-		profile = #{profile}
+		nickname = #{nickname},
+		intro = #{intro}
 		WHERE LOGINID = #{loginid}
 		]]>
 	</update>

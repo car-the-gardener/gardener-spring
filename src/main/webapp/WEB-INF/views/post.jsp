@@ -88,56 +88,29 @@
     </div>
     <!-- 작가 프로필 끝 -->
 
-    <!-- 댓글 시작 -->
+    <!-- 댓글 쓰기 -->
     <div class="section-reply">
-        <!-- 댓글 작성 시작 -->
         <div>
-            <div style="display: flex; justify-content: space-between">
-                <h3>댓글 작성</h3>
+            <div>
+                <div>
+                    <h3>댓글 작성</h3>
+                    <p>(x/200)</p>
+                </div>
                 <button>등록</button>
             </div>
             <textarea></textarea>
         </div>
-        <!-- 댓글 작성 끝 -->
         <hr>
-
-
     </div>
-    <!-- 댓글 끝 -->
 
     <%--댓글 표시--%>
-    <div class="section-reply-list">
-        <div class="section-reply-list--top">
-            <div><img src="https://blog.kakaocdn.net/dn/mUBTw/btsn6GEWiIK/u5SOAGPvwccu3Qrz3j2RRK/img.jpg" alt="개인이미지">
-            </div>
-            <div>
-                <div class="reply-list--name">이수완</div>
-                <div class="reply-list--date">yyyy-mm-dd</div>
-                <div class="reply-list--remove--btn">
-                    <button>삭제</button>
-                    <button>수정</button>
-                </div>
-            </div>
-        </div>
-        <div contenteditable="false">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aut earum
-            ipsum
-            nihil, optio Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad assumenda at culpa cumque delectus
-            ducimus fugit in incidunt, nam nulla odio pariatur placeat quisquam, rem repellendus tenetur ullam voluptas
-            voluptatibus!
-        </div>
-        <hr>
-    </div>
+    <div class="section-reply-list"></div>
 
     <!-- 페이지네이션 시작 -->
-    <div class="pagination">
-        1|2|3|4|5
-    </div>
-    <!-- 페이지네이션 끝 -->
+    <div class="pagination"></div>
+
 </section>
 <!-- 섹션 끝 -->
-
-<%--댓글 표시--%>
-
 
 <!-- 푸터 -->
 <div class="footer"></div>
@@ -159,23 +132,27 @@
   $(".writer-profile-pic img").attr("src", response.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
 
   // 댓글 리스트 불러오기
-  replyService.getAllReply({postId: response.id, page: 1}, (response) => {
+  const showList = (page) => replyService.getAllReply({postId: response.id, page}, (response) => {
     let reply = "";
+    if (response.length == 0 || response == null) {
+      reply = "";
+      return;
+    }
+
     for (let i = 0, len = response.length || 0; i < len; i++) {
-      console.log(i, "asdasasd")
-      reply += "<div class='section-reply-list'><div>"
-      reply += `<img src=https://blog.kakaocdn.net/dn/mUBTw/btsn6GEWiIK/u5SOAGPvwccu3Qrz3j2RRK/img.jpg alt="유저 이미지">`
-      reply += "</div><div>"
+      reply += `<div class='section-reply-list--top'>`
+      reply += `<div><img src=https://blog.kakaocdn.net/dn/mUBTw/btsn6GEWiIK/u5SOAGPvwccu3Qrz3j2RRK/img.jpg alt="유저 이미지"></div>`
+      reply += "<div>"
       reply += `<div class='reply-list--name'>\${response[i].member.nickname}</div>`
       reply += `<div class='reply-list--date'>\${response[i].createDate}</div>`
-      reply += `<div class='reply-list--remove--btn'>`
-      reply += `<button>삭제</button> <button>수정</button>`
+      reply += `<div class='reply-list--btn'><button>삭제</button> <button>수정</button></div>`
       reply += `</div></div>`
-      reply += `<div contenteditable = "false" >\${response[i].content} </div>`
+      reply += `<div contenteditable = "false" data-id=\${response[i].id}>\${response[i].content} </div>`
       reply += `</div> <hr>`
     }
     $(".section-reply-list").append(reply);
   })
+  showList(2)
 
   // 댓글 추가
   $(".section-reply button").click(() => {
@@ -198,18 +175,20 @@
     })
   })
 
+  console.log($(".section-reply-list .reply"), " - -")
   // 댓글 수정
-  $(".section-reply-list button:last-child").click((e) => {
-    console.log($(e.target))
+  $(".section-reply-list button:last-child").on(".section-reply-list", "click", (e) => {
+    console.log($(e.currentTarget).data("id"))
+    alert("ㅎㅇ")
     /*$("div[contenteditable='false']").addClass("edit-mode")
     $("div[contenteditable='false']").prop("contenteditable", "true")*/
     data = {
       content: $(".section-reply textarea").val(),
       postId : response.id
     }
-    replyService.modify(data, (response) => {
+    /*    replyService.modify(data, (response) => {
 
-    })
+        })*/
   })
 
 </script>

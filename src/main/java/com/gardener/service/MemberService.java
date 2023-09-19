@@ -22,9 +22,9 @@ public class MemberService {
 	}
 
 	public void idDupChk(String loginId) throws FindException {
-		Member m = null;
+		Member m = null;	
 		m = mapper.selectByLoginid(loginId);
-
+		
 		if (m != null) {
 			throw new FindException("이미 사용중인 아이디 입니다");
 			// loginId에 해당 고객이 있는 경우(중복인 경우)
