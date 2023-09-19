@@ -41,7 +41,6 @@ public class MemberLoginController {
 		} else {
 			return new ResponseEntity("0", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
 
 	@GetMapping("/find_id") // ID찾기
@@ -60,4 +59,22 @@ public class MemberLoginController {
 			throw new FindException();
 		}
 	}
+
+	@GetMapping("/find_pwd") // PW찾기
+	public String findpwd() {
+		return "find_pwd";
+	};
+
+	@PostMapping("/find_pwd")
+	public ResponseEntity<String> findPwd(@RequestParam("loginid") String id, @RequestParam("email") String email,
+			HttpServletRequest request) throws FindException {
+
+		try {
+			String m = service.findPwd(id, email);
+			return new ResponseEntity(m, HttpStatus.OK);
+		} catch (FindException e) {
+			throw new FindException();
+		}
+	}
+
 }

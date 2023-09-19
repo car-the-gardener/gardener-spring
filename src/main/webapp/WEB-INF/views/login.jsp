@@ -36,11 +36,11 @@
         </span>
 
         <span class="find-loginId">
-          <a href="./find_loginId.jsp">아이디 찾기</a>
-        </span>
-
+          <a href="http://localhost:8888/find_id">아이디 찾기</a>
+        </span>     
+    
         <span class="find-pwd">
-          <a href="./find_pwd.jsp">비밀번호 찾기</a>
+          <a href="http://localhost:8888/find_pwd">비밀번호 찾기</a>
         </span>
       </div>
     </form>
