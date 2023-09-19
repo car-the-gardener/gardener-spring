@@ -8,7 +8,6 @@ const replyService = (() => {
       contentType: "application/json; charset=utf-8",
       success    : (response) => {
         if (callback) callback(response);
-        alert("여기서 끝나나?")
       },
       error      : (status) => {
         console.log(status);

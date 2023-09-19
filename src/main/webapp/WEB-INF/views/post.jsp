@@ -133,7 +133,6 @@
 
   // 댓글 리스트 불러오기
   const showList = (page) => replyService.getAllReply({postId: response.id, page}, (response) => {
-    console.error("다시 호출")
     let reply = "";
     if (response.length === 0 || response === null) {
       reply = "";
@@ -151,7 +150,6 @@
       reply += `<div contenteditable = "false" data-id=\${response[i].id}>\${response[i].content} </div>`
       reply += `</div> <hr>`
     }
-    console.log(reply, "첨가할 reply")
     $(".section-reply-list").html(reply);
   })
   showList(5);
@@ -170,12 +168,10 @@
   })
 
   // 댓글 삭제
-  $(".section-reply-list button:first-child").click(() => {
-    replyService.remove(68, (response) => {
-      alert(response.statusCode);
-      if (response === "undefined") {
-        alert("??")
-      }
+  $(".section-reply-list").on("click", ".reply-list--btn--remove", (e) => {
+    replyService.remove(137, (response) => {
+      alert(response + " 삭제됨");
+      showList(5);
     })
   })
 
@@ -183,7 +179,8 @@
   $(".section-reply-list").on("click", ".reply-list--btn--modify", (e) => {
     const replyId = $(e.currentTarget).data("id");
     const replyDiv = $(`div[data-id="\${replyId}"]`);
-
+    alert(replyId, "수정 ");
+    return false;
     if ($(e.currentTarget).text() === "수정") {
       replyDiv.addClass("edit-mode");
       replyDiv.prop("contenteditable", "true");

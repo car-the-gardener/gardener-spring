@@ -30,7 +30,6 @@ public class ReplyController {
   public ResponseEntity<String> insertReply(@RequestBody Reply reply, HttpSession session) {
     String loginid = (String) session.getAttribute("loginid");
     reply.setMemberLoginid(loginid);
-    log.info("엄지야 => {}", reply);
     int result = service.insert(reply);
 
     return result == 1 ? new ResponseEntity<>("Success", HttpStatus.OK)
