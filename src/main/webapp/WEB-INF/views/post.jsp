@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
     </div>
     <!-- 섹션 헤더 제목 시작 -->
     <div class="section-header-title">
-        <div class="section-header-main-title">사랑의 물리학</div>
+        <div class="section-header-main-title">대제목</div>
         <div class="section-header-main-subtitle">물리학 하는 사람들은 로맨틱하다.</div>
     </div>
     <!-- 섹션 헤더 제목 끝 -->
@@ -93,12 +94,16 @@
     <div class="section-comment">
         <!-- 댓글 작성 시작 -->
         <div>
-            <h3>댓글 작성</h3>
+            <div style="display: flex; justify-content: space-between">
+                <h3>댓글 작성</h3>
+                <button>등록</button>
+            </div>
             <textarea></textarea>
-            <button>등록</button>
         </div>
         <!-- 댓글 작성 끝 -->
         <hr>
+
+
     </div>
     <!-- 댓글 끝 -->
 
@@ -110,13 +115,17 @@
 </section>
 <!-- 섹션 끝 -->
 
+<%--댓글 표시--%>
+
+
 <!-- 푸터 -->
 <div class="footer"></div>
 
 <script>
   const response = ${post};
   console.log(${post}, "model로 넘겨받은 데이터")
-  
+  console.log(replyService);
+
   $(".main-image").css("background-image", `url(\${response.mainTitleImg})`)
   $(".section-header-main-title").html(response.mainTitle);
   $(".section-header-main-subtitle").html(response?.subTitle || "");
@@ -127,7 +136,18 @@
   $(".writer-profile-name").html(response.member.nickname);
   $(".writer-profile-intro").html(response.member.intro);
   $(".writer-profile-pic img").attr("src", response.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
-</script>
 
+
+  $(".section-comment button").click(() => {
+    const data = {
+      content: $(".section-comment textarea").val(),
+      postId : response.id
+    }
+    replyService.add(data, (response) => {
+      console.log(response, "댓글 쓰고 응답");
+    })
+  })
+
+</script>
 </body>
 </html>

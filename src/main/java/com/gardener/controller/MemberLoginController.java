@@ -34,7 +34,7 @@ public class MemberLoginController {
 
 		Member m = service.login(id, pwd);
 		if (m != null) {
-			HttpSession session = request.getSession(); // 세션을 가져옴
+			HttpSession session = request.getSession();
 			session.setAttribute("loginid", id);
 			session.setMaxInactiveInterval(1800); // 유효시간설정 (1800초 = 30분)
 			return new ResponseEntity("1", HttpStatus.OK);
@@ -45,8 +45,7 @@ public class MemberLoginController {
 	}
 
 	@GetMapping("/find_id") // ID찾기
-	public String findloginid() {
-		return "find_id";
+	public void findloginid() {
 	};
 
 	@PostMapping("/find_id")

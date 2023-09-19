@@ -1,0 +1,58 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gardener.mappers.ReplyMapper">
+
+    <insert id="insert">
+        <selectKey resultType="long" keyProperty="id" order="BEFORE">
+            select seq_reply.nextval from dual
+        </selectKey>
+        insert into reply (id, member_loginid, post_id, content) values(#{id}, #{memberLoginid}, #{postId},
+        #{content})
+    </insert>
+
+    <select id="findById" resultType="Reply">
+        select id, member_loginid, post_id, content, report, to_char(create_date,'yyyy-MM-dd') create_date from reply
+        where id = #{id}
+    </select>
+
+    <resultMap id="commentResultMap" type="Reply">
+        <id property="id" column="id"/>
+        <result property="memberLoginid" column="member_loginid"/>
+        <result property="postId" column="post_id"/>
+        <result property="content" column="content"/>
+        <result property="report" column="report"/>
+        <result property="createDate" column="create_date"/>
+        <collection property="member" resultMap="memberResultMap"/>
+    </resultMap>
+
+    <resultMap id="memberResultMap" type="Member">
+        <id property="loginid" column="loginid"/>
+        <result property="nickname" column="nickname"/>
+        <result property="profile" column="profile"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="commentResultMap">
+        <![CDATA[
+        select /*+ INDEX(r index_reply) */ *
+        from (select  rownum rn, r.id,r.post_id, r.member_loginid,r.content, r.report ,to_char(r.create_date, 'yyyy-MM-dd') create_date
+        from reply r join member m on r.member_loginid = m.loginid WHERE post_id = #{postId})
+        where rn > (#{cri.pageNum} - 1) * #{cri.amount} and rn <= #{cri.pageNum} * #{cri.amount}
+        ]]>
+    </select>
+
+    <delete id="delete">
+        delete from reply where id = #{id}
+    </delete>
+
+    <update id="update">
+        update reply
+        set content =#{content}, create_date = systimestamp
+        where id = #{id}
+    </update>
+
+    <select id="count" resultType="int">
+        select count(*) from reply where post_id = #{postId}
+    </select>
+
+</mapper>

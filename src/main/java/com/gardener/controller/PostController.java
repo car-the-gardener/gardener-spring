@@ -35,7 +35,6 @@ public class PostController {
   public void posting() {
   }
 
-
   // 메인 이미지 저장
   @PostMapping(value = "/main-image", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseBody

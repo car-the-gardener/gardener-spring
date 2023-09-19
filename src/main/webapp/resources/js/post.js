@@ -1,18 +1,20 @@
 // html태그가 있어 꺽쇠때문에 ajax로 요청한다.
-const findPost = (() => {
-  //게시글 번호 조회 ?
-  const searchParams = location.pathname.substring(
-    location.pathname.lastIndexOf("/") + 1
-  );
-  const response = () => {
+const replyService = (() => {
+  const add = (reply, callback, error) => {
+    console.log(reply, "넘겨받은 reply")
+    console.log(typeof reply, "넘겨받은 reply")
     $.ajax({
-      url: `/post/${searchParams}`,
-      method: "get",
-      success: (response) => {},
-      error: (status) => {
-        alert(status);
+      url        : "/reply",
+      method     : "POST",
+      data       : JSON.stringify(reply),
+      contentType: "application/json; charset=utf-8",
+      success    : (response) => {
+        if (callback) callback(response);
       },
-    });
-  };
-  return { response };
-})();
+      error      : (status) => {
+        console.log(status);
+      }
+    })
+  }
+  return {add}
+})()
