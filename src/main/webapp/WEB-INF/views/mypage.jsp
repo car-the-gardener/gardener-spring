@@ -14,10 +14,10 @@
 
     <title>Member</title>
   </head>
-
   <body>
-    
-    <div <%@ include file="./common/header.jsp" %>></div>
+
+ 
+   
     <!--내정보 이름 시작-->
     <div style="text-align: center">
       <div class="mypage">내 정보</div>
@@ -52,7 +52,7 @@
           </p>
           <p>
             <span>자기소개 </span>
-            <input class="intro" id="intro" readonly rows="3" overflow-y: auto value= "${member.intro}" />
+            <input class="intro" id="intro" readonly rows="3"  value= "${member.intro}" />
             <!--input type="hidden" id="profile"/-->
 		</p>
         </nav>
@@ -68,7 +68,7 @@
       </div>
     </div>
     <!--버튼 클릭 끝-->
-    <div <%@ include file="./common/footer.jsp" %>></div>
+<%@ include file="./common/footer.jsp" %>
   </body>
 
   </html>
