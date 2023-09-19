@@ -52,7 +52,8 @@
           </p>
           <p>
             <span>자기소개 </span>
-            <textarea class="intro" id="intro" readonly rows="3">${member.intro}</textarea>
+            <input class="intro" id="intro" readonly rows="3" overflow-y: auto value= "${member.intro}" />
+            <!--input type="hidden" id="profile"/-->
 		</p>
         </nav>
         <!--내 정보 내용 끝-->

@@ -17,20 +17,16 @@ public class MypageService {
 	@Autowired
 	private MemberMapper mapper;
 
-	public Member findByMember(String loginid) throws FindException {
-		Member m = new Member();
-		m.setLoginid(loginid);
-		mapper.selectByLoginid(loginid);
-		return m;
+	public Member selectByLoginid(String loginid) throws FindException {
+		return mapper.selectByLoginid(loginid);
 	}
 
-	public Member findByMember(Object attribute) {
-		return null;
-	}
-
-	public void updateMember(Member m) throws UpdateException {
-		mapper.updateMember(m);
-
+	public void updateMember(Member member) throws UpdateException {
+		try {
+			mapper.updateMember(member); // Member 정보 업데이트
+		} catch (Exception e) {
+			throw new UpdateException("Failed to update member information.", e);
+		}
 	}
 
 	public boolean deleteMember(String loginid) {

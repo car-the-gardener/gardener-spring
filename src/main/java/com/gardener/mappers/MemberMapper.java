@@ -10,9 +10,7 @@ public interface MemberMapper {
 
 	void insert(Member m);
 
-	Member findMember(String loginid);
-
-	void updateMember(Member m);
+	void updateMember(Member mamber);
 
 	boolean deleteMember(String loginid);
 }

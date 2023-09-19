@@ -21,7 +21,7 @@
 			<ul>
 				<li><a href="./library.html" class="library">서재</a></li>
 				<li><a href="./garden.html" class="write">나의 정원</a></li>
-				<li><a href="./member.html" class="user">마이페이지</a></li>
+				<li><a href="./mypage" class="user">마이페이지</a></li>
 				<li><a href="./signup.html" class="signup">회원가입</a></li>
 				<li><a href="./login.html" class="login">로그인</a></li>
 			</ul>

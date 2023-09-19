@@ -32,10 +32,12 @@ public class MypageController {
 	 * Mypage 내 정보 확인
 	 */
 	@GetMapping
-	public void mypage(Model model) {
+	public void mypage(Model model, HttpSession session) {
 		Member member = null;
+		String loginid = (String) session.getAttribute("loginid");
+		log.info("loginid => " + loginid);
 		try {
-			member = service.selectById("rudns10");
+			member = service.selectByLoginid(loginid);
 			log.warn(member);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,20 +73,25 @@ public class MypageController {
 	 * 계정 내 정보 수정하기
 	 */
 
-	@PostMapping("/updatemember")
-	public ResponseEntity<?> updateMember(@RequestParam String id, @RequestParam String pwd, @RequestParam String email,
-			@RequestParam String name, @RequestParam String intro, @RequestParam String createDate,
-			@RequestParam String profile) throws FindException {
-		Member member = service.findByMember(id);
-		member.setPwd(pwd);
-		member.setEmail(email);
-		member.setNickname(name);
-		member.setIntro(intro);
-		member.setCreateDate(createDate);
-		member.setProfile(profile);
+	@PostMapping(value = "/update")
+	public ResponseEntity<String> updateMember(@RequestParam("loginid") String loginid, @RequestParam("pwd") String pwd,
+			@RequestParam("email") String email, @RequestParam("nickname") String nickname,
+			@RequestParam("intro") String intro) throws FindException {
 
 		try {
+			log.warn("loginid:" + loginid);
+			Member member = service.selectByLoginid(loginid);
+
+			// Member 객체의 필드들을 업데이트
+			member.setLoginid(loginid);
+			member.setPwd(pwd);
+			member.setEmail(email);
+			member.setNickname(nickname);
+			member.setIntro(intro);
+
+			// 업데이트된 Member 객체를 데이터베이스에 저장
 			service.updateMember(member);
+
 			return ResponseEntity.ok("Update successful.");
 		} catch (UpdateException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
