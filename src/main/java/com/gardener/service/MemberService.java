@@ -8,7 +8,10 @@ import com.gardener.aop.exception.FindException;
 import com.gardener.domain.Member;
 import com.gardener.mappers.MemberMapper;
 
+import lombok.extern.log4j.Log4j;
+
 @Service
+@Log4j
 public class MemberService {
 
 	@Autowired
@@ -44,6 +47,7 @@ public class MemberService {
 		}
 	}
 
+	// 로그인
 	public Member login(String loginId, String pwd) throws FindException {
 		Member m = mapper.selectByLoginid(loginId);
 		if (pwd.equals(m.getPwd())) {
@@ -53,15 +57,23 @@ public class MemberService {
 		}
 	}
 
-	public String findLoginId(String name, String email) throws FindException {
+	// 아이디찾기
+	public String findLoginid(String name, String email) throws FindException {
+
 		Member m = mapper.selectByNickname(name);
-		if (name.equals(m.getNickname()) && email.equals(m.getEmail())) {
-			return m.getLoginid();
+
+		if (m != null) {
+			if (name.equals(m.getNickname()) && email.equals(m.getEmail())) {
+				return m.getLoginid();
+			} else {
+				throw new FindException("잘못된 정보입니다");
+			}
 		} else {
 			throw new FindException("잘못된 정보입니다");
 		}
 	}
 
+	// 비밀번호찾기
 	public String findPwd(String loginId, String email) throws FindException {
 		Member m = mapper.selectByLoginid(loginId);
 		if (loginId.equals(m.getLoginid()) && email.equals(m.getEmail())) {
