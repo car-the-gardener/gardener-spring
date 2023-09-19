@@ -16,5 +16,32 @@ const replyService = (() => {
       }
     })
   }
-  return {add}
+
+  const getAllReply = (param, callback, error) => {
+    const postId = param.postId;
+    const page = param.page || 1;
+
+    $.getJSON(`/reply/${postId}/${page}`, (response) => {
+      if (callback) {
+        callback(response);
+      }
+    }).fail((xhr, status, err) => {
+      if (error) error();
+    })
+
+  }
+
+  const remove = (id, callback, error) => {
+    $.ajax({
+      url    : `/reply/${id}`,
+      method : "DELETE",
+      success: (response) => {
+        if (callback) {
+          callback(response);
+        }
+      }
+    })
+  }
+
+  return {add, getAllReply}
 })()

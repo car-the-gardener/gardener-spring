@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class ReplyController {
             : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
-  @GetMapping("/{postId}/{page}")
+  @GetMapping(value = "/{postId}/{page}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<List<Reply>> getAllReply(@PathVariable Long postId, @PathVariable int page) throws FindException {
     Criteria cri = new Criteria(page, 10);
     List<Reply> allReply = service.findAll(cri, postId);

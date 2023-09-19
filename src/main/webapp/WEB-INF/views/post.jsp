@@ -138,15 +138,28 @@
   $(".writer-profile-pic img").attr("src", response.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
 
 
+  // 댓글 리스트 불러오기
+  replyService.getAllReply({postId: response.id, page: 1}, (response) => {
+    for (let i = 0, len = response.length || 0; i < len; i++) {
+      console.log(response[i], "getList")
+    }
+  })
+
+  // 댓글 추가
   $(".section-comment button").click(() => {
     const data = {
       content: $(".section-comment textarea").val(),
       postId : response.id
     }
     replyService.add(data, (response) => {
-      console.log(response, "댓글 쓰고 응답");
+      $(".section-comment textarea").val("");
     })
   })
+
+  // 댓글 삭제
+
+
+  // 댓글 수정
 
 </script>
 </body>
