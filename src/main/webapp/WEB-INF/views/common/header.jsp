@@ -28,13 +28,13 @@
           <a class="nav-link" href="#" style="font-size: 20px">나의 정원</a>
         </li>
         <li class="nav-item ms-5">
-          <a class="nav-link" href="#" style="font-size: 20px">마이페이지</a>
+          <a class="nav-link" href="/mypage" style="font-size: 20px">마이페이지</a>
         </li>
         <li class="nav-item ms-5">
           <a class="nav-link" href="#" style="font-size: 20px">회원가입</a>
         </li>
         <li class="nav-item ms-5">
-          <a class="nav-link" href="#" style="font-size: 20px">로그인</a>
+          <a class="nav-link" href="/login" style="font-size: 20px">로그인</a>
         </li>
       </ul>
     </div>

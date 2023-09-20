@@ -12,6 +12,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Writer {
-	private int writerid;
-	private int writertype;
+	private String loginid; // 로그인아이디
+	private int type; // 신청(0,1)
 }
