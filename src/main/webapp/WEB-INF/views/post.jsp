@@ -180,7 +180,7 @@
     const replyId = $(e.currentTarget).data("id");
     const replyDiv = $(`div[data-id="\${replyId}"]`);
     alert(replyId, "수정 ");
-    return false;
+    
     if ($(e.currentTarget).text() === "수정") {
       replyDiv.addClass("edit-mode");
       replyDiv.prop("contenteditable", "true");

@@ -50,7 +50,9 @@ public class ReplyController {
   }
 
   @RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value = "/{id}")
-  public ResponseEntity<String> modify(@RequestBody Reply reply, @PathVariable Long id) {
+  public ResponseEntity<String> modify(HttpSession session, @RequestBody Reply reply, @PathVariable Long id) {
+    String logindid = (String) session.getAttribute("logindid");
+    reply.setMemberLoginid(logindid);
     log.info("넘겨받은 reply id => {}", id);
     log.info("수정할 reply => {}", reply);
     int result = service.update(reply);

@@ -48,12 +48,16 @@ const replyService = (() => {
   }
 
   const modify = (reply, callback, Error) => {
+    console.log("받은 reply", typeof reply);
     console.log("받은 reply", reply);
+    console.log("받은 reply", typeof JSON.stringify(reply));
+    console.log("받은 reply", JSON.stringify(reply));
     $.ajax({
-      url    : `/reply/${reply.id}`,
-      method : "PUT",
-      data   : JSON.stringify(reply),
-      success: (response) => {
+      url        : `/reply/${reply.id}`,
+      method     : "PUT",
+      contentType: "application/json; charset=utf-8",
+      data       : JSON.stringify(reply),
+      success    : (response) => {
         if (callback) {
           callback(response);
         }
