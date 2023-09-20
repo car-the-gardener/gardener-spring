@@ -18,8 +18,12 @@ const replyService = (() => {
 
   const getAllReply = (param, callback, error) => {
     const postId = param.postId;
-    const page = param.page || 1;
-
+    let page = 0;
+    if (param.page === -1) {
+      page = 1;
+    } else {
+      page = param.page;
+    }
 
     $.getJSON(`/reply/${postId}/${page}`, (response) => {
       console.log(response, "댓글 응답")
@@ -27,24 +31,22 @@ const replyService = (() => {
         callback(response);
       }
     }).fail((xhr, status) => {
-      if (page === -1) console.log("-1이 넘어옴")
-      else console.log(status, "가져올 댓글 없음");
+      //if (page === -1) console.log("-1이 넘어옴")
+      //else console.log(status, "가져올 댓글 없음");
     })
   }
 
   const remove = (id, callback, error) => {
     $.ajax({
-      url       : `/reply/${id}`,
-      method    : "DELETE",
-      statusCode: {
-        500: (response) => {
-          swal("이미 삭제된 댓글입니다.");
-        }
-      },
-      success   : (response) => {
+      url    : `/reply/${id}`,
+      method : "DELETE",
+      success: (response) => {
         if (callback) {
           callback(response);
         }
+      },
+      error  : (xhr, status, err) => {
+        console.log(status)
       }
     })
   }

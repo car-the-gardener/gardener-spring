@@ -114,33 +114,32 @@
 <div class="footer"></div>
 
 <script>
-  const response = ${post};
+  const postResponse = ${post};
   let pageNum = 1;
-  console.log(${post}, "model로 넘겨받은 데이터")
-  console.log(typeof ${post}, "model로 넘겨받은 데이터")
 
-  $(".main-image").css("background-image", `url(\${response.mainTitleImg})`)
-  $(".section-header-main-title").html(response.mainTitle);
-  $(".section-header-main-subtitle").html(response?.subTitle || "");
-  $(".section-header-info-writer").html(response.member.nickname);
-  $(".section-header-info-date").html(response.createDate);
-  $("article").html(response.content);
-  $(".section-header-icon span").html(response.favorite);
-  $(".writer-profile-name").html(response.member.nickname);
-  $(".writer-profile-intro").html(response.member.intro);
-  $(".writer-profile-pic img").attr("src", response.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
+  $(".main-image").css("background-image", `url(\${postResponse.mainTitleImg})`)
+  $(".section-header-main-title").html(postResponse.mainTitle);
+  $(".section-header-main-subtitle").html(postResponse?.subTitle || "");
+  $(".section-header-info-writer").html(postResponse.member.nickname);
+  $(".section-header-info-date").html(postResponse.createDate);
+  $("article").html(postResponse.content);
+  $(".section-header-icon span").html(postResponse.favorite);
+  $(".writer-profile-name").html(postResponse.member.nickname);
+  $(".writer-profile-intro").html(postResponse.member.intro);
+  $(".writer-profile-pic img").attr("src", postResponse.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
 
   // 댓글 리스트 불러오기
   const showList = (page) => {
-    replyService.getAllReply({postId: response.id, page: page || 1}, (response) => {
+    replyService.getAllReply({postId: postResponse.id, page: page || 1}, (response) => {
       $(".section-reply p:first-child").text(`\${response.replyCnt}개`);
       let reply = "";
 
+
       // 새로운 댓글 달았을때 뒤로 페이지 이동
       if (page === -1) {
-        paegNum = Math.ceil(response.replyCnt / 5.0); // 이건 10개씩 보여주기로 한 기준이라 10으로 나눈건가?? 난 5로 보여줘야하는데 5로 바꿀까?
+        pageNum = Math.ceil(response.replyCnt / 5.0); // 이건 10개씩 보여주기로 한 기준이라 10으로 나눈건가?? 난 5로 보여줘야하는데 5로 바꿀까?
         console.log(pageNum, "새로 추가시 pageNum")
-        showList(paegNum);
+        showList(pageNum);
         return;
       }
 
@@ -168,47 +167,55 @@
   // pagination
   const pagination = (replyCnt) => {
     let pn = `<ul class='pagination'>`;
-    let endPage = Math.ceil(pageNum / 5.0) * 10; // 기본 페이지는 10개씩, 댓글은 5개씩 보여줄 것
-    let startPage = endPage - 9; // 기본 1
+    let endPage = Math.ceil(pageNum / 5.0) * 5; // 기본 페이지는 10개씩, 댓글은 5개씩 보여줄 것
+    let startPage = endPage - 4; // 기본 1
     let prev = startPage != 1; // 첫 번째 페이지(1) 이상이면 prev가 존재하게 (2 페이지부터 존재)
     let next = false;
 
     // 음 .. 10을 왜 곱해주지??
-    if (endPage * 10 >= replyCnt) {
+    if (endPage * 5 >= replyCnt) {
       endPage = Math.ceil(replyCnt / 5.0);
     }
 
     // next 버튼이 생겨야 됨
-    if (endPage * 10 < replyCnt) {
+    if (endPage * 5 < replyCnt) {
       next = true;
     }
 
     // 이전 버튼
     if (prev) {
-      pn += `<li class='page-item'><a class='page-link' href=\${startNum}-1>Prev</a></li>`
+      pn += `<li class='page-item'><a class='page-link' href=\${startPage -1}>Prev</a></li>`
     }
 
     // pagination 그리기
     for (let i = startPage; i <= endPage; i++) {
-      const active = pageNum === i ? "active" : "";
+      let active = pageNum === i ? "active" : "";
       pn += `<li class='page-item \${active}'><a class='page-link' href=\${i}>\${i}</a></li>`;
     }
 
     if (next) {
-      pn += `<li class='page-item'><a class='page-link' href=\${endPage}+1>Next</a></li>`
+      pn += `<li class='page-item'><a class='page-link' href=\${endPage +1}>Next</a></li>`
     }
 
     pn += `</ul>`;
-    console.log(pn);
-
     $(".pagination-wrap").html(pn);
   }
+
+  // 댓글 페이지 이동
+  $(".pagination-wrap").on("click", "li", (e) => {
+    e.preventDefault();
+    const aTag = $(e.currentTarget).find("a");
+    const targetNum = aTag.attr("href");
+
+    pageNum = Number(targetNum);
+    showList(pageNum);
+  })
 
   // 댓글 추가
   $(".section-reply button").click(() => {
     const data = {
       content: $(".section-reply textarea").val(),
-      postId : response.id
+      postId : postResponse.id
     }
 
     if (data.content === "") {
@@ -220,14 +227,12 @@
       $(".section-reply textarea").val("");
       showList(-1);
     });
-    // 새로 추가하고 글 불러오기
   })
 
   // 댓글 삭제
   $(".section-reply-list").on("click", ".reply-list--btn--remove", (e) => {
-    replyService.remove(137, (response) => {
-      alert(response + " 삭제됨");
-      showList(5);
+    replyService.remove($(e.currentTarget).data("id"), (response) => {
+      showList(pageNum);
     })
   })
 
@@ -235,7 +240,6 @@
   $(".section-reply-list").on("click", ".reply-list--btn--modify", (e) => {
     const replyId = $(e.currentTarget).data("id");
     const replyDiv = $(`div[data-id="\${replyId}"]`);
-    alert(replyId, "수정 ");
 
     if ($(e.currentTarget).text() === "수정") {
       replyDiv.addClass("edit-mode");
@@ -246,18 +250,18 @@
     }
 
     if (($(e.currentTarget).text() === "변경")) {
-      console.log($(".edit-mode"), "에디터");
-      console.log($(".edit-mode").html(), " 데이터 ")
       const reply = {
         content: replyDiv.html(),
         id     : replyId
       };
+
       replyService.modify(reply, (response) => {
-        alert(response);
         replyDiv.removeClass("edit-mode");
         replyDiv.prop("contenteditable", "false");
-        replyDiv.html()
+        replyDiv.html();
         $(e.currentTarget).text("수정");
+
+        showList(pageNum)
       })
     }
   })

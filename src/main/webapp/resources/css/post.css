@@ -21,6 +21,11 @@ ul {
     list-style: none;
 }
 
+a:link {
+    text-decoration: none;
+    color: black;
+}
+
 /* 헤더 시작 */
 /*header CSS*/
 h1 {
@@ -300,11 +305,16 @@ section article {
 }
 
 .pagination > li {
-    width: 20px;
+    width: 40px;
+    text-align: center;
+}
+
+.pagination li.page-item.active > a {
+    color: #63c76a;
+    font-weight: bold;
 }
 
 /* 페이지 네이션 끝 */
-
 
 div.footer > footer > div > p.footer-center {
     text-align: center;
