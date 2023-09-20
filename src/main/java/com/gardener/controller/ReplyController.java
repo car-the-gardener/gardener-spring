@@ -36,25 +36,23 @@ public class ReplyController {
             : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
-  @GetMapping(value = "/{postId}/{page}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public ResponseEntity<List<Reply>> getAllReply(@PathVariable Long postId, @PathVariable int page) throws FindException {
+  @GetMapping(value = "/{postId}/{page}")
+  public ResponseEntity<ReplyPaging> getAllReply(@PathVariable Long postId, @PathVariable int page) throws FindException {
     Criteria cri = new Criteria(page, 5);
     List<Reply> allReply = service.findAll(cri, postId);
-    log.info("all reply => {}", allReply);
+    int count = service.count(postId);
 
     if (allReply.isEmpty()) {
       throw new FindException();
     }
 
-    return new ResponseEntity<>(allReply, HttpStatus.OK);
+    return new ResponseEntity<>(new ReplyPaging(count, allReply), HttpStatus.OK);
   }
 
   @RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value = "/{id}")
   public ResponseEntity<String> modify(HttpSession session, @RequestBody Reply reply, @PathVariable Long id) {
     String logindid = (String) session.getAttribute("logindid");
     reply.setMemberLoginid(logindid);
-    log.info("넘겨받은 reply id => {}", id);
-    log.info("수정할 reply => {}", reply);
     int result = service.update(reply);
 
     return result == 1

@@ -92,13 +92,11 @@
     <div class="section-reply">
         <div>
             <div>
-                <div>
-                    <h3>댓글 작성</h3>
-                    <p>(x/200)</p>
-                </div>
-                <button>등록</button>
+                <p>24개</p>
+                <p>(x/200)</p>
             </div>
             <textarea></textarea>
+            <button>댓글작성</button>
         </div>
         <hr>
     </div>
@@ -107,7 +105,7 @@
     <div class="section-reply-list"></div>
 
     <!-- 페이지네이션 시작 -->
-    <div class="pagination"></div>
+    <div class="pagination-wrap"></div>
 
 </section>
 <!-- 섹션 끝 -->
@@ -117,8 +115,9 @@
 
 <script>
   const response = ${post};
+  let pageNum = 1;
   console.log(${post}, "model로 넘겨받은 데이터")
-  console.log(replyService);
+  console.log(typeof ${post}, "model로 넘겨받은 데이터")
 
   $(".main-image").css("background-image", `url(\${response.mainTitleImg})`)
   $(".section-header-main-title").html(response.mainTitle);
@@ -132,27 +131,78 @@
   $(".writer-profile-pic img").attr("src", response.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
 
   // 댓글 리스트 불러오기
-  const showList = (page) => replyService.getAllReply({postId: response.id, page}, (response) => {
-    let reply = "";
-    if (response.length === 0 || response === null) {
-      reply = "";
-      return;
+  const showList = (page) => {
+    replyService.getAllReply({postId: response.id, page: page || 1}, (response) => {
+      $(".section-reply p:first-child").text(`\${response.replyCnt}개`);
+      let reply = "";
+
+      // 새로운 댓글 달았을때 뒤로 페이지 이동
+      if (page === -1) {
+        paegNum = Math.ceil(response.replyCnt / 5.0); // 이건 10개씩 보여주기로 한 기준이라 10으로 나눈건가?? 난 5로 보여줘야하는데 5로 바꿀까?
+        console.log(pageNum, "새로 추가시 pageNum")
+        showList(paegNum);
+        return;
+      }
+
+      if (response.list.length === 0 || response.list === null) {
+        return;
+      }
+
+      for (let i = 0, len = response.list.length || 0; i < len; i++) {
+        let dateTime = replyService.displyTime(response.list[i].createDate);
+        reply += `<div class='section-reply-list--top'>`
+        reply += `<div><img src="https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg" alt="유저 이미지">`
+        reply += `<div><p class='reply-list--name'>\${response.list[i].member.nickname}</p>`
+        reply += `<p class='reply-list--date'><small>\${dateTime}</small></p></div></div>`
+        reply += `<div class='reply-list--btn'><button class="reply-list--btn--remove" data-id=\${response.list[i].id}>삭제</button> <button class="reply-list--btn--modify" data-id=\${response.list[i].id}>수정</button></div>`
+        reply += `</div>`
+        reply += `<div contenteditable = "false" data-id=\${response.list[i].id}>\${response.list[i].content} </div>`
+        reply += `</div> <hr>`
+      }
+      $(".section-reply-list").html(reply);
+      pagination(response.replyCnt);
+    })
+  }
+  showList(pageNum);
+
+  // pagination
+  const pagination = (replyCnt) => {
+    let pn = `<ul class='pagination'>`;
+    let endPage = Math.ceil(pageNum / 5.0) * 10; // 기본 페이지는 10개씩, 댓글은 5개씩 보여줄 것
+    let startPage = endPage - 9; // 기본 1
+    let prev = startPage != 1; // 첫 번째 페이지(1) 이상이면 prev가 존재하게 (2 페이지부터 존재)
+    let next = false;
+
+    // 음 .. 10을 왜 곱해주지??
+    if (endPage * 10 >= replyCnt) {
+      endPage = Math.ceil(replyCnt / 5.0);
     }
 
-    for (let i = 0, len = response.length || 0; i < len; i++) {
-      let dateTime = replyService.displyTime(response[i].createDate);
-      reply += `<div class='section-reply-list--top'>`
-      reply += `<div><img src="https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg" alt="유저 이미지">`
-      reply += `<div><p class='reply-list--name'>\${response[i].member.nickname}</p>`
-      reply += `<p class='reply-list--date'><small>\${dateTime}</small></p></div></div>`
-      reply += `<div class='reply-list--btn'><button class="reply-list--btn--remove" data-id=\${response[i].id}>삭제</button> <button class="reply-list--btn--modify" data-id=\${response[i].id}>수정</button></div>`
-      reply += `</div>`
-      reply += `<div contenteditable = "false" data-id=\${response[i].id}>\${response[i].content} </div>`
-      reply += `</div> <hr>`
+    // next 버튼이 생겨야 됨
+    if (endPage * 10 < replyCnt) {
+      next = true;
     }
-    $(".section-reply-list").html(reply);
-  })
-  showList(5);
+
+    // 이전 버튼
+    if (prev) {
+      pn += `<li class='page-item'><a class='page-link' href=\${startNum}-1>Prev</a></li>`
+    }
+
+    // pagination 그리기
+    for (let i = startPage; i <= endPage; i++) {
+      const active = pageNum === i ? "active" : "";
+      pn += `<li class='page-item \${active}'><a class='page-link' href=\${i}>\${i}</a></li>`;
+    }
+
+    if (next) {
+      pn += `<li class='page-item'><a class='page-link' href=\${endPage}+1>Next</a></li>`
+    }
+
+    pn += `</ul>`;
+    console.log(pn);
+
+    $(".pagination-wrap").html(pn);
+  }
 
   // 댓글 추가
   $(".section-reply button").click(() => {
@@ -160,10 +210,16 @@
       content: $(".section-reply textarea").val(),
       postId : response.id
     }
+
+    if (data.content === "") {
+      swal("댓글을 입력해주세요")
+      return;
+    }
+
     replyService.add(data, (response) => {
       $(".section-reply textarea").val("");
-      showList(5);
-    })
+      showList(-1);
+    });
     // 새로 추가하고 글 불러오기
   })
 
@@ -180,7 +236,7 @@
     const replyId = $(e.currentTarget).data("id");
     const replyDiv = $(`div[data-id="\${replyId}"]`);
     alert(replyId, "수정 ");
-    
+
     if ($(e.currentTarget).text() === "수정") {
       replyDiv.addClass("edit-mode");
       replyDiv.prop("contenteditable", "true");

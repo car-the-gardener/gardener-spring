@@ -22,25 +22,24 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/post")
 public class PostApiController {
 
-	private final PostService postService;
+  private final PostService postService;
 
-	// 게시글 저장
-	@PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Long savePost(@RequestBody Post post) {
-		log.info("requestbody {}", post);
-		return postService.savePost(post);
-	}
+  // 게시글 저장
+  @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public Long savePost(@RequestBody Post post) {
+    log.info("requestbody {}", post);
+    return postService.savePost(post);
+  }
 
-	// 게시글 조회
-	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ModelAndView findPostById(@PathVariable Long id) {
-		Post post = postService.findPostById(id);
-		log.info("post {}", post);
-		ModelAndView mv = new ModelAndView();
-		Gson gson = new Gson();
-		mv.addObject("post", gson.toJson(post));
-		mv.setViewName("/post");
-		return mv;
-	}
+  // 게시글 조회
+  @GetMapping(value = "/{id}")
+  public ModelAndView findPostById(@PathVariable Long id) {
+    Post post = postService.findPostById(id);
+    ModelAndView mv = new ModelAndView();
+    Gson gson = new Gson();
+    mv.addObject("post", gson.toJson(post));
+    mv.setViewName("/post");
+    return mv;
+  }
 
 }

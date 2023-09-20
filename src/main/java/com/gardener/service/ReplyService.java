@@ -31,6 +31,10 @@ public class ReplyService {
     return mapper.findAll(cri, postId);
   }
 
+  public ReplyPaging findList(Criteria cri, Long postId) throws FindException {
+    return new ReplyPaging(mapper.count(postId), mapper.findAll(cri, postId));
+  }
+
   public int delete(Long id) {
     return mapper.delete(id);
   }

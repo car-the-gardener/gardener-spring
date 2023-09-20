@@ -17,6 +17,9 @@ img {
     max-width: 500px;
 }
 
+ul {
+    list-style: none;
+}
 
 /* 헤더 시작 */
 /*header CSS*/
@@ -221,17 +224,16 @@ section article {
 /* 작가 프로필 끝 */
 
 /* 댓글 시작 */
-.section-reply > div {
-    margin-bottom: 30px;
-    text-align: end;
-}
-
-.section-reply > div > h3 {
-    display: flex;
+.section-reply {
+    width: 900px;
+    margin: 0 auto;
+    margin-top: 50px;
 }
 
 .section-reply > div > button {
-    width: 60px;
+    position: relative;
+    left: 820px;
+    width: 80px;
     height: 40px;
 }
 
@@ -239,39 +241,6 @@ section article {
     width: 900px;
     height: 150px;
     resize: none;
-}
-
-.section-reply {
-    width: 900px;
-    margin: 0 auto;
-    margin-top: 50px;
-}
-
-.section-reply > .section-reply-wrap > .section-reply-write {
-    display: flex;
-}
-
-.section-reply > .section-reply-wrap > .section-reply-write + p {
-    margin: 0 0 20px;
-    text-align: start;
-}
-
-.section-reply
-> .section-reply-wrap
-> .section-reply-write
-> div:nth-child(1) {
-    width: 720px;
-    text-align: start;
-}
-
-.section-reply
-> .section-reply-wrap
-> .section-reply-write
-> div:nth-child(2) {
-    display: flex;
-    justify-content: space-between;
-    height: 50px;
-    width: 180px;
 }
 
 /* 댓글 끝 */
@@ -289,7 +258,6 @@ section article {
 
 .section-reply-list {
     max-width: 900px;
-    height: 140px;
     margin: 0 auto;
 }
 
@@ -318,16 +286,21 @@ section article {
 /* 댓글 목록 끝*/
 
 /* 페이지 네이션 시작 */
-.pagination {
-    font-size: x-large;
-    text-align: center;
+.pagination-wrap {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-.pagination span {
+.pagination {
+    display: flex;
+    margin: 20px 0;
+    justify-content: center;
     cursor: pointer;
-    display: inline-block;
-    width: 50px;
-    border: 1px solid;
+
+}
+
+.pagination > li {
+    width: 20px;
 }
 
 /* 페이지 네이션 끝 */

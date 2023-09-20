@@ -10,24 +10,26 @@ const replyService = (() => {
         if (callback) callback(response);
       },
       error      : (status) => {
+        swal("로그인 해주세요")
         console.log(status);
       }
     })
   }
 
-  const getAllReply = (param, callback) => {
+  const getAllReply = (param, callback, error) => {
     const postId = param.postId;
     const page = param.page || 1;
 
+
     $.getJSON(`/reply/${postId}/${page}`, (response) => {
+      console.log(response, "댓글 응답")
       if (callback) {
         callback(response);
       }
     }).fail((xhr, status) => {
-      console.log(status, "댓글 추가 에러");
-      return;
+      if (page === -1) console.log("-1이 넘어옴")
+      else console.log(status, "가져올 댓글 없음");
     })
-
   }
 
   const remove = (id, callback, error) => {

@@ -1,19 +1,18 @@
 package com.gardener.util;
 
+import com.gardener.domain.Reply;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 @ToString
+@Getter
+@AllArgsConstructor
 public class ReplyPaging {
-  private int startNum;
-  private int endNum;
 
-  public ReplyPaging() {
-    this(1, 10);
-  }
+  private int replyCnt;
+  private List<Reply> list;
 
-  public ReplyPaging(int startNum, int endNum) {
-    this.startNum = startNum;
-    this.endNum = endNum;
-  }
 }
