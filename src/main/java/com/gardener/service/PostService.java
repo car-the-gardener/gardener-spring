@@ -21,7 +21,7 @@ public class PostService {
 
   public Long savePost(Post post) {
     postMapper.insert(post);
-    return post.getId();
+    return post.getPostnum();
   }
 
   public Post findPostById(Long id) {

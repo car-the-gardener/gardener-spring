@@ -124,8 +124,6 @@ $(() => {
   // 메인 이미지 저장
   $(".img-pic input").change((e) => {
     const file = $(e.target)[0].files[0];
-    console.log(file.name)
-    console.log(file.size)
 
     if (!checkExtention(file.name, file.size)) {
       return false;

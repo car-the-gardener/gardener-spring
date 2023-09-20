@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class Reply {
   private Long id; // pk
-  private String memberLoginid; // fk
+  private String loginid; // fk
   private Long postId; // fk
   private String content; // 600자까지
   private String createDate;
@@ -19,9 +19,9 @@ public class Reply {
   private Member member; // 댓글을 쓴 사람
 
   // insert
-  public Reply(String memberLoginid, Long postId, String content, int report) {
+  public Reply(String loginid, Long postId, String content, int report) {
     this.postId = postId;
-    this.memberLoginid = memberLoginid;
+    this.loginid = loginid;
     this.content = content;
     this.report = report;
   }

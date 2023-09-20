@@ -29,7 +29,7 @@ public class ReplyController {
   @PostMapping
   public ResponseEntity<String> insertReply(@RequestBody Reply reply, HttpSession session) {
     String loginid = (String) session.getAttribute("loginid");
-    reply.setMemberLoginid(loginid);
+    reply.setLoginid(loginid);
     int result = service.insert(reply);
 
     return result == 1 ? new ResponseEntity<>("Success", HttpStatus.OK)
@@ -52,7 +52,7 @@ public class ReplyController {
   @RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value = "/{id}")
   public ResponseEntity<String> modify(HttpSession session, @RequestBody Reply reply, @PathVariable Long id) {
     String logindid = (String) session.getAttribute("logindid");
-    reply.setMemberLoginid(logindid);
+    reply.setLoginid(logindid);
     int result = service.update(reply);
 
     return result == 1

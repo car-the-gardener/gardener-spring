@@ -92,7 +92,7 @@
     <div class="section-reply">
         <div>
             <div>
-                <p>24개</p>
+                <p>첫 댓글을 남겨주세요</p>
                 <p>(x/200)</p>
             </div>
             <textarea></textarea>

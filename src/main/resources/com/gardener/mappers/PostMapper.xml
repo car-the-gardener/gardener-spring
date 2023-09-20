@@ -4,17 +4,17 @@
 <mapper namespace="com.gardener.mappers.PostMapper">
 
     <insert id="insert">
-        <selectKey keyProperty="id" order="AFTER" resultType="long">
-            select seq_post.currval from dual
+        <selectKey keyProperty="postnum" order="BEFORE" resultType="long">
+            select seq_post.nextval from dual
         </selectKey>
-        insert into post (id,member_loginid, main_title, sub_title, content, main_title_img, category, public_yn,
-        favorite) values(seq_post.nextval, 'suwan',#{mainTitle}, #{subTitle},#{content}, #{mainTitleImg},
+        insert into post (postnum,loginid, main_title, sub_title, content, main_title_img, category, public_yn,
+        favorite) values(#{postnum}, #{loginid} ,#{mainTitle}, #{subTitle},#{content}, #{mainTitleImg},
         #{category}, #{publicYn}, #{favorite})
     </insert>
 
     <resultMap id="PostResultMap" type="Post">
-        <id property="id" column="id"/>
-        <result property="memberLoginid" column="member_loginid"/>
+        <id property="postnum" column="postnum"/>
+        <result property="loginid" column="LOGINID"/>
         <result property="mainTitle" column="main_title"/>
         <result property="subTitle" column="sub_title"/>
         <result property="content" column="content"/>
@@ -27,12 +27,12 @@
     </resultMap>
 
     <select id="findById" resultMap="PostResultMap">
-        select id,member_loginid, p.main_title, p.sub_title, p.content, p.main_title_img, p.category, p.total_cnt,
+        select postnum, m.loginid, p.main_title, p.sub_title, p.content, p.main_title_img, p.category, p.total_cnt,
         p.public_yn,
         p.favorite, to_char(p.create_date,'yyyy-MM-dd') create_date, m.email, m.nickname, m.intro from post p join
         member m on
-        p.member_loginid =
-        m.loginid where p.id = #{p.id}
+        p.loginid =
+        m.loginid where postnum = #{p.postnum}
     </select>
 
     <select id="findAll" resultType="post">

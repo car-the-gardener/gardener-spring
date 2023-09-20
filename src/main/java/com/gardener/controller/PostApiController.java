@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -26,7 +28,8 @@ public class PostApiController {
 
   // 게시글 저장
   @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public Long savePost(@RequestBody Post post) {
+  public Long savePost(HttpSession session, @RequestBody Post post) {
+    post.setLoginid((String) session.getAttribute("loginid"));
     log.info("requestbody {}", post);
     return postService.savePost(post);
   }
