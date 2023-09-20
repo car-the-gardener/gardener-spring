@@ -28,17 +28,15 @@
 
 
     <!-- JS파일 -->
-    <script src="resources/js/index.js"></script>
-    <script src="/resources/js/index2.js"></script>
-    <script src="/resources/js/index3.js"></script>
+    <script src="/resources/js/index.js"></script>
+    <script src="/resources/js/indexsub.js"></script>
 
-    <title>main page</title>
+    <title>IntelliJ index</title>
 </head>
 <body>
-<!-- HEADER -->
-<%@ include file="./common/header.jsp" %>
+	<!-- HEADER -->
+	<%@ include file="./common/header.jsp" %>
 
-<h1>test</h1>
 <!-- search ------------------------------------------------------------------------영역 -->
 <div id="search" style="margin-top:30px;">
     <div class="container">
@@ -46,20 +44,16 @@
             <div class="col-12 col-md-8 offset-md-4">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            검색할 주제
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#contains">제목</a>
-                            <a class="dropdown-item" href="#its_equal">내용</a>
-                            <a class="dropdown-item" href="#greather_than">필명</a>
-                        </div>
+                         <select class="form-select" name="search_param" id="search_param">
+	                        <option value="title">제목</option>
+	                        <option value="name">필명</option>
+	                        <option value="content">내용</option>
+                    	</select>
                     </div>
-                    <input type="hidden" name="search_param" value="all" id="search_param">
-                    <input type="text" class="form-control" name="x" placeholder="검색할 단어를 입력해주세요...">
+                    <input type="text" class="form-control" name="searchtext" placeholder="검색할 단어를 입력해주세요...">
                     <span class="input-group-btn">
-		                    <button class="btn btn-primary" type="button"><i class="fa-solid fa-search"></i> Search</button>
-		                </span>
+		            	<button class="btn btn-primary" type="button" id="searchbtn"><i class="fa-solid fa-search"></i> Search</button>
+		            </span>
                 </div>
             </div>
         </div>

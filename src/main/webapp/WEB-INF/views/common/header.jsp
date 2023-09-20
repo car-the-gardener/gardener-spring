@@ -6,7 +6,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light">
 	<div class="container">
-		<a class="navbar-brand" href="#" style="font-size: 30px;">작가의 정원</a>
+		<a class="navbar-brand" href="./" style="font-size: 30px;">작가의 정원</a>
 		<button
 				class="navbar-toggler"
 				type="button"
@@ -30,10 +30,10 @@
 					<a class="nav-link" href="#" style="font-size: 20px">마이페이지</a>
 				</li>
 				<li class="nav-item ms-5">
-					<a class="nav-link" href="#" style="font-size: 20px">회원가입</a>
+					<a class="nav-link" href="/signup" style="font-size: 20px">회원가입</a>
 				</li>
 				<li class="nav-item ms-5">
-					<a class="nav-link" href="#" style="font-size: 20px" >로그인</a>
+					<a class="nav-link" href="/login" style="font-size: 20px" >로그인</a>
 				</li>
 			</ul>
 		</div>

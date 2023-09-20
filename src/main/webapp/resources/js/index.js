@@ -1,51 +1,59 @@
 $(() => {
-  const body = $("div.search-body");
 
-  const searchbtn = $("input.search-button");
+  const body = $("div.body");
+
+  //search 버튼객체 찾기
+  const searchbtn = $("#searchbtn");
 
   searchbtn.click(() => {
-    const textValue = $("input.search-text").val();
-    const selectValue = $("select.dropdown").val();
+  
+    const textValue = $(".form-control").val();
+    const selectValue = $(".form-select").val();
 
-    $.ajax({
-      url: "/back/search",
-      method: "get",
-      data: { select: selectValue, text: textValue },
-      success: (resultData) => {
-        if (resultData.length != 0) {
-          const resultlength = resultData.length;
+    alert(textValue);
+    alert(selectValue);
 
-          body.load("./search.html", () => {
-            const viewtable = $("table.writing-list");
-
-            for (var i = 0; i < resultlength; i++) {
-              const tabletr = document.createElement("tr");
-              tabletr.setAttribute("class", `num ${resultData[i].postnum}`);
-              tabletr.innerHTML = `
-                  <td>
-                    <a>
-                      <img src="${resultData[i].mainTitleImg}" alt="제목이미지" 
-                                style="display: block; width: 200px; height: 150px;">
-                    </a>
-                  </td>
-                  <td class="test">
-                    <h2>${resultData[i].mainTitle} -</h2>
-                    <h3>${resultData[i].name}</h3>
-                    <p>${resultData[i].content}</p>
-                  </td>`;
-
-              $(viewtable).append(tabletr);
-            }
-          });
-        } else {
-          alert("검색하는 결과가 없습니다.");
-        }
-      },
-      error: function () {
-        alert("검색 실패");
-      },
-    });
   });
+  //
+  //   $.ajax({
+  //     url: "/back/search",
+  //     method: "get",
+  //     data: { select: selectValue, text: textValue },
+  //     success: (resultData) => {
+  //       if (resultData.length != 0) {
+  //         const resultlength = resultData.length;
+  //
+  //         body.load("./search.html", () => {
+  //           const viewtable = $("table.writing-list");
+  //
+  //           for (var i = 0; i < resultlength; i++) {
+  //             const tabletr = document.createElement("tr");
+  //             tabletr.setAttribute("class", `num ${resultData[i].postnum}`);
+  //             tabletr.innerHTML = `
+  //                 <td>
+  //                   <a>
+  //                     <img src="${resultData[i].mainTitleImg}" alt="제목이미지"
+  //                               style="display: block; width: 200px; height: 150px;">
+  //                   </a>
+  //                 </td>
+  //                 <td class="test">
+  //                   <h2>${resultData[i].mainTitle} -</h2>
+  //                   <h3>${resultData[i].name}</h3>
+  //                   <p>${resultData[i].content}</p>
+  //                 </td>`;
+  //
+  //             $(viewtable).append(tabletr);
+  //           }
+  //         });
+  //       } else {
+  //         alert("검색하는 결과가 없습니다.");
+  //       }
+  //     },
+  //     error: function () {
+  //       alert("검색 실패");
+  //     },
+  //   });
+  // });
   //검색버튼을 클릭하면 할 일 end
 
   //입력창에 엔터를 누르면 할 일 start
@@ -121,4 +129,8 @@ $(() => {
     }); //ajax end
   }); //click event end
   //카테고리 하나를 누르면 할 일 end
+  
+  
+   
+   
 }); //ready end

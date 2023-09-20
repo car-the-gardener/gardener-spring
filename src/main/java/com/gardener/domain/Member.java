@@ -1,5 +1,4 @@
 package com.gardener.domain;
-import com.google.gson.Gson;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
