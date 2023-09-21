@@ -14,12 +14,11 @@
 </head>
 
 <body>
-<%@ include file="./common/header.jsp" %>
 <!-- 섹션 시작 -->
 <section>
     <!-- 섹션 헤더 시작 -->
     <div class="section-header-image">
-        <div class=" main-image"></div>
+        <div class="main-image"></div>
     </div>
     <!-- 섹션 헤더 타이틀 -->
     <div class="section-header-title">
@@ -139,6 +138,8 @@
     <!-- 글쓰기 등록 btn 끝 -->
 </section>
 
+<script>
+</script>
 
 </body>
 

@@ -25,11 +25,18 @@ import javax.servlet.http.HttpSession;
 public class PostApiController {
 
   private final PostService postService;
+  static String path = "C:\\Users\\swans\\Documents\\workspace-sts-3.9.18.RELEASE\\gardener-spring\\src\\main\\webapp\\resources\\images\\post\\";
 
   // 게시글 저장
   @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public Long savePost(HttpSession session, @RequestBody Post post) {
     post.setLoginid((String) session.getAttribute("loginid"));
+
+    // 메인 이미지를 선택하지 않았을때
+    if (post.getMainTitleImg().isEmpty()) {
+
+    }
+
     log.info("requestbody {}", post);
     return postService.savePost(post);
   }
@@ -40,6 +47,14 @@ public class PostApiController {
     Post post = postService.findPostById(id);
     ModelAndView mv = new ModelAndView();
     Gson gson = new Gson();
+
+    /*
+    if (post.getMainTitleImg() == null) {
+      log.info("메인 이미지 없음  ㅇㅅㅇ ");
+    }
+    */
+
+
     mv.addObject("post", gson.toJson(post));
     mv.setViewName("/post");
     return mv;

@@ -1,38 +1,42 @@
 package com.gardener.controller;
 
 import com.gardener.domain.dto.MainImgDTO;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
 @Controller
 @Slf4j
 public class PostController {
-  private final String uploadDir = Paths.get("C:", "tui-editor", "upload").toString();
+  private final String uploadDir = Paths.get("C:", "tui-editor", "upload", getFolder()).toString();
 
   @GetMapping("/posting")
   public void posting() {
+    /*ModelAndView mv = new ModelAndView();
+    String s = makeImges(uploadDir + "\\main");
+    log.info("저장할 기본 메인 이미지 => {}", s);
+    byte[] mains = printEditorImage("2023\\09\\21/main/3b9155c0-가이가이.jpg", "main");
+    model.addAttribute("mains", mains);*/
   }
 
   // 메인 이미지 저장
@@ -40,6 +44,7 @@ public class PostController {
   @ResponseBody
   public ResponseEntity<MainImgDTO> uploadMainImage(MultipartFile image) {
     MainImgDTO dto = new MainImgDTO();
+
     if (image.isEmpty()) {
       return new ResponseEntity<>(new MainImgDTO(), HttpStatus.BAD_GATEWAY);
     }
@@ -47,7 +52,7 @@ public class PostController {
     String originalFileName = image.getOriginalFilename();
     String uuid = UUID.randomUUID().toString().substring(0, 8);
     String saveFileName = uuid + "-" + originalFileName;
-    File uploadPath = new File(uploadDir, getFolder() + "\\main");
+    File uploadPath = new File(uploadDir, "\\main");
 
     dto.setFileName(saveFileName);
     dto.setUuid(uuid);
@@ -57,6 +62,7 @@ public class PostController {
     if (!uploadPath.exists()) {
       uploadPath.mkdirs();
     }
+
 
     try {
       File saveFile = new File(uploadPath, saveFileName);
@@ -73,7 +79,7 @@ public class PostController {
   }
 
   // 메인 이미지 불러오기 
-  @GetMapping("/image-print-main")
+/*  @GetMapping("/image-print-main")
   @ResponseBody
   public ResponseEntity<byte[]> getImage(String filename) {
     log.info("file name = {}", filename);
@@ -92,7 +98,7 @@ public class PostController {
       e.printStackTrace();
     }
     return result;
-  }
+  }*/
 
   @PostMapping(value = "/posting", produces = "text/plain; charset=utf-8")
   public @ResponseBody String uploadEditorImage(@RequestParam final MultipartFile image) {
@@ -104,11 +110,12 @@ public class PostController {
     String uuid = UUID.randomUUID().toString().substring(0, 8);
     String saveFileName = uuid + "-" + originalFileName;
     System.out.println("saveFileName =>" + saveFileName);
-    File uploadPath = new File(uploadDir, getFolder() + "\\content");
+    File uploadPath = new File(uploadDir, "\\content");
 
     if (!uploadPath.exists()) {
       uploadPath.mkdirs();
     }
+
     try {
       File uploadFile = new File(uploadPath, saveFileName);
       image.transferTo(uploadFile);
@@ -129,16 +136,20 @@ public class PostController {
   public @ResponseBody byte[] printEditorImage(@RequestParam final String filename, String sort) {
     log.info("sort => {}", sort);
     log.info("filename => {}", filename);
+    String substring = filename.substring(filename.indexOf("/"));
 
     String fileFullPath = "";
     if (sort.equals("main")) {
       log.info("main 처리 시작");
-      fileFullPath = Paths.get(uploadDir, filename).toString();
+      fileFullPath = Paths.get(uploadDir, substring).toString();
+      log.info("fileFullPath main => {}", fileFullPath);
     } else {
-      fileFullPath = Paths.get(uploadDir, getFolder() + "\\content", filename).toString();
+      fileFullPath = Paths.get(uploadDir, "\\content", filename).toString();
+      log.info("fileFullPath content => {}", fileFullPath);
     }
 
     File uploadFile = new File(fileFullPath);
+
     if (!uploadFile.exists()) {
       throw new RuntimeException();
     }
@@ -161,4 +172,46 @@ public class PostController {
     return str.replace("-", File.separator);
   }
 
+  // 기본 메인 이미지
+  private String makeImges(String uploadPath) {
+    String path = "C:\\Users\\swans\\Documents\\workspace-sts-3.9.18.RELEASE\\gardener-spring\\src\\main\\webapp\\resources\\images\\post\\";
+    File file = new File(path);
+    FileInputStream fis = null;
+    FileOutputStream fos = null;
+
+    String[] mainDefaultImgs = file.list();
+    String mainDefaultImg = mainDefaultImgs[(int) (Math.random() * 8)];
+    log.info("만드는 기본 이미지 => {}", mainDefaultImg);
+    File defaultImgUploadPath = new File(uploadPath);
+
+    if (!defaultImgUploadPath.exists()) {
+      defaultImgUploadPath.mkdirs();
+    }
+
+
+    try {
+      File readFile = new File(path, mainDefaultImg);
+      File writeFile = new File(uploadPath, "\\" + mainDefaultImg);
+
+
+      int size = (int) readFile.length();
+      byte[] readByte = new byte[size];
+      fis = new FileInputStream(readFile);
+      fos = new FileOutputStream(writeFile);
+
+      fis.read(readByte);
+      fos.write(readByte);
+    } catch (IOException e) {
+    } finally {
+      try {
+        if (fis != null) fis.close();
+        if (fos != null) fos.close();
+      } catch (IOException e) {
+      }
+    }
+
+    //2023\09\21\main\ba8c9609-가이가이.jpg
+    return uploadPath.substring(uploadPath.indexOf("2")) + "\\" + mainDefaultImg;
+
+  }
 }
