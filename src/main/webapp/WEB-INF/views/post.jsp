@@ -131,7 +131,7 @@
 
   // 댓글 리스트 불러오기
   const showList = (page) => {
-    replyService.getAllReply({postId: postResponse.id, page: page || 1}, (response) => {
+    replyService.getAllReply({postNum: postResponse.postnum, page: page || 1}, (response) => {
       $(".section-reply p:first-child").text(`\${response.replyCnt}개`);
       let reply = "";
 
@@ -215,8 +215,8 @@
   // 댓글 추가
   $(".section-reply button").click(() => {
     const data = {
-      content: $(".section-reply textarea").val(),
-      postId : postResponse.id
+      content: $(".section-reply textarea").val().trim(),
+      postNum: postResponse.postnum
     }
 
     if (data.content === "") {
@@ -250,9 +250,10 @@
       return;
     }
 
+
     if (($(e.currentTarget).text() === "변경")) {
       const reply = {
-        content: replyDiv.html(),
+        content: replyDiv.html().replace(/&nbsp;/gi, '').replace(/<div><br><\/div>/gi, '').replace(/<p><br><\/p>/gi, '').trim(),
         id     : replyId
       };
 

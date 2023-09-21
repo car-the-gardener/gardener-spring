@@ -30,17 +30,18 @@ public class ReplyController {
   public ResponseEntity<String> insertReply(@RequestBody Reply reply, HttpSession session) {
     String loginid = (String) session.getAttribute("loginid");
     reply.setLoginid(loginid);
+    log.info("댓글 담 => {}", reply);
     int result = service.insert(reply);
 
     return result == 1 ? new ResponseEntity<>("Success", HttpStatus.OK)
             : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
-  @GetMapping(value = "/{postId}/{page}")
-  public ResponseEntity<ReplyPaging> getAllReply(@PathVariable Long postId, @PathVariable int page) throws FindException {
+  @GetMapping(value = "/{postNum}/{page}")
+  public ResponseEntity<ReplyPaging> getAllReply(@PathVariable Long postNum, @PathVariable int page) throws FindException {
     Criteria cri = new Criteria(page, 5);
-    List<Reply> allReply = service.findAll(cri, postId);
-    int count = service.count(postId);
+    List<Reply> allReply = service.findAll(cri, postNum);
+    int count = service.count(postNum);
 
     if (allReply.isEmpty()) {
       throw new FindException();

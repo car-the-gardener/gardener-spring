@@ -13,12 +13,12 @@ public interface ReplyMapper {
 
   Reply findById(Long id);
 
-  List<Reply> findAll(@Param("cri") Criteria cri, @Param("postId") Long postId);
+  List<Reply> findAll(@Param("cri") Criteria cri, @Param("postNum") Long postNum);
 
   int delete(Long id);
 
   int update(Reply reply);
 
-  int count(Long postId);
+  int count(Long postNum);
 
 }

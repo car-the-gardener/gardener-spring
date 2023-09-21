@@ -1,6 +1,7 @@
 // html태그가 있어 꺽쇠때문에 ajax로 요청한다.
 const replyService = (() => {
   const add = (reply, callback, error) => {
+    console.log(reply, "넘겨받은 reply")
     $.ajax({
       url        : "/reply",
       method     : "POST",
@@ -17,7 +18,7 @@ const replyService = (() => {
   }
 
   const getAllReply = (param, callback, error) => {
-    const postId = param.postId;
+    const postNum = param.postNum;
     let page = 0;
     if (param.page === -1) {
       page = 1;
@@ -25,7 +26,7 @@ const replyService = (() => {
       page = param.page;
     }
 
-    $.getJSON(`/reply/${postId}/${page}`, (response) => {
+    $.getJSON(`/reply/${postNum}/${page}`, (response) => {
       console.log(response, "댓글 응답")
       if (callback) {
         callback(response);
@@ -52,10 +53,6 @@ const replyService = (() => {
   }
 
   const modify = (reply, callback, Error) => {
-    console.log("받은 reply", typeof reply);
-    console.log("받은 reply", reply);
-    console.log("받은 reply", typeof JSON.stringify(reply));
-    console.log("받은 reply", JSON.stringify(reply));
     $.ajax({
       url        : `/reply/${reply.id}`,
       method     : "PUT",
