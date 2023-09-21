@@ -76,7 +76,7 @@
     <!--본문 내용 끝-->
     <!--버튼 클릭 시작-->
     <div class="container">
-      <button class="modifybtn btn">회원정보수정</button>
+      <button class="modifybtn btn" >회원정보수정</button>
       <button class="apply btn">작가신청</button>
       <button class="deletebtn">회원탈퇴</button>
       </div>
