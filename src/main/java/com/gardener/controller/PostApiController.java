@@ -48,12 +48,6 @@ public class PostApiController {
     ModelAndView mv = new ModelAndView();
     Gson gson = new Gson();
 
-    /*
-    if (post.getMainTitleImg() == null) {
-      log.info("메인 이미지 없음  ㅇㅅㅇ ");
-    }
-    */
-
 
     mv.addObject("post", gson.toJson(post));
     mv.setViewName("/post");

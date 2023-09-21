@@ -1,6 +1,4 @@
 $(() => {
-
-
   const editor = new toastui.Editor({
     el             : document.querySelector('#editor'), // 에디터를 적용할 요소 (컨테이너)
     height         : '600px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
@@ -11,13 +9,17 @@ $(() => {
     /* start of hooks */
     hooks: {
       addImageBlobHook(blob, callback) {  // 이미지 업로드 로직 커스텀
+        console.log(blob, "blob")
         try {
-          /**
-           * 1. 에디터 업로드한 이미지를 FormData 객체에 저장
-           * (이때, 컨트롤러 uploadEditorImage 메서드의 파라미터인 'image'와 formData에 append 하는 key('image')값은 동일해야 함)
-           */
           const formData = new FormData();
           formData.append("image", blob);
+          for (let a of formData.keys()) {
+            console.log(a, "formData")
+          }
+          for (let a of formData.values()) {
+            console.log(a, "formData")
+            console.log(typeof a, "formData typoe")
+          }
           // 2. FileApiController - uploadEditorImage 메소드 호출
           $.ajax({
             url        : "/posting",
@@ -27,7 +29,7 @@ $(() => {
             data       : formData,
             success    : (response) => {
               const filename = response;
-              console.log("서버에 저장될 filename: ", filename);
+              console.log("서버에 저장될 filename: ", `content\\${filename}`);
               const imageUrl = `/image-print?filename=${filename}&sort=content`;
               callback(imageUrl, "image alt attribute");
             }
@@ -126,10 +128,10 @@ $(() => {
   // 메인 이미지 저장
   $(".img-pic input").change((e) => {
     const file = $(e.target)[0].files[0];
-
     if (!checkExtention(file.name, file.size)) {
       return false;
     }
+
     const formData = new FormData();
     formData.append("image", file);
     $.ajax({

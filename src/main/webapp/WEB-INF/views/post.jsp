@@ -115,6 +115,7 @@
 
 <script>
   const postResponse = ${post};
+  console.log(postResponse, " postResponse")
   let pageNum = 1;
 
   $(".main-image").css("background-image", `url(\${postResponse.mainTitleImg})`)

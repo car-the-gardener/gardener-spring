@@ -48,9 +48,7 @@
     <!-- 공개 | 비공개 체크 시작 -->
     <div class="secret">
         <input type="checkbox" name="secret" value="1" id="secret" hidden>
-        <span>
-                    비공개 | 공개
-                </span>
+        <span>비공개 | 공개</span>
         <label for="secret" class="secret-toggle">
             <span class="secret-toggle-btn"></span>
         </label>

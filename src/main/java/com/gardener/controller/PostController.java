@@ -1,19 +1,19 @@
 package com.gardener.controller;
 
 import com.gardener.domain.dto.MainImgDTO;
+import com.gardener.service.PostService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,16 +27,13 @@ import java.util.UUID;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class PostController {
-  private final String uploadDir = Paths.get("C:", "tui-editor", "upload", getFolder()).toString();
+  private final PostService postService;
+  private final String uploadDir = Paths.get("C:", "tui-editor", "upload").toString();
 
   @GetMapping("/posting")
   public void posting() {
-    /*ModelAndView mv = new ModelAndView();
-    String s = makeImges(uploadDir + "\\main");
-    log.info("저장할 기본 메인 이미지 => {}", s);
-    byte[] mains = printEditorImage("2023\\09\\21/main/3b9155c0-가이가이.jpg", "main");
-    model.addAttribute("mains", mains);*/
   }
 
   // 메인 이미지 저장
@@ -52,7 +49,7 @@ public class PostController {
     String originalFileName = image.getOriginalFilename();
     String uuid = UUID.randomUUID().toString().substring(0, 8);
     String saveFileName = uuid + "-" + originalFileName;
-    File uploadPath = new File(uploadDir, "\\main");
+    File uploadPath = new File(uploadDir, getFolder() + "\\main");
 
     dto.setFileName(saveFileName);
     dto.setUuid(uuid);
@@ -75,30 +72,10 @@ public class PostController {
     } catch (IOException e) {
       e.printStackTrace();
       throw new RuntimeException();
+    } finally {
     }
   }
 
-  // 메인 이미지 불러오기 
-/*  @GetMapping("/image-print-main")
-  @ResponseBody
-  public ResponseEntity<byte[]> getImage(String filename) {
-    log.info("file name = {}", filename);
-    File file = new File("c:\\tui-editor\\upload\\" + filename);
-    log.info("main file = {}", file);
-
-    ResponseEntity<byte[]> result = null;
-
-    try {
-      HttpHeaders headers = new HttpHeaders();
-      headers.add("Content-Type", Files.probeContentType(file.toPath()));
-      System.out.println(headers.getContentType() + " get Content Type");
-      System.out.println(Files.probeContentType(file.toPath()) + " probeContetnttpoye");
-      result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), HttpStatus.OK);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return result;
-  }*/
 
   @PostMapping(value = "/posting", produces = "text/plain; charset=utf-8")
   public @ResponseBody String uploadEditorImage(@RequestParam final MultipartFile image) {
@@ -110,7 +87,7 @@ public class PostController {
     String uuid = UUID.randomUUID().toString().substring(0, 8);
     String saveFileName = uuid + "-" + originalFileName;
     System.out.println("saveFileName =>" + saveFileName);
-    File uploadPath = new File(uploadDir, "\\content");
+    File uploadPath = new File(uploadDir, getFolder() + "\\content");
 
     if (!uploadPath.exists()) {
       uploadPath.mkdirs();
@@ -119,7 +96,7 @@ public class PostController {
     try {
       File uploadFile = new File(uploadPath, saveFileName);
       image.transferTo(uploadFile);
-      return saveFileName;
+      return getFolder() + "\\content\\" + saveFileName;
     } catch (IOException e) {
       e.printStackTrace();
       throw new RuntimeException(e);
@@ -136,15 +113,14 @@ public class PostController {
   public @ResponseBody byte[] printEditorImage(@RequestParam final String filename, String sort) {
     log.info("sort => {}", sort);
     log.info("filename => {}", filename);
-    String substring = filename.substring(filename.indexOf("/"));
 
     String fileFullPath = "";
     if (sort.equals("main")) {
       log.info("main 처리 시작");
-      fileFullPath = Paths.get(uploadDir, substring).toString();
+      fileFullPath = Paths.get(uploadDir, filename).toString();
       log.info("fileFullPath main => {}", fileFullPath);
     } else {
-      fileFullPath = Paths.get(uploadDir, "\\content", filename).toString();
+      fileFullPath = Paths.get(uploadDir, filename).toString();
       log.info("fileFullPath content => {}", fileFullPath);
     }
 
@@ -155,7 +131,6 @@ public class PostController {
     }
 
     try {
-      //이미지 파일을 byte[]로 변환 후 반환
       byte[] imgBytes = Files.readAllBytes(uploadFile.toPath());
       return imgBytes;
     } catch (IOException e) {
@@ -170,48 +145,5 @@ public class PostController {
     Date date = new Date();
     String str = sdf.format(date);
     return str.replace("-", File.separator);
-  }
-
-  // 기본 메인 이미지
-  private String makeImges(String uploadPath) {
-    String path = "C:\\Users\\swans\\Documents\\workspace-sts-3.9.18.RELEASE\\gardener-spring\\src\\main\\webapp\\resources\\images\\post\\";
-    File file = new File(path);
-    FileInputStream fis = null;
-    FileOutputStream fos = null;
-
-    String[] mainDefaultImgs = file.list();
-    String mainDefaultImg = mainDefaultImgs[(int) (Math.random() * 8)];
-    log.info("만드는 기본 이미지 => {}", mainDefaultImg);
-    File defaultImgUploadPath = new File(uploadPath);
-
-    if (!defaultImgUploadPath.exists()) {
-      defaultImgUploadPath.mkdirs();
-    }
-
-
-    try {
-      File readFile = new File(path, mainDefaultImg);
-      File writeFile = new File(uploadPath, "\\" + mainDefaultImg);
-
-
-      int size = (int) readFile.length();
-      byte[] readByte = new byte[size];
-      fis = new FileInputStream(readFile);
-      fos = new FileOutputStream(writeFile);
-
-      fis.read(readByte);
-      fos.write(readByte);
-    } catch (IOException e) {
-    } finally {
-      try {
-        if (fis != null) fis.close();
-        if (fos != null) fos.close();
-      } catch (IOException e) {
-      }
-    }
-
-    //2023\09\21\main\ba8c9609-가이가이.jpg
-    return uploadPath.substring(uploadPath.indexOf("2")) + "\\" + mainDefaultImg;
-
   }
 }
