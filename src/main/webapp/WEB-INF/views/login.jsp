@@ -16,7 +16,7 @@
 
   <body>
     <div class="logo">
-      <img src="/resources/images/logo.png" />
+      <img src="/resources/images/logo_small.png" />
     </div>
 
     <!--내용 입력란-->
@@ -32,7 +32,7 @@
       <!--링크-->
       <div class="sign-wrap">
         <span class="signup">
-          <a href="./signup.jsp">회원 가입</a>
+          <a href="http://localhost:8888/signup">회원 가입</a>
         </span>
 
         <span class="find-loginId">

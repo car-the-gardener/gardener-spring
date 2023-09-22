@@ -17,36 +17,6 @@ public class MemberService {
 	@Autowired
 	private MemberMapper mapper;
 
-	public void signup(Member m) throws AddException {
-		mapper.insert(m);
-	}
-
-	public void idDupChk(String loginId) throws FindException {
-		Member m = null;
-		m = mapper.selectByLoginid(loginId);
-
-		if (m != null) {
-			throw new FindException("이미 사용중인 아이디 입니다");
-			// loginId에 해당 고객이 있는 경우(중복인 경우)
-		} else {
-			System.out.println("사용 가능한 아이디 입니다");
-			// loginId에 해당 고객이 없는 경우(id 사용가능한 경우)
-		}
-	}
-
-	public void NicknameDupChk(String nickname) throws FindException {
-		Member m = null;
-		m = mapper.selectByNickname(nickname);
-
-		if (m != null) {
-			throw new FindException("이미 사용중인 필명입니다");
-			// 필명에 해당 고객이 있는 경우(중복인 경우)
-		} else {
-			System.out.println("사용 가능한 필명 입니다");
-			// 필명에 해당 고객이 없는 경우(필명 사용 가능)
-		}
-	}
-
 	// 로그인
 	public Member login(String loginId, String pwd) throws FindException {
 		Member m = mapper.selectByLoginid(loginId);
@@ -54,6 +24,48 @@ public class MemberService {
 			return m; // 로그인 성공
 		} else {
 			throw new FindException("로그인 실패");
+		}
+	}
+
+	// 회원가입
+	public void signup(Member m) throws AddException {
+		log.info(m);
+		mapper.insert(m);
+	}
+
+	// ID중복확인
+	public String idDupChk(String loginId) throws FindException {
+		Member m = null;
+		m = mapper.selectByLoginid(loginId);
+
+		if (m != null) {
+			log.info("사용 불가:" + loginId);
+			System.out.println("이미 사용중인 아이디 입니다");
+			// loginId에 해당 고객이 있는 경우(중복인 경우)
+		} else {
+			log.info("사용 가능:" + loginId);
+			System.out.println("사용 가능한 아이디 입니다");
+			// loginId에 해당 고객이 없는 경우(id 사용가능한 경우)
+			return null;
+		}
+		return m.getLoginid();
+	}
+
+	// 필명 중복확인
+	public String NicknameDupChk(String nickname) throws FindException {
+		Member m = null;
+		m = mapper.selectByNickname(nickname);
+
+		if (m != null) {
+			log.info(nickname);
+			System.out.println("이미 사용중인 필명입니다");
+			return m.getNickname();
+			// 필명에 해당 고객이 있는 경우(중복인 경우)
+		} else {
+			log.info(nickname);
+			System.out.println("사용 가능한 필명 입니다");
+			// 필명에 해당 고객이 없는 경우(필명 사용 가능)
+			return null;
 		}
 	}
 

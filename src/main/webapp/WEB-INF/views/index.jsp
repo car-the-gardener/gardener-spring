@@ -38,7 +38,7 @@
 <!-- HEADER -->
 <%@ include file="./common/header.jsp" %>
 
-<h1>test</h1>
+
 <!-- search ------------------------------------------------------------------------영역 -->
 <div id="search" style="margin-top:30px;">
     <div class="container">

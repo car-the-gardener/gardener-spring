@@ -20,7 +20,7 @@ SELECT * FROM member WHERE email= #{email}
 </select>
 
 <insert id="insert" parameterType="Member">
- INSERT INTO member (loginid,pwd,email,nickname,intro,profile,createdate) 
+ INSERT INTO member (loginid,pwd,email,nickname,intro,profile,create_date) 
  VALUES (#{loginid}, #{pwd}, #{email}, #{nickname},null,null,null)
 </insert>
 
