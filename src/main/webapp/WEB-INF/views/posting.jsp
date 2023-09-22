@@ -14,12 +14,11 @@
 </head>
 
 <body>
-<%@ include file="./common/header.jsp" %>
 <!-- 섹션 시작 -->
 <section>
     <!-- 섹션 헤더 시작 -->
     <div class="section-header-image">
-        <div class=" main-image"></div>
+        <div class="main-image"></div>
     </div>
     <!-- 섹션 헤더 타이틀 -->
     <div class="section-header-title">
@@ -49,9 +48,7 @@
     <!-- 공개 | 비공개 체크 시작 -->
     <div class="secret">
         <input type="checkbox" name="secret" value="1" id="secret" hidden>
-        <span>
-                    비공개 | 공개
-                </span>
+        <span>비공개 | 공개</span>
         <label for="secret" class="secret-toggle">
             <span class="secret-toggle-btn"></span>
         </label>
@@ -139,6 +136,8 @@
     <!-- 글쓰기 등록 btn 끝 -->
 </section>
 
+<script>
+</script>
 
 </body>
 
