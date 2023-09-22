@@ -31,12 +31,6 @@ public class PostApiController {
   @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public Long savePost(HttpSession session, @RequestBody Post post) {
     post.setLoginid((String) session.getAttribute("loginid"));
-
-    // 메인 이미지를 선택하지 않았을때
-    if (post.getMainTitleImg().isEmpty()) {
-
-    }
-
     log.info("requestbody {}", post);
     return postService.savePost(post);
   }
