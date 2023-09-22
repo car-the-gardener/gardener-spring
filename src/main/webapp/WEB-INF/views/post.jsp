@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
     </div>
     <!-- 섹션 헤더 제목 시작 -->
     <div class="section-header-title">
-        <div class="section-header-main-title">사랑의 물리학</div>
+        <div class="section-header-main-title">대제목</div>
         <div class="section-header-main-subtitle">물리학 하는 사람들은 로맨틱하다.</div>
     </div>
     <!-- 섹션 헤더 제목 끝 -->
@@ -67,9 +68,7 @@
 
         <div class="modify-btn">
             <div>
-                <!-- 수정시 수정 페이지로 ... /post/{id}-->
                 <button>수정</button>
-                <!-- 삭제시 수정 페이지로 ... /post/{id} -->
                 <button>삭제</button>
             </div>
         </div>
@@ -89,24 +88,25 @@
     </div>
     <!-- 작가 프로필 끝 -->
 
-    <!-- 댓글 시작 -->
-    <div class="section-comment">
-        <!-- 댓글 작성 시작 -->
+    <!-- 댓글 쓰기 -->
+    <div class="section-reply">
         <div>
-            <h3>댓글 작성</h3>
+            <div>
+                <p>첫 댓글을 남겨주세요</p>
+                <p>(x/200)</p>
+            </div>
             <textarea></textarea>
-            <button>등록</button>
+            <button>댓글작성</button>
         </div>
-        <!-- 댓글 작성 끝 -->
         <hr>
     </div>
-    <!-- 댓글 끝 -->
+
+    <%--댓글 표시--%>
+    <div class="section-reply-list"></div>
 
     <!-- 페이지네이션 시작 -->
-    <div class="pagination">
-        1|2|3|4|5
-    </div>
-    <!-- 페이지네이션 끝 -->
+    <div class="pagination-wrap"></div>
+
 </section>
 <!-- 섹션 끝 -->
 
@@ -114,20 +114,160 @@
 <div class="footer"></div>
 
 <script>
-  const response = ${post};
-  console.log(${post}, "model로 넘겨받은 데이터")
-  
-  $(".main-image").css("background-image", `url(\${response.mainTitleImg})`)
-  $(".section-header-main-title").html(response.mainTitle);
-  $(".section-header-main-subtitle").html(response?.subTitle || "");
-  $(".section-header-info-writer").html(response.member.nickname);
-  $(".section-header-info-date").html(response.createDate);
-  $("article").html(response.content);
-  $(".section-header-icon span").html(response.favorite);
-  $(".writer-profile-name").html(response.member.nickname);
-  $(".writer-profile-intro").html(response.member.intro);
-  $(".writer-profile-pic img").attr("src", response.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
-</script>
+  const postResponse = ${post};
+  console.log(postResponse, " postResponse")
+  let pageNum = 1;
 
+  $(".main-image").css("background-image", `url(\${postResponse.mainTitleImg})`)
+  $(".section-header-main-title").html(postResponse.mainTitle);
+  $(".section-header-main-subtitle").html(postResponse?.subTitle || "");
+  $(".section-header-info-writer").html(postResponse.member.nickname);
+  $(".section-header-info-date").html(postResponse.createDate);
+  $("article").html(postResponse.content);
+  $(".section-header-icon span").html(postResponse.favorite);
+  $(".writer-profile-name").html(postResponse.member.nickname);
+  $(".writer-profile-intro").html(postResponse.member.intro);
+  $(".writer-profile-pic img").attr("src", postResponse.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
+
+  // 댓글 리스트 불러오기
+  const showList = (page) => {
+    replyService.getAllReply({postNum: postResponse.postnum, page: page || 1}, (response) => {
+      $(".section-reply p:first-child").text(`\${response.replyCnt}개`);
+      let reply = "";
+
+
+      // 새로운 댓글 달았을때 뒤로 페이지 이동
+      if (page === -1) {
+        pageNum = Math.ceil(response.replyCnt / 5.0); // 이건 10개씩 보여주기로 한 기준이라 10으로 나눈건가?? 난 5로 보여줘야하는데 5로 바꿀까?
+        console.log(pageNum, "새로 추가시 pageNum")
+        showList(pageNum);
+        return;
+      }
+
+      if (response.list.length === 0 || response.list === null) {
+        return;
+      }
+
+      for (let i = 0, len = response.list.length || 0; i < len; i++) {
+        let dateTime = replyService.displyTime(response.list[i].createDate);
+        reply += `<div class='section-reply-list--top'>`
+        reply += `<div><img src="https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg" alt="유저 이미지">`
+        reply += `<div><p class='reply-list--name'>\${response.list[i].member.nickname}</p>`
+        reply += `<p class='reply-list--date'><small>\${dateTime}</small></p></div></div>`
+        reply += `<div class='reply-list--btn'><button class="reply-list--btn--remove" data-id=\${response.list[i].id}>삭제</button> <button class="reply-list--btn--modify" data-id=\${response.list[i].id}>수정</button></div>`
+        reply += `</div>`
+        reply += `<div contenteditable = "false" data-id=\${response.list[i].id}>\${response.list[i].content} </div>`
+        reply += `</div> <hr>`
+      }
+      $(".section-reply-list").html(reply);
+      pagination(response.replyCnt);
+    })
+  }
+  showList(pageNum);
+
+  // pagination
+  const pagination = (replyCnt) => {
+    let pn = `<ul class='pagination'>`;
+    let endPage = Math.ceil(pageNum / 5.0) * 5; // 기본 페이지는 10개씩, 댓글은 5개씩 보여줄 것
+    let startPage = endPage - 4; // 기본 1
+    let prev = startPage != 1; // 첫 번째 페이지(1) 이상이면 prev가 존재하게 (2 페이지부터 존재)
+    let next = false;
+
+    // 음 .. 10을 왜 곱해주지??
+    if (endPage * 5 >= replyCnt) {
+      endPage = Math.ceil(replyCnt / 5.0);
+    }
+
+    // next 버튼이 생겨야 됨
+    if (endPage * 5 < replyCnt) {
+      next = true;
+    }
+
+    // 이전 버튼
+    if (prev) {
+      pn += `<li class='page-item'><a class='page-link' href=\${startPage -1}>Prev</a></li>`
+    }
+
+    // pagination 그리기
+    for (let i = startPage; i <= endPage; i++) {
+      let active = pageNum === i ? "active" : "";
+      pn += `<li class='page-item \${active}'><a class='page-link' href=\${i}>\${i}</a></li>`;
+    }
+
+    if (next) {
+      pn += `<li class='page-item'><a class='page-link' href=\${endPage +1}>Next</a></li>`
+    }
+
+    pn += `</ul>`;
+    $(".pagination-wrap").html(pn);
+  }
+
+  // 댓글 페이지 이동
+  $(".pagination-wrap").on("click", "li", (e) => {
+    e.preventDefault();
+    const aTag = $(e.currentTarget).find("a");
+    const targetNum = aTag.attr("href");
+
+    pageNum = Number(targetNum);
+    showList(pageNum);
+  })
+
+  // 댓글 추가
+  $(".section-reply button").click(() => {
+    const data = {
+      content: $(".section-reply textarea").val().trim(),
+      postNum: postResponse.postnum
+    }
+
+    if (data.content === "") {
+      swal("댓글을 입력해주세요")
+      return;
+    }
+
+    replyService.add(data, (response) => {
+      $(".section-reply textarea").val("");
+      showList(-1);
+    });
+  })
+
+  // 댓글 삭제
+  $(".section-reply-list").on("click", ".reply-list--btn--remove", (e) => {
+    replyService.remove($(e.currentTarget).data("id"), (response) => {
+      showList(pageNum);
+    })
+  })
+
+  // 댓글 수정
+  $(".section-reply-list").on("click", ".reply-list--btn--modify", (e) => {
+    const replyId = $(e.currentTarget).data("id");
+    const replyDiv = $(`div[data-id="\${replyId}"]`);
+
+    if ($(e.currentTarget).text() === "수정") {
+      replyDiv.addClass("edit-mode");
+      replyDiv.prop("contenteditable", "true");
+      replyDiv.focus();
+      $(e.currentTarget).text("변경");
+      return;
+    }
+
+
+    if (($(e.currentTarget).text() === "변경")) {
+      const reply = {
+        content: replyDiv.html().replace(/&nbsp;/gi, '').replace(/<div><br><\/div>/gi, '').replace(/<p><br><\/p>/gi, '').trim(),
+        id     : replyId
+      };
+
+      replyService.modify(reply, (response) => {
+        replyDiv.removeClass("edit-mode");
+        replyDiv.prop("contenteditable", "false");
+        replyDiv.html();
+        $(e.currentTarget).text("수정");
+
+        showList(pageNum)
+      })
+    }
+  })
+
+</script>
 </body>
 </html>
