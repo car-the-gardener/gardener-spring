@@ -98,4 +98,28 @@ public class MypageController {
 		}
 	}
 
+	/**
+	 * 작가 취소
+	 */
+	@PostMapping("/applydelete")
+	@ResponseBody
+	public ResponseEntity<String> deleteapply(@RequestParam("loginid") String loginid, HttpSession session) {
+		if (loginid == null || loginid.isEmpty()) {
+			String errorMessage = "사용자 ID가 전달되지 않았습니다.";
+			return ResponseEntity.badRequest().body(errorMessage);
+		}
+
+		boolean isDeleted = service.deleteapply(loginid);
+
+		if (isDeleted) {
+			String successMessage = "작가취소가 성공적으로 처리되었습니다.";
+			session.removeAttribute("loginid");
+			session.invalidate();
+			return ResponseEntity.ok(successMessage);
+		} else {
+			String errorMessage = "작가취소를 처리하는 중에 오류가 발생했습니다.";
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+		}
+	}
+
 }

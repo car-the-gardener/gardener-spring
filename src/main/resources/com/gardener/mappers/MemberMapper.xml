@@ -11,18 +11,18 @@
     ]]>
 	</select>
 
-<select id="selectByNickname" resultType="Member" >
-SELECT * FROM member WHERE nickname= #{nickname}
-</select>
+    <select id="selectByNickname" resultType="Member">
+	SELECT * FROM member WHERE nickname= #{nickname}
+    </select>
 
-<select id="selectByEmail" resultType="Member" >
-SELECT * FROM member WHERE email= #{email}
-</select>
+	<select id="selectByEmail" resultType="Member">
+		SELECT * FROM member WHERE email= #{email}
+	</select>
 
-<insert id="insert" parameterType="Member">
- INSERT INTO member (loginid,pwd,email,nickname,intro,profile,createdate) 
- VALUES (#{loginid}, #{pwd}, #{email}, #{nickname},null,null,null)
-</insert>
+	<insert id="insert" parameterType="Member">
+		INSERT INTO member (loginid,pwd,email,nickname,intro,profile,createdate)
+		VALUES (#{loginid}, #{pwd}, #{email}, #{nickname},null,null,null)
+	</insert>
 
 
 	<update id="updateMember" parameterType="Member">
@@ -39,6 +39,10 @@ SELECT * FROM member WHERE email= #{email}
 
 	<delete id="deleteMember" parameterType="String">
 		DELETE FROM member WHERE LOGINID = #{loginid}
+	</delete>
+	
+	<delete id="deleteapply" parameterType="String">
+		DELETE FROM writer WHERE LOGINID = #{loginid}
 	</delete>
 
 </mapper>

@@ -55,4 +55,5 @@ public class ApplyController {
 		log.warn("result:" + result);
 		return ResponseEntity.ok(String.valueOf(result));
 	}
+
 }
