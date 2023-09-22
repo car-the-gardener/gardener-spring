@@ -29,13 +29,13 @@ public class Member {
 	}
 
 	// 겨운
-	public Member(String loginid, String pwd, String email, String name, String intro, String profile) {
+	public Member(String loginid, String pwd, String email, String nickname, String intro) {
 		this.loginid = loginid;
 		this.pwd = pwd;
 		this.email = email;
-		this.nickname = name;
+		this.nickname = nickname;
 		this.intro = intro;
-		this.profile = profile;
+
 	}
 
 }
