@@ -77,4 +77,22 @@ public class LoginController {
 		}
 	}
 
+	@GetMapping("/login/all")
+	public String all() {
+		log.info("all");
+		return "index";
+	}
+
+	@GetMapping("/login/member")
+	public String member() {
+		log.info("member");
+		return "index";
+	}
+
+	@GetMapping("/login/writer")
+	public String writer() {
+		log.info("writer");
+		return "index";
+	}
+
 }
