@@ -16,7 +16,7 @@
         where id = #{id}
     </select>
 
-    <resultMap id="commentResultMap" type="Reply">
+    <resultMap id="replyResultMap" type="Reply">
         <id property="id" column="id"/>
         <result property="loginid" column="loginid"/>
         <result property="postNum" column="post_num"/>
@@ -32,7 +32,7 @@
         <result property="profile" column="profile"/>
     </resultMap>
 
-    <select id="findAll" resultMap="commentResultMap">
+    <select id="findAll" resultMap="replyResultMap">
         <![CDATA[
         select  *
         from (select  /*+ INDEX(r index_reply) */
