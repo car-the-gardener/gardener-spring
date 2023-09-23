@@ -263,12 +263,18 @@ loginid = <%=id%>
   })
 
   // 포스트 수정
-  $(".modify-btn").click((e) => {
-    location.href = `/posting/\${postResponse.postnum}`
-    /*    postService.modify(post, () => {
-
-    });*/
+  $(".modify-btn button:first-child").click((e) => {
+    postService.modifyPost(`/posting/\${postResponse.postnum}`);
   })
+
+  // 포스트 삭제
+  $(".modify-btn button:last-child").click((e) => {
+    postService.deletePost(postResponse.postnum, (response) => {
+      alert(response + " 삭제");
+      location.href = "/";
+    });
+  })
+
 
   // 유저 구별
   if ($(".nickname").val() === postResponse.member.nickname) {

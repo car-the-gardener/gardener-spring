@@ -37,4 +37,9 @@ public class PostService {
     return result;
   }
 
+  public Long deletePostByPostnum(Long postnum) {
+    postMapper.deletePost(postnum);
+    return postnum;
+  }
+
 }

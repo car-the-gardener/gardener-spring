@@ -16,4 +16,6 @@ public interface PostMapper {
   Long updatePost(Post post);
 
   Long updateFavorite(Long postnum);
+
+  Long deletePost(Long postnum);
 }

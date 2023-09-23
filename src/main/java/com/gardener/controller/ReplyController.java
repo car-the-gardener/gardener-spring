@@ -47,7 +47,7 @@ public class ReplyController {
     return new ResponseEntity<>(new ReplyPaging(count, allReply), HttpStatus.OK);
   }
 
-  @RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value = "/{id}")
+  @RequestMapping(value = "/{id}", method = {RequestMethod.PUT, RequestMethod.PATCH})
   public ResponseEntity<String> modify(HttpSession session, @RequestBody Reply reply, @PathVariable Long id) {
     String logindid = (String) session.getAttribute("logindid");
     reply.setLoginid(logindid);

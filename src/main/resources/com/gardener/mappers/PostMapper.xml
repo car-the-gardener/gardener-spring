@@ -46,9 +46,12 @@
         where postnum = #{postnum}
     </update>
 
-
     <update id="updateFavorite">
 
     </update>
+
+    <delete id="deletePost">
+        delete post where postnum = #{postnum}
+    </delete>
 
 </mapper>

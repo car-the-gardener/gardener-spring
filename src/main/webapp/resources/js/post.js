@@ -91,3 +91,25 @@ const replyService = (() => {
 
   return {addReply, getAllReply, removeReply, modifyReply, displyTime}
 })()
+
+postService = (() => {
+
+  const modifyPost = (url) => {
+    location.href = url;
+  };
+
+  const deletePost = (postnum, callback) => {
+    $.ajax({
+      url    : `/post/${postnum}`,
+      method : "DELETE",
+      success: (response) => {
+        callback(response);
+      },
+      error  : (xhr, status) => {
+        console.log(status)
+      }
+    })
+  }
+
+  return {modifyPost, deletePost}
+})()
