@@ -14,6 +14,11 @@
 </head>
 
 <body>
+<% String id = (String) session.getAttribute("loginid");%>
+loginid = <%=id%>
+
+<c:out value="${sessionScope.loginid}"/>
+<c:out value="${sessionScope.nickname}"/>
 
 <!-- 섹션 시작 -->
 <section>
@@ -37,19 +42,6 @@
 
     <!-- 아티클 시작 -->
     <article>
-        사랑의 물리학 / 김인육
-        질량의 크기는 부피와 비례하지 않는다
-        제비꽃같이 조그마한 그 계집애가
-        꽃잎같이 하늘거리는 그 계집애가
-        지구보다 더 큰 질량으로 나를 끌어당긴다.
-        순간, 나는
-        뉴턴의 사과처럼
-        사정없이 그녀에게로 굴러 떨어졌다
-        쿵 소리를 내며, 쿵쿵 소리를 내며
-        심장이
-        하늘에서 땅까지
-        아찔한 진자운동을 계속하였다
-        첫사랑이었다.
     </article>
     <!-- 아티클 끝 -->
 
@@ -65,7 +57,6 @@
             </div>
         </div>
         <!-- 섹션 헤더 엄지척,신고 끝 -->
-
         <div class="modify-btn">
             <div>
                 <button>수정</button>
@@ -112,13 +103,13 @@
 
 <!-- 푸터 -->
 <div class="footer"></div>
-
+<input type="hidden" value="${sessionScope.nickname}" class="nickname">
 <script>
   const postResponse = ${post};
   console.log(postResponse, " postResponse")
   let pageNum = 1;
 
-  $(".main-image").css("background-image", `url(\${postResponse.mainTitleImg})`)
+  $(".main-image").css("background-image", `url(\${postResponse?.mainTitleImg})`)
   $(".section-header-main-title").html(postResponse.mainTitle);
   $(".section-header-main-subtitle").html(postResponse?.subTitle || "");
   $(".section-header-info-writer").html(postResponse.member.nickname);
@@ -131,7 +122,7 @@
 
   // 댓글 리스트 불러오기
   const showList = (page) => {
-    replyService.getAllReply({postNum: postResponse.postnum, page: page || 1}, (response) => {
+    replyService.getAllReply({postnum: postResponse.postnum, page: page || 1}, (response) => {
       $(".section-reply p:first-child").text(`\${response.replyCnt}개`);
       let reply = "";
 
@@ -139,12 +130,13 @@
       // 새로운 댓글 달았을때 뒤로 페이지 이동
       if (page === -1) {
         pageNum = Math.ceil(response.replyCnt / 5.0); // 이건 10개씩 보여주기로 한 기준이라 10으로 나눈건가?? 난 5로 보여줘야하는데 5로 바꿀까?
-        console.log(pageNum, "새로 추가시 pageNum")
         showList(pageNum);
         return;
       }
 
       if (response.list.length === 0 || response.list === null) {
+        $(".section-reply-list").html("");
+        $(".pagination-wrap").html("");
         return;
       }
 
@@ -164,6 +156,7 @@
     })
   }
   showList(pageNum);
+
 
   // pagination
   const pagination = (replyCnt) => {
@@ -216,7 +209,7 @@
   $(".section-reply button").click(() => {
     const data = {
       content: $(".section-reply textarea").val().trim(),
-      postNum: postResponse.postnum
+      postnum: postResponse.postnum
     }
 
     if (data.content === "") {
@@ -224,7 +217,7 @@
       return;
     }
 
-    replyService.add(data, (response) => {
+    replyService.addReply(data, (response) => {
       $(".section-reply textarea").val("");
       showList(-1);
     });
@@ -232,7 +225,8 @@
 
   // 댓글 삭제
   $(".section-reply-list").on("click", ".reply-list--btn--remove", (e) => {
-    replyService.remove($(e.currentTarget).data("id"), (response) => {
+    replyService.removeReply($(e.currentTarget).data("id"), (response) => {
+      alert(response + " 삭제 => " + pageNum);
       showList(pageNum);
     })
   })
@@ -257,7 +251,7 @@
         id     : replyId
       };
 
-      replyService.modify(reply, (response) => {
+      replyService.modifyReply(reply, (response) => {
         replyDiv.removeClass("edit-mode");
         replyDiv.prop("contenteditable", "false");
         replyDiv.html();
@@ -267,6 +261,23 @@
       })
     }
   })
+
+  // 포스트 수정
+  $(".modify-btn").click((e) => {
+    location.href = `/posting/\${postResponse.postnum}`
+    /*    postService.modify(post, () => {
+
+    });*/
+  })
+
+  // 유저 구별
+  if ($(".nickname").val() === postResponse.member.nickname) {
+    console.log(postResponse.member.nickname, "현재 접속 icon")
+    $(".section-header-icon").css("display", "none")
+  } else {
+    console.log(postResponse.member.nickname, "현재 접속 button")
+    $(".modify-btn").css("display", "none");
+  }
 
 </script>
 </body>

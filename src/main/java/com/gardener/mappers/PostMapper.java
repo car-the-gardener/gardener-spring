@@ -9,7 +9,11 @@ import java.util.List;
 public interface PostMapper {
   Long insert(Post post);
 
-  Post findById(Long id);
+  Post findBypostnum(Long postnum);
 
   List<Post> findAll();
+
+  Long updatePost(Post post);
+
+  Long updateFavorite(Long postnum);
 }

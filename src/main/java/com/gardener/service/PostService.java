@@ -18,20 +18,23 @@ public class PostService {
 
   private final PostMapper postMapper;
 
-
   public Long savePost(Post post) {
     postMapper.insert(post);
     return post.getPostnum();
   }
 
-  public Post findPostById(Long id) {
-    Post post = postMapper.findById(id);
-    return post;
+  public Post findPostByPostnum(Long postnum) {
+    return postMapper.findBypostnum(postnum);
   }
 
   public List<Post> findAllPost() {
     List<Post> posts = postMapper.findAll();
     return posts;
+  }
+
+  public Long updatePostByPostnum(Post post) {
+    Long result = postMapper.updatePost(post);
+    return result;
   }
 
 }

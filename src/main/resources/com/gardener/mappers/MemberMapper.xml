@@ -25,7 +25,7 @@
     <![CDATA[
         SELECT *
         FROM member m
-                 join writer w on m.loginid = w.LOGINID
+                 left join writer w on m.loginid = w.LOGINID
         where m.loginid = #{loginid}
         ]]>
 	</select>

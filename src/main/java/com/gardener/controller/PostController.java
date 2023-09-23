@@ -1,7 +1,9 @@
 package com.gardener.controller;
 
+import com.gardener.domain.Post;
 import com.gardener.domain.dto.MainImgDTO;
 import com.gardener.service.PostService;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -9,12 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,6 +37,18 @@ public class PostController {
   @GetMapping("/posting")
   public void posting() {
   }
+
+  // 수정 시 페이지 이동
+  @GetMapping("/posting/{postnum}")
+  public String suwan(@PathVariable Long postnum, HttpServletRequest request) {
+    Gson gson = new Gson();
+    Post post = postService.findPostByPostnum(postnum);
+    String postToJson = gson.toJson(post);
+    log.info("넘길 데이터 => {}", postToJson);
+    request.setAttribute("post", postToJson);
+    return "/posting";
+  }
+
 
   // 메인 이미지 저장
   @PostMapping(value = "/main-image", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

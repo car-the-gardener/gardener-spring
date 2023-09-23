@@ -37,15 +37,12 @@ public class ReplyController {
             : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
-  @GetMapping(value = "/{postNum}/{page}")
-  public ResponseEntity<ReplyPaging> getAllReply(@PathVariable Long postNum, @PathVariable int page) throws FindException {
+  @GetMapping(value = "/{postnum}/{page}")
+  public ResponseEntity<ReplyPaging> getAllReply(@PathVariable Long postnum, @PathVariable int page) throws FindException {
     Criteria cri = new Criteria(page, 5);
-    List<Reply> allReply = service.findAll(cri, postNum);
-    int count = service.count(postNum);
-
-    if (allReply.isEmpty()) {
-      throw new FindException();
-    }
+    List<Reply> allReply = service.findAll(cri, postnum);
+    int count = service.count(postnum);
+    log.info("댓글 총 수 => {}", count);
 
     return new ResponseEntity<>(new ReplyPaging(count, allReply), HttpStatus.OK);
   }

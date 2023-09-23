@@ -27,12 +27,12 @@ public class ReplyService {
     return mapper.findById(id);
   }
 
-  public List<Reply> findAll(Criteria cri, Long postNum) throws FindException {
-    return mapper.findAll(cri, postNum);
+  public List<Reply> findAll(Criteria cri, Long postnum) throws FindException {
+    return mapper.findAll(cri, postnum);
   }
 
-  public ReplyPaging findList(Criteria cri, Long postNum) throws FindException {
-    return new ReplyPaging(mapper.count(postNum), mapper.findAll(cri, postNum));
+  public ReplyPaging findList(Criteria cri, Long postnum) throws FindException {
+    return new ReplyPaging(mapper.count(postnum), mapper.findAll(cri, postnum));
   }
 
   public int delete(Long id) {
@@ -43,8 +43,8 @@ public class ReplyService {
     return mapper.update(reply);
   }
 
-  public int count(Long postNum) {
-    return mapper.count(postNum);
+  public int count(Long postnum) {
+    return mapper.count(postnum);
   }
 
 }
