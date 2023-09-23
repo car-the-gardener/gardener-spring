@@ -50,9 +50,11 @@ public class PostApiController {
   @GetMapping("/{postnum}")
   public ModelAndView findPostBypostnum(@PathVariable Long postnum) throws FindException {
     Post post = postService.findPostByPostnum(postnum);
+
     if (post == null) {
       throw new FindException();
     }
+
     ModelAndView mv = new ModelAndView();
     Gson gson = new Gson();
     mv.addObject("post", gson.toJson(post));
@@ -76,10 +78,21 @@ public class PostApiController {
     return post.getPostnum();
   }
 
+
+  @GetMapping("/{id}/favorite")
+  public void updateFavorite(@PathVariable Long postnum, int favorite) {
+
+  }
+
+  /**
+   * @param postnum
+   * @return 삭제된 게시글 번호
+   */
   @DeleteMapping(value = "/{postnum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public Long deletePostByPostnum(@PathVariable Long postnum) {
     postService.deletePostByPostnum(postnum);
     return postnum;
   }
+
 
 }

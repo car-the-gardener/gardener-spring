@@ -92,11 +92,17 @@ const replyService = (() => {
   return {addReply, getAllReply, removeReply, modifyReply, displyTime}
 })()
 
+// ----------------------------------------------------------------------------------
+
 postService = (() => {
 
   const modifyPost = (url) => {
     location.href = url;
   };
+
+  const updateFavorite = (state) => {
+
+  }
 
   const deletePost = (postnum, callback) => {
     $.ajax({
@@ -111,5 +117,5 @@ postService = (() => {
     })
   }
 
-  return {modifyPost, deletePost}
+  return {modifyPost, updateFavorite, deletePost}
 })()

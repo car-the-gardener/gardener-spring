@@ -46,8 +46,16 @@
         where postnum = #{postnum}
     </update>
 
-    <update id="updateFavorite">
+    <update id="updateTotalCnt">
+        update post
+        set total_cnt = #{totalCnt}
+        where postnum = #{postnum}
+    </update>
 
+    <update id="updateFavorite">
+        update post
+        set favorite
+        where postnum = #{postnum}
     </update>
 
     <delete id="deletePost">

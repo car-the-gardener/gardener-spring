@@ -275,11 +275,15 @@ loginid = <%=id%>
     });
   })
 
+  // 좋아요
+  $(".section-header-icon img[alt='좋아요 표시']").click(() => {
+    alert("hi")
+  })
 
   // 유저 구별
   if ($(".nickname").val() === postResponse.member.nickname) {
     console.log(postResponse.member.nickname, "현재 접속 icon")
-    $(".section-header-icon").css("display", "none")
+    $(".section-header-icon img[alt='신고 이미지']").css("display", "none")
   } else {
     console.log(postResponse.member.nickname, "현재 접속 button")
     $(".modify-btn").css("display", "none");

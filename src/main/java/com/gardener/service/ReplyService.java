@@ -3,12 +3,14 @@ package com.gardener.service;
 
 import com.gardener.aop.exception.FindException;
 import com.gardener.domain.Reply;
+import com.gardener.mappers.PostMapper;
 import com.gardener.mappers.ReplyMapper;
 import com.gardener.util.Criteria;
 import com.gardener.util.ReplyPaging;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,34 +19,41 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReplyService {
 
-  private final ReplyMapper mapper;
+  private final ReplyMapper replyMapper;
+  private final PostMapper postMapper;
 
+  @Transactional
   public int insert(Reply reply) {
-    return mapper.insert(reply);
+    int result = replyMapper.insert(reply);
+    int totalCnt = replyMapper.count(reply.getPostnum());
+    log.info("totalCnt => {}", totalCnt);
+
+    postMapper.updateTotalCnt(reply.getPostnum(), totalCnt);
+    return result;
   }
 
   public Reply findById(Long id) throws FindException {
-    return mapper.findById(id);
+    return replyMapper.findById(id);
   }
 
   public List<Reply> findAll(Criteria cri, Long postnum) throws FindException {
-    return mapper.findAll(cri, postnum);
+    return replyMapper.findAll(cri, postnum);
   }
 
   public ReplyPaging findList(Criteria cri, Long postnum) throws FindException {
-    return new ReplyPaging(mapper.count(postnum), mapper.findAll(cri, postnum));
+    return new ReplyPaging(replyMapper.count(postnum), replyMapper.findAll(cri, postnum));
   }
 
   public int delete(Long id) {
-    return mapper.delete(id);
+    return replyMapper.delete(id);
   }
 
   public int update(Reply reply) {
-    return mapper.update(reply);
+    return replyMapper.update(reply);
   }
 
   public int count(Long postnum) {
-    return mapper.count(postnum);
+    return replyMapper.count(postnum);
   }
 
 }

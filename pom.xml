@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.gardener</groupId>
-	<artifactId>controller</artifactId>
-	<name>gardener</name>
-	<packaging>war</packaging>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
-	<properties>
-		<java-version>11</java-version>
-		<org.springframework-version>5.0.7.RELEASE</org.springframework-version>
-		<org.aspectj-version>1.9.0</org.aspectj-version>
-		<org.slf4j-version>1.7.25</org.slf4j-version>
-	</properties>
-	<dependencies>
-	<!-- Spring -->
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.gardener</groupId>
+    <artifactId>controller</artifactId>
+    <name>gardener</name>
+    <packaging>war</packaging>
+    <version>1.0.0-BUILD-SNAPSHOT</version>
+    <properties>
+        <java-version>11</java-version>
+        <org.springframework-version>5.0.7.RELEASE</org.springframework-version>
+        <org.aspectj-version>1.9.0</org.aspectj-version>
+        <org.slf4j-version>1.7.25</org.slf4j-version>
+    </properties>
+    <dependencies>
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -32,6 +32,15 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
+
+        <!--        스프링 트랜잭션-->
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
+
 
         <!-- AspectJ -->
         <dependency>
@@ -56,7 +65,7 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>${org.slf4j-version}</version>
-<!--            <scope>runtime</scope>-->
+            <!--            <scope>runtime</scope>-->
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -80,7 +89,7 @@
                     <artifactId>jmxri</artifactId>
                 </exclusion>
             </exclusions>
-    <!--    <scope>runtime</scope>	 -->    
+            <!--    <scope>runtime</scope>	 -->
         </dependency>
 
         <!-- @Inject -->
@@ -190,18 +199,18 @@
             <artifactId>gson</artifactId>
             <version>2.8.9</version>
         </dependency>
-    
-    
-    <!--        섬네일-->
+
+
+        <!--        섬네일-->
         <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
         <dependency>
             <groupId>net.coobird</groupId>
             <artifactId>thumbnailator</artifactId>
             <version>0.4.8</version>
         </dependency>
-    
-    
-	</dependencies>
+
+
+    </dependencies>
     <build>
         <plugins>
             <plugin>
