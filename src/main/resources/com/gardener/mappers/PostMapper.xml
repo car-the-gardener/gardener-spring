@@ -20,7 +20,7 @@
         <result property="mainTitleImg" column="main_title_img"/>
         <result property="category" column="category"/>
         <result property="publicYn" column="public_yn"/>
-        <result property="favorite" column="favorite"/>
+        <result property="favorite" column="FAVORITE"/>
         <result property="createDate" column="create_date"/>
         <association property="member" javaType="Member" autoMapping="true"/>
     </resultMap>

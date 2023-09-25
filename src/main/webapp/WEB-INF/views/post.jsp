@@ -51,9 +51,9 @@ loginid = <%=id%>
         <!-- 섹션 헤더 엄지척,신고 시작 -->
         <div class="section-header-icon">
             <div>
-                <img src="/resources/images/thumbs-up.png" alt="좋아요 표시">
+                <img src="/resources/images/thumbs-up.png" alt="좋아요 표시" class="favorite">
                 <span>5</span>
-                <div><img src="/resources/images/report.png" alt="신고 이미지"></div>
+                <div><img src="/resources/images/report.png" alt="신고 이미지" class="report"></div>
             </div>
         </div>
         <!-- 섹션 헤더 엄지척,신고 끝 -->
@@ -284,16 +284,37 @@ loginid = <%=id%>
   })
 
   // 좋아요
-  $(".section-header-icon img[alt='좋아요 표시']").click(() => {
-    alert("hi")
+  $(".section-header-icon img[alt='좋아요 표시']").click((e) => {
+    let result = "";
+
+
+    if ($(e.target).attr("class") === "favorite") {
+      $(e.target).addClass("clicked");
+      result = "clicked"
+    } else {
+      result = "click"
+    }
+    if ($(".nickname").val() === "") {
+      swal("로그인 오네가이시마스");
+      return;
+    }
+
+    postService.updateFavorite(postResponse.postnum, (response) => {
+      if (response === "false") {
+        let favoriteCnt = $(".section-header-icon span").html();
+        $(e.target).removeClass("clicked");
+        $(".section-header-icon span").html(favoriteCnt - 1);
+        return;
+      }
+      $(".section-header-icon span").html(postResponse.favorite + 1);
+    }, result)
   })
+
 
   // 유저 구별
   if ($(".nickname").val() === postResponse.member.nickname) {
-    console.log(postResponse.member.nickname, "현재 접속 icon")
-    $(".section-header-icon img[alt='신고 이미지']").css("display", "none")
+    $(".section-header-icon img[alt='신고 이미지']").css("display", "none");
   } else {
-    console.log(postResponse.member.nickname, "현재 접속 button")
     $(".modify-btn").css("display", "none");
   }
 

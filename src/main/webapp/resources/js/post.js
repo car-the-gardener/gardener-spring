@@ -100,10 +100,6 @@ postService = (() => {
     location.href = url;
   };
 
-  const updateFavorite = (state) => {
-
-  }
-
   const deletePost = (postnum, callback) => {
     $.ajax({
       url    : `/post/${postnum}`,
@@ -116,6 +112,23 @@ postService = (() => {
       }
     })
   }
+  const updateFavorite = (postnum, callback, status) => {
+    let method = "";
+    console.log(status, "넘어온 status")
+    status === "clicked" ? method = "GET" : method = "DELETE";
+
+    $.ajax({
+      url    : `/post/${postnum}/favorite`,
+      method : method,
+      async  : false,
+      success: (response) => {
+        callback(response);
+      },
+      error  : (xhr, status) => {
+      }
+    })
+  }
+
 
   return {modifyPost, updateFavorite, deletePost}
 })()
