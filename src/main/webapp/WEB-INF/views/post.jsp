@@ -124,12 +124,11 @@ loginid = <%=id%>
   // 좋아요 확인 요청
   const checkFavorite = () => {
     postService.checkFavorite(postResponse.postnum, (response) => {
-      console.log(response, "지야")
-      console.log(Object.values(response), "지야")
-      let count = response?.no.length;
+      console.log(response, " ㅇㅇ")
+      let count = response?.no?.length || 0;
       $(".section-header-icon img[alt='좋아요 표시']").removeClass("click");
-      if (response?.yes.length > 0) {
-        count = response?.no.length + 1;
+      if (response?.yes?.length > 0) {
+        count += 1;
         $(".section-header-icon img[alt='좋아요 표시']").addClass("clicked");
       }
       $(".section-header-icon span").html(count);
