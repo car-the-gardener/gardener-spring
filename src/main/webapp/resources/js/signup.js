@@ -59,6 +59,7 @@ $(() => {
 
   formObj.submit((e) => {    		  
  	const data = $(e.target).serialize();
+ 	console.log(data, "ㅇㅅㅇ ");
     $.ajax({
       url: "/signup",
       method: "post",

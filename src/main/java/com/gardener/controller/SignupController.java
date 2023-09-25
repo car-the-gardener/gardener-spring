@@ -53,6 +53,7 @@ public class SignupController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<String> signup(Member m) {
+		log.info("회원가입 컨트롤러 => " + m);
 		try {
 			service.signup(m);
 			return new ResponseEntity(HttpStatus.OK);

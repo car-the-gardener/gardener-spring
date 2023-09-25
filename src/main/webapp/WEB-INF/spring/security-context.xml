@@ -4,12 +4,12 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
-<security:http>
-	<security:intercept-url pattern="/login/all" access="permitAll"/>
-	<security:intercept-url pattern="/login/member" access="hasRole('ROLE_MEMBER')"/>
-	<security:intercept-url pattern="/login/writer" access="hasRole('ROLE_WRITER')"/>
+<!-- <security:http>
+	<security:intercept-url pattern="/*" access="permitAll"/>
+	<security:intercept-url pattern="/posting" access="hasRole('ROLE_MEMBER')"/>
+	<security:intercept-url pattern="/mypage" access="hasRole('ROLE_MEMBER')"/>
 	<security:form-login/>
-</security:http>
+</security:http> -->
 <security:authentication-manager>
 </security:authentication-manager>
 </beans>
