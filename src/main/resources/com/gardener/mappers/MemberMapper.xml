@@ -1,69 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gardener.mappers.MemberMapper">
 
-    <resultMap id="resultMapMember" type="Member">
-        <id property="loginid" column="loginid"/>
-        <result property="pwd" column="pwd"/>
-        <result property="email" column="email"/>
-        <result property="nickname" column="nickname"/>
-        <result property="intro" column="intro"/>
-        <result property="profile" column="profile"/>
-        <result property="createDate" column="create_date"/>
-        <collection property="writer" resultMap="resultMapWriter"/>
+    <resultMap type="Writer" id="Writer">
+    <id column="loginid" property="loginid"/>
+    <result column="type" property="type"/>
     </resultMap>
 
-    <resultMap id="resultMapWriter" type="Writer">
-        <id property="loginid" column="loginid"/>
-        <result property="type" column="type"/>
-    </resultMap>
+    <resultMap type="Member" id="Member">
+	<id column="loginid" property="loginid"/>
+	<result column="pwd" property="pwd"/>
+	<result column="email" property="email"/>
+	<result column="nickname" property="nickname"/>
+	<result column="intro" property="intro"/>
+	<result column="create_Date" property="createDate"/>
+	<result column="profile" property="profile"/>
+	<collection property="writer" resultMap="Writer"></collection>
+	</resultMap>
 
-    <!-- 지윤, 겨운 -->
-    <select id="selectByLoginid" resultMap="resultMapMember" parameterType="string">
+
+	<!-- 지윤, 겨운 -->
+	<select id="selectByLoginid" resultMap="Member">
     <![CDATA[
-        SELECT *
-        FROM member m
-                 left join writer w on m.loginid = w.LOGINID
-        where m.loginid = #{loginid}
-        ]]>
+    SELECT *
+    FROM member m left join writer w
+    on(m.loginid = w.loginid)
+    WHERE m.loginid= #{loginid}
+    ]]>
 	</select>
 
     <select id="selectByNickname" resultType="Member">
-        SELECT *
-        FROM member
-        WHERE nickname = #{nickname}
+	SELECT * FROM member WHERE nickname= #{nickname}
     </select>
 
-    <select id="selectByEmail" resultType="Member">
-        SELECT *
-        FROM member
-        WHERE email = #{email}
-    </select>
+	<select id="selectByEmail" resultType="Member">
+		SELECT * FROM member WHERE email= #{email}
+	</select>
 
-    <insert id="insert" parameterType="Member">
-        INSERT INTO member (loginid, pwd, email, nickname, intro, profile, createdate)
-        VALUES (#{loginid}, #{pwd}, #{email}, #{nickname}, null, null, null)
-    </insert>
+	<insert id="insert" parameterType="Member">
+		INSERT INTO member (loginid,pwd,email,nickname,intro,profile,createdate)
+		VALUES (#{loginid}, #{pwd}, #{email}, #{nickname},null,null,null)
+	</insert>
 
 
-    <update id="updateMember" parameterType="Member">
+	<update id="updateMember" parameterType="Member">
 		<![CDATA[
-        UPDATE member
-        SET pwd      = #{pwd},
-            email    = #{email},
-            nickname = #{nickname},
-            intro    = #{intro}
-        WHERE LOGINID = #{loginid}
-        ]]>
+		UPDATE member
+		SET pwd = #{pwd},
+		email = #{email},
+		nickname = #{nickname},
+		intro = #{intro}
+		WHERE LOGINID = #{loginid}
+		]]>
 	</update>
 
 
-    <delete id="deleteMember" parameterType="String">
-        DELETE
-        FROM member
-        WHERE LOGINID = #{loginid}
-    </delete>
+	<delete id="deleteMember" parameterType="String">
+		DELETE FROM member WHERE LOGINID = #{loginid}
+	</delete>
+
+	<delete id="deleteapply" parameterType="String">
+		DELETE FROM writer WHERE LOGINID = #{loginid}
+	</delete>
 
 </mapper>

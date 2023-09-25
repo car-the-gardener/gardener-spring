@@ -12,7 +12,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Writer {
-  private String loginid; // 로그인아이디
-  private boolean type; // 신청(0,1)
-
+	private String loginid; // 로그인아이디
+	private boolean type; // 신청(0,1)
 }

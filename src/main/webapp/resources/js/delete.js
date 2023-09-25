@@ -15,7 +15,6 @@ $(document).ready(function () {
         success: function (data, textStatus, xhr) {
           if (xhr.status === 200) {
           
-           
             sessionStorage.removeItem("name");
             alert("회원탈퇴가 완료되었습니다.");
             window.location.href = "/";

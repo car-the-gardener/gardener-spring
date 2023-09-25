@@ -13,4 +13,6 @@ public interface MemberMapper {
 	void updateMember(Member mamber);
 
 	boolean deleteMember(String loginid);
+
+	boolean deleteapply(String loginid);
 }
