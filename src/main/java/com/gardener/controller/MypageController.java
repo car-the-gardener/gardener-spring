@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gardener.aop.exception.FindException;
 import com.gardener.aop.exception.UpdateException;
 import com.gardener.domain.Member;
+import com.gardener.domain.Writer;
 import com.gardener.service.MypageService;
 
 import lombok.extern.log4j.Log4j;
@@ -33,15 +34,9 @@ public class MypageController {
 	 */
 	@GetMapping
 	public void mypage(Model model, HttpSession session) {
-		Member member = null;
-		String loginid = (String) session.getAttribute("loginid");
-		log.info("loginid => " + loginid);
-		try {
-			member = service.selectByLoginid(loginid);
-			log.warn(member);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// String loginid = (String) session.getAttribute("loginid");
+		Member member = (Member) session.getAttribute("member");
+		log.info("loginid => " + member);
 		model.addAttribute("member", member);
 	}
 
@@ -62,6 +57,7 @@ public class MypageController {
 			String successMessage = "회원탈퇴가 성공적으로 처리되었습니다.";
 			session.removeAttribute("loginid");
 			session.invalidate();
+
 			return ResponseEntity.ok(successMessage);
 		} else {
 			String errorMessage = "회원탈퇴를 처리하는 중에 오류가 발생했습니다.";
@@ -70,7 +66,7 @@ public class MypageController {
 	}
 
 	/**
-	 * 계정 내 정보 수정하기
+	 * 내 정보 수정하기
 	 */
 
 	@PostMapping(value = "/update")
@@ -95,6 +91,35 @@ public class MypageController {
 			return ResponseEntity.ok("Update successful.");
 		} catch (UpdateException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
+		}
+	}
+
+	/**
+	 * 작가 취소
+	 */
+	@PostMapping("/applydelete")
+	@ResponseBody
+	public ResponseEntity<String> deleteapply(@RequestParam("loginid") String loginid, HttpSession session) {
+		if (loginid == null || loginid.isEmpty()) {
+			String errorMessage = "사용자 ID가 전달되지 않았습니다.";
+			return ResponseEntity.badRequest().body(errorMessage);
+		}
+
+		boolean isDeleted = service.deleteapply(loginid);
+		Writer w = new Writer();
+		if (isDeleted) {
+			String successMessage = "작가취소가 성공적으로 처리되었습니다.";
+			session.removeAttribute("loginid");
+			try {
+				service.selectByLoginid(loginid);
+			} catch (FindException e) {
+				e.printStackTrace();
+			}
+			session.setAttribute("writer", w.isType());
+			return ResponseEntity.ok(successMessage);
+		} else {
+			String errorMessage = "작가취소를 처리하는 중에 오류가 발생했습니다.";
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
 		}
 	}
 

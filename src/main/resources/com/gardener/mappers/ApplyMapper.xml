@@ -6,7 +6,7 @@
 
 	<select id="selectByLoginid" resultType="Writer" parameterType="string">
     <![CDATA[
-    SELECT * FROM member WHERE loginid= #{loginid}
+    SELECT * FROM writer WHERE loginid= #{loginid}
     ]]>
 	</select>
 
