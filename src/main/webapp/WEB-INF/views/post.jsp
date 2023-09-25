@@ -120,6 +120,24 @@ loginid = <%=id%>
   $(".writer-profile-intro").html(postResponse.member.intro);
   $(".writer-profile-pic img").attr("src", postResponse.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
 
+
+  // 좋아요 확인 요청
+  const checkFavorite = () => {
+    postService.checkFavorite(postResponse.postnum, (response) => {
+      console.log(response, "지야")
+      console.log(Object.values(response), "지야")
+      let count = response?.no.length;
+      $(".section-header-icon img[alt='좋아요 표시']").removeClass("click");
+      if (response?.yes.length > 0) {
+        count = response?.no.length + 1;
+        $(".section-header-icon img[alt='좋아요 표시']").addClass("clicked");
+      }
+      $(".section-header-icon span").html(count);
+    });
+  }
+  checkFavorite();
+
+
   // 댓글 리스트 불러오기
   const showList = (page) => {
     replyService.getAllReply({postnum: postResponse.postnum, page: page || 1}, (response) => {
@@ -164,7 +182,6 @@ loginid = <%=id%>
     })
   }
   showList(pageNum);
-
 
   // pagination
   const pagination = (replyCnt) => {
@@ -286,7 +303,6 @@ loginid = <%=id%>
   // 좋아요
   $(".section-header-icon img[alt='좋아요 표시']").click((e) => {
     let result = "";
-
 
     if ($(e.target).attr("class") === "favorite") {
       $(e.target).addClass("clicked");

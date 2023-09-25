@@ -191,6 +191,4 @@ $(() => {
 
 // 수정시 콘텐츠 세팅
   editor.setHTML(JSON.parse($(".postResponse").val()).content);
-
-
 })

@@ -8,6 +8,7 @@ import java.util.List;
 public interface FavoriteMapper {
   void insertFavorite(FavoriteDTO dto);
 
+
   List<FavoriteDTO> findFavoriteByLoginid(FavoriteDTO dto);
 
   void deleteFavorite(FavoriteDTO dto);

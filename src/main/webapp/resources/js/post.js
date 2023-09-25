@@ -112,10 +112,24 @@ postService = (() => {
       }
     })
   }
+
+  const checkFavorite = (postnum, callback) => {
+    $.ajax({
+      url    : `/post/${postnum}/favorite`,
+      async  : false,
+      success: (response) => {
+        callback(response);
+      },
+      error  : (xhr, status) => {
+        console.error(xhr);
+      }
+    })
+  }
+
   const updateFavorite = (postnum, callback, status) => {
     let method = "";
     console.log(status, "넘어온 status")
-    status === "clicked" ? method = "GET" : method = "DELETE";
+    status === "clicked" ? method = "POST" : method = "DELETE";
 
     $.ajax({
       url    : `/post/${postnum}/favorite`,
@@ -130,5 +144,5 @@ postService = (() => {
   }
 
 
-  return {modifyPost, updateFavorite, deletePost}
+  return {modifyPost, updateFavorite, checkFavorite, deletePost}
 })()
