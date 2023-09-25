@@ -54,7 +54,7 @@
 
     <update id="updateFavorite">
         update post
-        set favorite
+        set favorite = #{favorite}
         where postnum = #{postnum}
     </update>
 

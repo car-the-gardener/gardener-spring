@@ -36,12 +36,8 @@ public class PostService {
     return postMapper.updatePost(post);
   }
 
-  //public void updateTotalCnt(Long postnum, int totalCnt) {
-  //  postMapper.updateTotalCnt(postnum, totalCnt);
-  //}
-
-  public void updateFavorite(Long postnum) {
-    postMapper.updateFavorite(postnum);
+  public void updateFvorite(Long postnum, int favorite) {
+    postMapper.updateFavorite(postnum, favorite);
   }
 
   public Long deletePostByPostnum(Long postnum) {

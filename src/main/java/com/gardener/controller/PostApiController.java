@@ -74,25 +74,6 @@ public class PostApiController {
     post.setLoginid(loginid);
     log.info("수정할 post => {}", post);
     postService.updatePostByPostnum(post);
-
     return post.getPostnum();
   }
-
-
-  @GetMapping("/{id}/favorite")
-  public void updateFavorite(@PathVariable Long postnum, int favorite) {
-
-  }
-
-  /**
-   * @param postnum
-   * @return 삭제된 게시글 번호
-   */
-  @DeleteMapping(value = "/{postnum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public Long deletePostByPostnum(@PathVariable Long postnum) {
-    postService.deletePostByPostnum(postnum);
-    return postnum;
-  }
-
-
 }

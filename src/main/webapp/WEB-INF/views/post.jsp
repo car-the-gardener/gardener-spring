@@ -146,7 +146,15 @@ loginid = <%=id%>
         reply += `<div><img src="https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg" alt="유저 이미지">`
         reply += `<div><p class='reply-list--name'>\${response.list[i].member.nickname}</p>`
         reply += `<p class='reply-list--date'><small>\${dateTime}</small></p></div></div>`
-        reply += `<div class='reply-list--btn'><button class="reply-list--btn--remove" data-id=\${response.list[i].id}>삭제</button> <button class="reply-list--btn--modify" data-id=\${response.list[i].id}>수정</button></div>`
+        if (response.list[i].member.nickname === $(".nickname").val()) {
+          reply += `<div class='reply-list--btn'><button class="reply-list--btn--remove" data-id=\${response.list[i].id}>삭제</button> <button class="reply-list--btn--modify" data-id=\${response.list[i].id}>수정</button></div>`;
+        } else {
+          reply += `<div>
+              <img src="/resources/images/thumbs-up.png" alt="좋아요 표시">
+              <span>5</span>
+              <div><img src="/resources/images/report.png" alt="신고 이미지"></div>
+          </div>`
+        }
         reply += `</div>`
         reply += `<div contenteditable = "false" data-id=\${response.list[i].id}>\${response.list[i].content} </div>`
         reply += `</div> <hr>`

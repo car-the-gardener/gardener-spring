@@ -19,7 +19,7 @@ public interface PostMapper {
 
   void updateTotalCnt(@Param("postnum") Long postnum, @Param("totalCnt") int totalCnt);
 
-  void updateFavorite(Long postnum);
+  void updateFavorite(@Param("postnum") Long postnum, @Param("favorite") int favorite);
 
   Long deletePost(Long postnum);
 }

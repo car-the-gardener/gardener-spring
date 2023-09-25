@@ -153,6 +153,21 @@ public class PostController {
     }
   }
 
+  /**
+   * @param postnum
+   * @return 삭제된 게시글 번호
+   */
+  @DeleteMapping(value = "/post/{postnum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public Long deletePostByPostnum(@PathVariable Long postnum) {
+    Post post = postService.findPostByPostnum(postnum);
+    String mainTitleImg = post.getMainTitleImg();
+    String content = post.getContent();
+
+    //postService.deletePostByPostnum(postnum);
+    return postnum;
+  }
+
+
   // 폴더 생성 함수
   private String getFolder() {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
