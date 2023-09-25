@@ -14,11 +14,8 @@
 </head>
 
 <body>
-<% String id = (String) session.getAttribute("loginid");%>
-loginid = <%=id%>
-
-<c:out value="${sessionScope.loginid}"/>
-<c:out value="${sessionScope.nickname}"/>
+loginid: <c:out value="${sessionScope.member.loginid}"/>
+nickname: <c:out value="${sessionScope.member.nickname}"/>
 
 <!-- 섹션 시작 -->
 <section>
@@ -103,7 +100,7 @@ loginid = <%=id%>
 
 <!-- 푸터 -->
 <div class="footer"></div>
-<input type="hidden" value="${sessionScope.nickname}" class="nickname">
+<input type="hidden" value="${sessionScope.member.nickname}" class="nickname">
 <script>
   const postResponse = ${post};
   console.log(postResponse, " postResponse")

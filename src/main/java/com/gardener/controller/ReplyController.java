@@ -1,6 +1,7 @@
 package com.gardener.controller;
 
 import com.gardener.aop.exception.FindException;
+import com.gardener.domain.Member;
 import com.gardener.domain.Reply;
 import com.gardener.service.ReplyService;
 import com.gardener.util.Criteria;
@@ -24,9 +25,8 @@ public class ReplyController {
 
   @PostMapping
   public ResponseEntity<String> insertReply(@RequestBody Reply reply, HttpSession session) {
-    String loginid = (String) session.getAttribute("loginid");
-    reply.setLoginid(loginid);
-    log.info("댓글 담 => {}", reply);
+    Member member = (Member) session.getAttribute("member");
+    reply.setLoginid(member.getLoginid());
     int result = replyService.insert(reply);
 
     return result == 1 ? new ResponseEntity<>("Success", HttpStatus.OK)
@@ -38,15 +38,14 @@ public class ReplyController {
     Criteria cri = new Criteria(page, 5);
     List<Reply> allReply = replyService.findAll(cri, postnum);
     int count = replyService.count(postnum);
-    log.info("댓글 총 수 => {}", count);
 
     return new ResponseEntity<>(new ReplyPaging(count, allReply), HttpStatus.OK);
   }
 
   @RequestMapping(value = "/{id}", method = {RequestMethod.PUT, RequestMethod.PATCH})
   public ResponseEntity<String> modify(HttpSession session, @RequestBody Reply reply, @PathVariable Long id) {
-    String logindid = (String) session.getAttribute("logindid");
-    reply.setLoginid(logindid);
+    Member member = (Member) session.getAttribute("member");
+    reply.setLoginid(member.getLoginid());
     int result = replyService.update(reply);
 
     return result == 1

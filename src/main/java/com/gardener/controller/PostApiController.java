@@ -1,6 +1,7 @@
 package com.gardener.controller;
 
 import com.gardener.aop.exception.FindException;
+import com.gardener.domain.Member;
 import com.gardener.mappers.PostMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -37,8 +38,8 @@ public class PostApiController {
    */
   @PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public Long savePost(@RequestBody Post post, HttpSession session) {
-    post.setLoginid((String) session.getAttribute("loginid"));
-    log.info("requestbody {}", post);
+    Member member = (Member) session.getAttribute("member");
+    post.setLoginid(member.getLoginid());
     return postService.savePost(post);
   }
 
@@ -70,9 +71,8 @@ public class PostApiController {
    */
   @RequestMapping(value = "/{postnum}", method = {RequestMethod.PATCH, RequestMethod.PUT}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public Long updatePostBypostnum(@RequestBody Post post, HttpSession session) {
-    String loginid = (String) session.getAttribute("loginid");
-    post.setLoginid(loginid);
-    log.info("수정할 post => {}", post);
+    Member member = (Member) session.getAttribute("member");
+    post.setLoginid(member.getLoginid());
     postService.updatePostByPostnum(post);
     return post.getPostnum();
   }
