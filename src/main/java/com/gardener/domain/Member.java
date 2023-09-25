@@ -20,6 +20,7 @@ public class Member {
 	private String intro; // 자기소개
 	private String createDate; // 가입날짜
 	private String profile; // 프로필사진
+	private Writer writer;
 
 	public Member(String loginid, String pwd, String email, String name) {
 		this.loginid = loginid;

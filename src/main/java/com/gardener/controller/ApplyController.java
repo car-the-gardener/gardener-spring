@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gardener.aop.exception.FindException;
+import com.gardener.domain.Member;
 import com.gardener.domain.Writer;
 import com.gardener.service.ApplyService;
 
@@ -33,25 +35,28 @@ public class ApplyController {
 	 */
 	@GetMapping
 	public void apply(Model model, HttpSession session) {
-		Writer writer = null;
-		String loginid = (String) session.getAttribute("loginid");
-		log.info("loginid => " + loginid);
-		try {
-			writer = service.selectByLoginid(loginid);
-			log.warn(writer);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Member member = (Member) session.getAttribute("member");
+		Writer writer = member.getWriter();
+		log.info("loginid => " + member.getLoginid());
+
 		model.addAttribute("writer", writer);
 	}
 
 	@PostMapping
 	public ResponseEntity<String> insertWriter(@RequestParam("loginid") String loginid, HttpSession session) {
+		log.warn("loginid  " + loginid);
 		if (loginid == null) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("false");
 		}
-
+		// Member m = (Member) session.getAttribute("Member");꺼내오는코드
 		boolean result = service.insertWriter(loginid);
+		Writer w = null;
+		try {
+			w = service.selectByLoginid(loginid);
+		} catch (FindException e) {
+			e.printStackTrace();
+		}
+		session.setAttribute("writer", w.isType());
 		log.warn("result:" + result);
 		return ResponseEntity.ok(String.valueOf(result));
 	}

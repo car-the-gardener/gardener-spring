@@ -22,9 +22,9 @@ public class MemberService {
 	}
 
 	public void idDupChk(String loginId) throws FindException {
-		Member m = null;	
+		Member m = null;
 		m = mapper.selectByLoginid(loginId);
-		
+
 		if (m != null) {
 			throw new FindException("이미 사용중인 아이디 입니다");
 			// loginId에 해당 고객이 있는 경우(중복인 경우)
@@ -49,7 +49,9 @@ public class MemberService {
 
 	// 로그인
 	public Member login(String loginId, String pwd) throws FindException {
+		log.warn("loginid :[" + loginId + "], pwd :[" + pwd + "]");
 		Member m = mapper.selectByLoginid(loginId);
+		log.warn("member :" + m);
 		if (pwd.equals(m.getPwd())) {
 			return m; // 로그인 성공
 		} else {
