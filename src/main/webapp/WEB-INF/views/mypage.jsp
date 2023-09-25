@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
   <!DOCTYPE html>
   <html>
 
@@ -27,6 +30,8 @@
     <script src="/resources/js/cancel.js"></script>
 
     <title>Member</title>
+    
+
   </head>
   <body>
 
@@ -45,6 +50,7 @@
         <div class="profile-photo" style="margin-left: 140px">
           <img id="imgThumb" src="https://i.imgur.com/qyTEOBF.jpg" style="height: 150px" width="150px" />
           <span class="mask"></span>
+          
         </div>
         <!--프로필 사진 끝-->
         <!--내 정보 내용 시작-->
@@ -68,19 +74,29 @@
             <span>자기소개 </span>
             <input class="intro" id="intro" readonly rows="3"  value= "${member.intro}" />
             <!--input type="hidden" id="profile"/-->
+            <input type="hidden" id="type" value="${sessionScope.writer}"/>
 		</p>
         </nav>
         <!--내 정보 내용 끝-->
       </dl>
     </header>
+     <c:out value="${sessionScope.writer}"/>
     <!--본문 내용 끝-->
     <!--버튼 클릭 시작-->
     <div class="container">
       <button class="modifybtn btn" >회원정보수정</button>
+      <c:choose>
+      <c:when test="${sessionScope.writer == true}">
+      <button class="cancel btn">작가취소</button>
+      </c:when>
+      <c:otherwise>
       <button class="apply btn">작가신청</button>
-      <button class="deletebtn">회원탈퇴</button>
+      </c:otherwise>
+      </c:choose>
+      <button class="deletebtn btn">회원탈퇴</button>
       </div>
     </div>
+    
     <!--버튼 클릭 끝-->
 <%@ include file="./common/footer.jsp" %>
   </body>

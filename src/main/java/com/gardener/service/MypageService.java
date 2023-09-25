@@ -32,4 +32,8 @@ public class MypageService {
 	public boolean deleteMember(String loginid) {
 		return mapper.deleteMember(loginid);
 	}
+
+	public boolean deleteapply(String loginid) {
+		return mapper.deleteapply(loginid);
+	}
 }

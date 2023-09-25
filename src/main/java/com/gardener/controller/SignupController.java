@@ -1,5 +1,6 @@
 package com.gardener.controller;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,4 +64,8 @@ public class SignupController {
 		}
 	}
 
+=======
+public class SignupController {
+
+>>>>>>> 5e82415eb5641d8a856f683eb36cb6dad85155ca
 }

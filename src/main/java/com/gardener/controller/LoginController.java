@@ -32,11 +32,13 @@ public class LoginController {
 	public ResponseEntity<String> login(@RequestParam("loginid") String id, @RequestParam("password") String pwd,
 			HttpServletRequest request) throws FindException {
 
-		Member m = service.login(id, pwd);
-		if (m != null) {
-			HttpSession session = request.getSession(); // 세션을 가져옴
-			session.setAttribute("loginid", id);
-			session.setMaxInactiveInterval(1800); // 유효시간설정 (1800초 = 30분)
+		Member member = service.login(id, pwd);
+		if (member != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("member", member);
+			session.setAttribute("writer", member.getWriter().isType());
+			System.out.println(member.getWriter().isType());
+			// session.setMaxInactiveInterval(1800); // 유효시간설정 (1800초 = 30분)
 			return new ResponseEntity("1", HttpStatus.OK);
 		} else {
 			return new ResponseEntity("0", HttpStatus.INTERNAL_SERVER_ERROR);
