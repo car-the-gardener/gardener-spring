@@ -143,7 +143,6 @@ loginid = <%=id%>
 <input class="postResponse" type="hidden" value='${post}'>
 <script>
   const postResponse = ${post};
-  console.log(postResponse, "수정할 데이터");
 
   if (postResponse) {
     $(".main-image").css(`background-image`, `url(\${postResponse.mainTitleImg})`)

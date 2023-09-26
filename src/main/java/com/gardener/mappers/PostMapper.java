@@ -13,7 +13,7 @@ public interface PostMapper {
 
   Post findBypostnum(Long postnum);
 
-  List<Post> findAll();
+  List<Post> findAllMyPost(String loginid);
 
   Long updatePost(Post post);
 
@@ -22,4 +22,5 @@ public interface PostMapper {
   void updateFavorite(@Param("postnum") Long postnum, @Param("favorite") int favorite);
 
   Long deletePost(Long postnum);
+
 }

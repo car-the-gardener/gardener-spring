@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,6 +42,12 @@ public class PostApiController {
     Member member = (Member) session.getAttribute("member");
     post.setLoginid(member.getLoginid());
     return postService.savePost(post);
+  }
+
+  @GetMapping()
+  public List<Post> getAllMyPost(String loginid) {
+    postService.findAllMyPost(loginid);
+    return null;
   }
 
   /**
@@ -76,4 +83,5 @@ public class PostApiController {
     postService.updatePostByPostnum(post);
     return post.getPostnum();
   }
+
 }

@@ -1,6 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,intellij,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,intellij,eclipse
 
+README.md
 .springBeans
 assets
 src/test/**

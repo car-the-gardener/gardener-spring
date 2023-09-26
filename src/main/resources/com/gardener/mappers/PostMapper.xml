@@ -34,8 +34,8 @@
         m.loginid where postnum = #{p.postnum}
     </select>
 
-    <select id="findAll" resultType="post">
-        select * from post
+    <select id="findAllMyPost" resultType="post">
+        select * from post where loginid = #{loginid}
     </select>
 
     <update id="updatePost">

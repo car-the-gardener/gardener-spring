@@ -1,7 +1,7 @@
 // html태그가 있어 꺽쇠때문에 ajax로 요청한다.
 const replyService = (() => {
   const addReply = (reply, callback, error) => {
-    console.log(reply, "넘겨받은 reply")
+
     $.ajax({
       url        : "/reply",
       method     : "POST",
@@ -27,7 +27,6 @@ const replyService = (() => {
     }
 
     $.getJSON(`/reply/${postnum}/${page}`, (response) => {
-      console.log(response, "댓글 응답")
       if (callback) {
         callback(response);
       }
@@ -128,7 +127,6 @@ postService = (() => {
 
   const updateFavorite = (postnum, callback, status) => {
     let method = "";
-    console.log(status, "넘어온 status")
     status === "clicked" ? method = "POST" : method = "DELETE";
 
     $.ajax({
