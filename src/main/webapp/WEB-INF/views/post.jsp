@@ -14,6 +14,8 @@
 </head>
 
 <body>
+loginid: <c:out value="${sessionScope.member.loginid}"/>
+nickname: <c:out value="${sessionScope.member.nickname}"/>
 
 <!-- 섹션 시작 -->
 <section>
@@ -37,19 +39,6 @@
 
     <!-- 아티클 시작 -->
     <article>
-        사랑의 물리학 / 김인육
-        질량의 크기는 부피와 비례하지 않는다
-        제비꽃같이 조그마한 그 계집애가
-        꽃잎같이 하늘거리는 그 계집애가
-        지구보다 더 큰 질량으로 나를 끌어당긴다.
-        순간, 나는
-        뉴턴의 사과처럼
-        사정없이 그녀에게로 굴러 떨어졌다
-        쿵 소리를 내며, 쿵쿵 소리를 내며
-        심장이
-        하늘에서 땅까지
-        아찔한 진자운동을 계속하였다
-        첫사랑이었다.
     </article>
     <!-- 아티클 끝 -->
 
@@ -59,13 +48,12 @@
         <!-- 섹션 헤더 엄지척,신고 시작 -->
         <div class="section-header-icon">
             <div>
-                <img src="/resources/images/thumbs-up.png" alt="좋아요 표시">
+                <img src="/resources/images/thumbs-up.png" alt="좋아요 표시" class="favorite">
                 <span>5</span>
-                <div><img src="/resources/images/report.png" alt="신고 이미지"></div>
+                <div><img src="/resources/images/report.png" alt="신고 이미지" class="report"></div>
             </div>
         </div>
         <!-- 섹션 헤더 엄지척,신고 끝 -->
-
         <div class="modify-btn">
             <div>
                 <button>수정</button>
@@ -112,13 +100,13 @@
 
 <!-- 푸터 -->
 <div class="footer"></div>
-
+<input type="hidden" value="${sessionScope.member.nickname}" class="nickname">
 <script>
   const postResponse = ${post};
   console.log(postResponse, " postResponse")
   let pageNum = 1;
 
-  $(".main-image").css("background-image", `url(\${postResponse.mainTitleImg})`)
+  $(".main-image").css("background-image", `url(\${postResponse?.mainTitleImg})`)
   $(".section-header-main-title").html(postResponse.mainTitle);
   $(".section-header-main-subtitle").html(postResponse?.subTitle || "");
   $(".section-header-info-writer").html(postResponse.member.nickname);
@@ -129,9 +117,26 @@
   $(".writer-profile-intro").html(postResponse.member.intro);
   $(".writer-profile-pic img").attr("src", postResponse.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
 
+
+  // 좋아요 확인 요청
+  const checkFavorite = () => {
+    postService.checkFavorite(postResponse.postnum, (response) => {
+      console.log(response, " ㅇㅇ")
+      let count = response?.no?.length || 0;
+      $(".section-header-icon img[alt='좋아요 표시']").removeClass("click");
+      if (response?.yes?.length > 0) {
+        count += 1;
+        $(".section-header-icon img[alt='좋아요 표시']").addClass("clicked");
+      }
+      $(".section-header-icon span").html(count);
+    });
+  }
+  checkFavorite();
+
+
   // 댓글 리스트 불러오기
   const showList = (page) => {
-    replyService.getAllReply({postNum: postResponse.postnum, page: page || 1}, (response) => {
+    replyService.getAllReply({postnum: postResponse.postnum, page: page || 1}, (response) => {
       $(".section-reply p:first-child").text(`\${response.replyCnt}개`);
       let reply = "";
 
@@ -139,12 +144,13 @@
       // 새로운 댓글 달았을때 뒤로 페이지 이동
       if (page === -1) {
         pageNum = Math.ceil(response.replyCnt / 5.0); // 이건 10개씩 보여주기로 한 기준이라 10으로 나눈건가?? 난 5로 보여줘야하는데 5로 바꿀까?
-        console.log(pageNum, "새로 추가시 pageNum")
         showList(pageNum);
         return;
       }
 
       if (response.list.length === 0 || response.list === null) {
+        $(".section-reply-list").html("");
+        $(".pagination-wrap").html("");
         return;
       }
 
@@ -154,7 +160,15 @@
         reply += `<div><img src="https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg" alt="유저 이미지">`
         reply += `<div><p class='reply-list--name'>\${response.list[i].member.nickname}</p>`
         reply += `<p class='reply-list--date'><small>\${dateTime}</small></p></div></div>`
-        reply += `<div class='reply-list--btn'><button class="reply-list--btn--remove" data-id=\${response.list[i].id}>삭제</button> <button class="reply-list--btn--modify" data-id=\${response.list[i].id}>수정</button></div>`
+        if (response.list[i].member.nickname === $(".nickname").val()) {
+          reply += `<div class='reply-list--btn'><button class="reply-list--btn--remove" data-id=\${response.list[i].id}>삭제</button> <button class="reply-list--btn--modify" data-id=\${response.list[i].id}>수정</button></div>`;
+        } else {
+          reply += `<div>
+              <img src="/resources/images/thumbs-up.png" alt="좋아요 표시">
+              <span>5</span>
+              <div><img src="/resources/images/report.png" alt="신고 이미지"></div>
+          </div>`
+        }
         reply += `</div>`
         reply += `<div contenteditable = "false" data-id=\${response.list[i].id}>\${response.list[i].content} </div>`
         reply += `</div> <hr>`
@@ -216,7 +230,7 @@
   $(".section-reply button").click(() => {
     const data = {
       content: $(".section-reply textarea").val().trim(),
-      postNum: postResponse.postnum
+      postnum: postResponse.postnum
     }
 
     if (data.content === "") {
@@ -224,7 +238,7 @@
       return;
     }
 
-    replyService.add(data, (response) => {
+    replyService.addReply(data, (response) => {
       $(".section-reply textarea").val("");
       showList(-1);
     });
@@ -232,7 +246,8 @@
 
   // 댓글 삭제
   $(".section-reply-list").on("click", ".reply-list--btn--remove", (e) => {
-    replyService.remove($(e.currentTarget).data("id"), (response) => {
+    replyService.removeReply($(e.currentTarget).data("id"), (response) => {
+      alert(response + " 삭제 => " + pageNum);
       showList(pageNum);
     })
   })
@@ -257,7 +272,7 @@
         id     : replyId
       };
 
-      replyService.modify(reply, (response) => {
+      replyService.modifyReply(reply, (response) => {
         replyDiv.removeClass("edit-mode");
         replyDiv.prop("contenteditable", "false");
         replyDiv.html();
@@ -267,6 +282,53 @@
       })
     }
   })
+
+  // 포스트 수정
+  $(".modify-btn button:first-child").click((e) => {
+    postService.modifyPost(`/posting/\${postResponse.postnum}`);
+  })
+
+  // 포스트 삭제
+  $(".modify-btn button:last-child").click((e) => {
+    postService.deletePost(postResponse.postnum, (response) => {
+      alert(response + " 삭제");
+      location.href = "/";
+    });
+  })
+
+  // 좋아요
+  $(".section-header-icon img[alt='좋아요 표시']").click((e) => {
+    let result = "";
+
+    if ($(e.target).attr("class") === "favorite") {
+      $(e.target).addClass("clicked");
+      result = "clicked"
+    } else {
+      result = "click"
+    }
+    if ($(".nickname").val() === "") {
+      swal("로그인 오네가이시마스");
+      return;
+    }
+
+    postService.updateFavorite(postResponse.postnum, (response) => {
+      if (response === "false") {
+        let favoriteCnt = $(".section-header-icon span").html();
+        $(e.target).removeClass("clicked");
+        $(".section-header-icon span").html(favoriteCnt - 1);
+        return;
+      }
+      $(".section-header-icon span").html(postResponse.favorite + 1);
+    }, result)
+  })
+
+
+  // 유저 구별
+  if ($(".nickname").val() === postResponse.member.nickname) {
+    $(".section-header-icon img[alt='신고 이미지']").css("display", "none");
+  } else {
+    $(".modify-btn").css("display", "none");
+  }
 
 </script>
 </body>

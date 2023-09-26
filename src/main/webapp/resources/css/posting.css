@@ -87,7 +87,7 @@ section div.section-header-title > input[name="title"] {
     font-family: "Diphylleia";
 }
 
-section div.section-header-subtitle > input[name="subtitle"] {
+section div.section-header-title input[name="subtitle"] {
     width: 100%;
     text-align: center;
     font-size: large;

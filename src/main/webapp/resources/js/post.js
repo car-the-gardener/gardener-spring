@@ -1,6 +1,6 @@
 // html태그가 있어 꺽쇠때문에 ajax로 요청한다.
 const replyService = (() => {
-  const add = (reply, callback, error) => {
+  const addReply = (reply, callback, error) => {
     console.log(reply, "넘겨받은 reply")
     $.ajax({
       url        : "/reply",
@@ -18,7 +18,7 @@ const replyService = (() => {
   }
 
   const getAllReply = (param, callback, error) => {
-    const postNum = param.postNum;
+    const postnum = param.postnum;
     let page = 0;
     if (param.page === -1) {
       page = 1;
@@ -26,18 +26,16 @@ const replyService = (() => {
       page = param.page;
     }
 
-    $.getJSON(`/reply/${postNum}/${page}`, (response) => {
+    $.getJSON(`/reply/${postnum}/${page}`, (response) => {
       console.log(response, "댓글 응답")
       if (callback) {
         callback(response);
       }
     }).fail((xhr, status) => {
-      //if (page === -1) console.log("-1이 넘어옴")
-      //else console.log(status, "가져올 댓글 없음");
     })
   }
 
-  const remove = (id, callback, error) => {
+  const removeReply = (id, callback, error) => {
     $.ajax({
       url    : `/reply/${id}`,
       method : "DELETE",
@@ -52,7 +50,7 @@ const replyService = (() => {
     })
   }
 
-  const modify = (reply, callback, Error) => {
+  const modifyReply = (reply, callback, error) => {
     $.ajax({
       url        : `/reply/${reply.id}`,
       method     : "PUT",
@@ -91,5 +89,60 @@ const replyService = (() => {
     }
   }
 
-  return {add, getAllReply, remove, modify, displyTime}
+  return {addReply, getAllReply, removeReply, modifyReply, displyTime}
+})()
+
+// ----------------------------------------------------------------------------------
+
+postService = (() => {
+
+  const modifyPost = (url) => {
+    location.href = url;
+  };
+
+  const deletePost = (postnum, callback) => {
+    $.ajax({
+      url    : `/post/${postnum}`,
+      method : "DELETE",
+      success: (response) => {
+        callback(response);
+      },
+      error  : (xhr, status) => {
+        console.log(status)
+      }
+    })
+  }
+
+  const checkFavorite = (postnum, callback) => {
+    $.ajax({
+      url    : `/post/${postnum}/favorite`,
+      async  : false,
+      success: (response) => {
+        callback(response);
+      },
+      error  : (xhr, status) => {
+        console.error(xhr);
+      }
+    })
+  }
+
+  const updateFavorite = (postnum, callback, status) => {
+    let method = "";
+    console.log(status, "넘어온 status")
+    status === "clicked" ? method = "POST" : method = "DELETE";
+
+    $.ajax({
+      url    : `/post/${postnum}/favorite`,
+      method : method,
+      async  : false,
+      success: (response) => {
+        callback(response);
+      },
+      error  : (xhr, status) => {
+      }
+    })
+  }
+
+
+  return {modifyPost, updateFavorite, checkFavorite, deletePost}
 })()
