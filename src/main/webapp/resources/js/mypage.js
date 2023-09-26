@@ -1,27 +1,35 @@
 $(document).ready(() => {
   let clickStatus = 0;
-  
+
   alert("마이페이지로 이동");
   /* mypage 사용자 정보 가져오기 */
-  $.ajax({
-    url: "http://localhost:8888/mypage",
-    method: "get",
-    dataType: "JSON",
-    success: (response) => {
-      console.log(response);
-      const userInfo = response;
+  function getUserInfo() {
+    $.ajax({
+      url: "/mypage",
+      method: "get",
+      dataType: "JSON",
+      success: (response) => {
+        console.log(response);
+        const userInfo = response;
 
-      $("#loginid").val(userInfo.loginid);
-      $("#pwd").val(userInfo.pwd);
-      $("#nickname").val(userInfo.nickname);
-      $("#email").val(userInfo.email);
-      $("#createDate").val(userInfo.createDate);
-      $("#intro").val(userInfo.intro);
-    },
-    error: (error) => {
-      console.log("Failed to get user info:", error);
-    }
-  });
+        $("#loginid").val(userInfo.loginid);
+        $("#pwd").val(userInfo.pwd);
+        $("#nickname").val(userInfo.nickname);
+        $("#email").val(userInfo.email);
+        $("#createDate").val(userInfo.createDate);
+        $("#intro").val(userInfo.intro);
+      },
+      error: (xhr, status, error) => {
+        console.log(
+          "Failed to get user info. Status:",
+          status,
+          "Error:",
+          error
+        );
+      },
+    });
+  }
+  getUserInfo();
 
   /*정보수정 시작하기*/
   $(".modifybtn.btn").on("click", function () {
@@ -29,7 +37,7 @@ $(document).ready(() => {
 
     if (clickStatus === 0) {
       inputs.each(function () {
-        if (this.id !== "createDate"&& this.id !== "loginid") {
+        if (this.id !== "createDate" && this.id !== "loginid") {
           $(this).removeAttr("readonly");
         }
       });
@@ -50,13 +58,14 @@ $(document).ready(() => {
       $("input").each(function () {
         data[this.id] = $(this).val();
       });
-       
+
       $.ajax({
         url: "/mypage/update",
         method: "POST",
         data: data,
         success: function (response) {
           console.log("Data successfully sent to the server!");
+          getUserInfo();
         },
         error: function (error) {
           console.log("Failed to send data to the server:", error);

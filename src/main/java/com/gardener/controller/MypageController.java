@@ -34,7 +34,6 @@ public class MypageController {
 	 */
 	@GetMapping
 	public void mypage(Model model, HttpSession session) {
-		// String loginid = (String) session.getAttribute("loginid");
 		Member member = (Member) session.getAttribute("member");
 		log.info("loginid => " + member);
 		model.addAttribute("member", member);
@@ -45,7 +44,7 @@ public class MypageController {
 	 */
 	@PostMapping("/delete")
 	@ResponseBody
-	public ResponseEntity<String> deleteMember(@RequestParam("loginid") String loginid, HttpSession session) {
+	public ResponseEntity<String> deleteMember(@RequestParam String loginid, HttpSession session) {
 		if (loginid == null || loginid.isEmpty()) {
 			String errorMessage = "사용자 ID가 전달되지 않았습니다.";
 			return ResponseEntity.badRequest().body(errorMessage);
@@ -72,7 +71,7 @@ public class MypageController {
 	@PostMapping(value = "/update")
 	public ResponseEntity<String> updateMember(@RequestParam("loginid") String loginid, @RequestParam("pwd") String pwd,
 			@RequestParam("email") String email, @RequestParam("nickname") String nickname,
-			@RequestParam("intro") String intro) throws FindException {
+			@RequestParam("intro") String intro, Model model, HttpSession session) throws FindException {
 
 		try {
 			log.warn("loginid:" + loginid);
@@ -87,8 +86,10 @@ public class MypageController {
 
 			// 업데이트된 Member 객체를 데이터베이스에 저장
 			service.updateMember(member);
+			session.setAttribute("member", member);
 
 			return ResponseEntity.ok("Update successful.");
+
 		} catch (UpdateException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
 		}
@@ -99,8 +100,8 @@ public class MypageController {
 	 */
 	@PostMapping("/applydelete")
 	@ResponseBody
-	public ResponseEntity<String> deleteapply(@RequestParam("loginid") String loginid, HttpSession session) {
-		if (loginid == null || loginid.isEmpty()) {
+	public ResponseEntity<String> deleteapply(@RequestParam String loginid, HttpSession session) {
+		if (loginid == null) {
 			String errorMessage = "사용자 ID가 전달되지 않았습니다.";
 			return ResponseEntity.badRequest().body(errorMessage);
 		}

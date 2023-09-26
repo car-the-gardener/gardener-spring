@@ -46,12 +46,20 @@
     <!--본문 내용 시작-->
     <header>
       <dl>
-        <!--프로필 사진 시작-->
+        <!--프로필 사진 시작
         <div class="profile-photo" style="margin-left: 140px">
           <img id="imgThumb" src="https://i.imgur.com/qyTEOBF.jpg" style="height: 150px" width="150px" />
           <span class="mask"></span>
           
+        </div>-->
+        <p>
+          <div class="img-pic">
+            <label for="imgBtn">
+                <img src="/resources/images/image.png" alt="">
+            </label>
+            <input id="imgBtn" type="file" name="image" accept="image/*" hidden>
         </div>
+        </p>
         <!--프로필 사진 끝-->
         <!--내 정보 내용 시작-->
         <nav>
@@ -76,6 +84,7 @@
             <!--input type="hidden" id="profile"/-->
             <input type="hidden" id="type" value="${sessionScope.writer}"/>
 		</p>
+		
         </nav>
         <!--내 정보 내용 끝-->
       </dl>

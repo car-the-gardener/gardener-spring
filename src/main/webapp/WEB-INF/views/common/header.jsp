@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<% String id = (String) session.getAttribute("loginid");%>
-loginid = <%=id%>
 
-<c:out value="${sessionScope.loginid}"/>
+<c:out value="${sessionScope.member.loginid}"/>
 
 <h1 style="text-align: center; margin-top: 10px">
     <a href="./"><img src="https://i.imgur.com/2enY1dP.png"/></a>
@@ -27,7 +25,7 @@ loginid = <%=id%>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <c:choose>
-                <c:when test="${!empty sessionScope.loginid}">
+                <c:when test="${!empty sessionScope.member.loginid}">
                     <li class="nav-item ms-5">
                         <a class="nav-link" href="#" style="font-size: 20px">서재</a>
                     </li>

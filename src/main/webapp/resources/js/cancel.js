@@ -17,8 +17,7 @@ $(document).ready(function () {
               alert("작가가 취소되었습니다.");
               $(".applybtn").text("작가신청")
               window.location.href = "/mypage";
-            } else {
-              alert("작가 취소를 실패했습니다.");
+          
             }
           },
           error: function (xhr, textStatus, errorThrown) {

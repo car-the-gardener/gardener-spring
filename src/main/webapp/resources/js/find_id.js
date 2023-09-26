@@ -22,7 +22,7 @@ $(() => {
 					alert('고객님의 아이디는 ' + response + ' 입니다')
 					location.href =`/`
 				} else {
-					alert('잘못된 정보입니다, 다시 입력해주세요')
+				  alert('잘못된 정보입니다, 다시 입력해주세요')
 				}
 			},
 			error: ()=> {
