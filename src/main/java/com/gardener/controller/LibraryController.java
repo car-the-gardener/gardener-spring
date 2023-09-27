@@ -7,14 +7,13 @@ import com.gardener.service.LibraryService;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -30,7 +29,7 @@ public class LibraryController {
 
   @GetMapping(value = "/like", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public void getAllFavoritePost(HttpSession session, Model model) throws FindException {
-    Gson gson = new Gson();
+   /* Gson gson = new Gson();
     Member member = (Member) session.getAttribute("member");
 
     List<Post> allPost = libraryService.getAllFavoritePost(member.getLoginid());
@@ -42,6 +41,29 @@ public class LibraryController {
     }
 
     log.info("all Post => {}", allPost);
+    model.addAttribute("post", gson.toJson(allPost));*/
+    String allFavoritePostWithPaging = getAllFavoritePostWithPaging(session, model, 1);
+    model.addAttribute("post", allFavoritePostWithPaging);
+    log.info("혜지 => {}", allFavoritePostWithPaging);
+  }
+
+  @GetMapping(value = "/like/{num}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public @ResponseBody String getAllFavoritePostWithPaging(HttpSession session, Model model, @PathVariable int num) throws FindException {
+    log.info("넘어오는 num => {}", num);
+    Gson gson = new Gson();
+    Member member = (Member) session.getAttribute("member");
+
+    List<Post> allPost = libraryService.getAllFavoritePostWithPaging(member.getLoginid(), num);
+    if (!allPost.isEmpty()) {
+      allPost.forEach(post -> {
+        String s = post.getContent().replaceAll("<[^>]*>", "");
+        post.setContent(s);
+      });
+    }
+
+    log.info("all Post => {}", allPost);
+    log.info("all Post size=> {}", allPost.size());
     model.addAttribute("post", gson.toJson(allPost));
+    return gson.toJson(allPost);
   }
 }

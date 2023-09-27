@@ -16,4 +16,8 @@ public class LibraryService {
   public List<Post> getAllFavoritePost(String loginid) {
     return libraryMapper.getAllFavoritePost(loginid);
   }
+
+  public List<Post> getAllFavoritePostWithPaging(String loginid, int num) {
+    return libraryMapper.getAllFavoritePostWithPaging(loginid, num);
+  }
 }

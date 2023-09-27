@@ -34,9 +34,11 @@
             </div>
         </div>
     </section>
+    <hr class="hr">
 
 </main>
 
+<input class="postResponse" type="hidden" value='${post}'>
 <script>
   const postResponse = ${post};
   let post = "";
@@ -45,12 +47,13 @@
   if (postResponse.length === 0) {
     console.log("가져올 글이 없다.");
     // 서버에서 JSP 페이지를 가져와서 section 요소에 삽입
-    $.get("/resources/exception-page/favorite-exception.html", function (data) {
+    $.get("/resources/exception-page/favorite-exception.html", data => {
       $("section").html(data);
     });
   }
 
   for (p of postResponse) {
+    post += `<hr>`
     post += `<div class='section-post' data-postnum=\${p.postnum}>`;
     post += `<div><h4>\${p.mainTitle}</h4>`;
     post += `<h5>\${p.subTitle || ""}</h5>`;

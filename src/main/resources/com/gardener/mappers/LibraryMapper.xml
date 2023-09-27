@@ -20,13 +20,28 @@
 
 
     <select id="getAllFavoritePost" resultMap="postResultMap">
+        <![CDATA[
         select *
-        from (select postnum, main_title, sub_title, content, main_title_img, category, favorite, nickname
+        from (select /*+ INDEX_DESC(p POST_INDEX)*/ rownum rn, postnum, main_title, sub_title, content, main_title_img, category, favorite, nickname
         from post p
         join member m on p.loginid = m.loginid
-        where favorite > 0) pm
+        where favorite > 0 and rownum <= 4) pm
         join favorite f on pm.postnum = f.postnum
         where loginid = #{loginid}
+        AND rn >=0
+        ]]>
     </select>
 
+    <select id="getAllFavoritePostWithPaging" resultMap="postResultMap">
+        <![CDATA[
+        select *
+        from (select /*+ INDEX_DESC(p POST_INDEX)*/ rownum rn, postnum, main_title, sub_title, content, main_title_img, category, favorite, nickname
+        from post p
+        join member m on p.loginid = m.loginid
+        where favorite > 0 and rownum <= #{num} * 4) pm
+        join favorite f on pm.postnum = f.postnum
+        where loginid = #{loginid}
+        AND rn > (#{num} - 1) * 4
+        ]]>
+    </select>
 </mapper>
