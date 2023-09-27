@@ -29,27 +29,12 @@ public class LibraryController {
 
   @GetMapping(value = "/like", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public void getAllFavoritePost(HttpSession session, Model model) throws FindException {
-   /* Gson gson = new Gson();
-    Member member = (Member) session.getAttribute("member");
-
-    List<Post> allPost = libraryService.getAllFavoritePost(member.getLoginid());
-    if (!allPost.isEmpty()) {
-      allPost.forEach(post -> {
-        String s = post.getContent().replaceAll("<[^>]*>", "");
-        post.setContent(s);
-      });
-    }
-
-    log.info("all Post => {}", allPost);
-    model.addAttribute("post", gson.toJson(allPost));*/
     String allFavoritePostWithPaging = getAllFavoritePostWithPaging(session, model, 1);
     model.addAttribute("post", allFavoritePostWithPaging);
-    log.info("혜지 => {}", allFavoritePostWithPaging);
   }
 
   @GetMapping(value = "/like/{num}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public @ResponseBody String getAllFavoritePostWithPaging(HttpSession session, Model model, @PathVariable int num) throws FindException {
-    log.info("넘어오는 num => {}", num);
     Gson gson = new Gson();
     Member member = (Member) session.getAttribute("member");
 
@@ -61,8 +46,6 @@ public class LibraryController {
       });
     }
 
-    log.info("all Post => {}", allPost);
-    log.info("all Post size=> {}", allPost.size());
     model.addAttribute("post", gson.toJson(allPost));
     return gson.toJson(allPost);
   }
