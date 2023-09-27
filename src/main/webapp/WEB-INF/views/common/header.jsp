@@ -3,6 +3,23 @@
 
 <c:out value="${sessionScope.member.loginid}"/>
 
+<!-- Bootstrap CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Carousel CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<!-- Font Awesome CDN -->
+<script src="https://kit.fontawesome.com/a00fe672c7.js" crossorigin="anonymous"></script>
+
+<!-- CSS파일 -->
+<link rel="stylesheet" href="/resources/css/index.css">
+<link rel="stylesheet" href="/resources/css/carousel.css">
+<link rel="stylesheet" href="/resources/css/img.css">
+<link rel="stylesheet" href="/resources/css/category.css">
+<link rel="stylesheet" href="/resources/css/cardgrid.css">
+
 <h1 style="text-align: center; margin-top: 10px">
     <a href="./"><img src="https://i.imgur.com/2enY1dP.png"/></a>
 </h1>
@@ -27,7 +44,7 @@
                 <c:choose>
                 <c:when test="${!empty sessionScope.member.loginid}">
                     <li class="nav-item ms-5">
-                        <a class="nav-link" href="/library" style="font-size: 20px">서재</a>
+                        <a class="nav-link" href="/library/like" style="font-size: 20px">서재</a>
                     </li>
                     <li class="nav-item ms-5">
                         <a class="nav-link" href="#" style="font-size: 20px">나의 정원</a>

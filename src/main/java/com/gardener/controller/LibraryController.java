@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,21 +27,21 @@ public class LibraryController {
 
   private final LibraryService libraryService;
 
-  @GetMapping
-  public void library() {
 
-  }
-
-  @GetMapping("/like")
-  public ResponseEntity<String> getAllFavoritePost(HttpSession session) throws FindException {
+  @GetMapping(value = "/like", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public void getAllFavoritePost(HttpSession session, Model model) throws FindException {
     Gson gson = new Gson();
     Member member = (Member) session.getAttribute("member");
 
     List<Post> allPost = libraryService.getAllFavoritePost(member.getLoginid());
-    if (allPost.isEmpty()) {
-      throw new FindException();
+    if (!allPost.isEmpty()) {
+      allPost.forEach(post -> {
+        String s = post.getContent().replaceAll("<[^>]*>", "");
+        post.setContent(s);
+      });
     }
+
     log.info("all Post => {}", allPost);
-    return new ResponseEntity<>(gson.toJson(allPost), HttpStatus.OK);
+    model.addAttribute("post", gson.toJson(allPost));
   }
 }
