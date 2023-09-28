@@ -17,44 +17,9 @@ public class MemberService {
 	@Autowired
 	private MemberMapper mapper;
 
-<<<<<<< HEAD
-=======
-	public void signup(Member m) throws AddException {
-		mapper.insert(m);
-	}
-
-	public void idDupChk(String loginId) throws FindException {
-		Member m = null;
-		m = mapper.selectByLoginid(loginId);
-
-		if (m != null) {
-			throw new FindException("이미 사용중인 아이디 입니다");
-			// loginId에 해당 고객이 있는 경우(중복인 경우)
-		} else {
-			System.out.println("사용 가능한 아이디 입니다");
-			// loginId에 해당 고객이 없는 경우(id 사용가능한 경우)
-		}
-	}
-
-	public void NicknameDupChk(String nickname) throws FindException {
-		Member m = null;
-		m = mapper.selectByNickname(nickname);
-
-		if (m != null) {
-			throw new FindException("이미 사용중인 필명입니다");
-			// 필명에 해당 고객이 있는 경우(중복인 경우)
-		} else {
-			System.out.println("사용 가능한 필명 입니다");
-			// 필명에 해당 고객이 없는 경우(필명 사용 가능)
-		}
-	}
-
->>>>>>> 5e82415eb5641d8a856f683eb36cb6dad85155ca
 	// 로그인
 	public Member login(String loginId, String pwd) throws FindException {
-		log.warn("loginid :[" + loginId + "], pwd :[" + pwd + "]");
 		Member m = mapper.selectByLoginid(loginId);
-		log.warn("member :" + m);
 		if (pwd.equals(m.getPwd())) {
 			return m; // 로그인 성공
 		} else {

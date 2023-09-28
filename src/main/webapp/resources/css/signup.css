@@ -15,11 +15,15 @@ body{
 
 
 .signup {
-  margin: 0 350px;
-  margin-top: 50px;
-  width: 450px;
-  zoom: 1.8;
-  border
+  margin-left: 40%;
+  margin-top: 30px;
+  //width: 450px;
+ 
+  font-size: 24px;
+}
+
+.signup input {
+	width: 30%;
 }
 
 .info #info__id {
@@ -38,21 +42,22 @@ body{
 }
 /*프로필 이미지 첨부*/
 .profile {
-  width: 50px;
-  height: 40px;
-  margin-left: 10%;
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin-left: 9%;
+  margin-bottom: 30px;
   
 }
 .profile:hover {
   cursor: pointer;
 }
 .text {
-  font-size: 3px;
    margin-left: 3.5%;
 }
 
-.signup > div > b {
-  font-size: 3px;
+.signup > div >bv {
 }
 
 .placehold-text {
@@ -67,19 +72,22 @@ body{
  
 /*아이디, 필명 중복확인 버튼*/
 .signup [type="button"] {
-  width: 144px;
-  height: 20px;
-  font-size: 10px;
+  width: 30%;
+  height: 40px;
   border: none;
   background-color:grey;
   color: white;
+ 
+}
+
+.signup .iddupchk {
+	margin-bottom: 20px;
 }
 
 /*회원가입버튼*/
 .bt-Signup {
-  width: 144px;
-  height: 20px;
-  font-size: 10px;
+  width: 30%;
+  height: 40px;
   letter-spacing: 2px;
   background-color: rgb(121, 193, 150);
   border-radius: 2px;

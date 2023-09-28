@@ -33,13 +33,13 @@
 				<!-- 모달태그 -->
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 					aria-hidden="true" aria-labelledby="myModalLabel">
-					<div class="modal-dialog modal-fullsize">
-						<div class="modal-content modal-fullsize">
-							<div class="modal-header">
-						<!-- 		<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button> -->
+					<div class="modal-dialog">
+						<div class="modal-content"> 
+				 		<!-- 	<div class="modal-header"> 
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">&times;</button>
 								<h4 class="modal-title" id="myModalLabel"></h4>
-							</div>
+							</div> -->
 							<div class="modal-body">
 
 								<!--로고-->
@@ -72,18 +72,18 @@
 									</form>
 									
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									id="closebtn" data-dismiss="modal">close</button>
-						<!-- 		<button type="button" class="btn btn-primary">로그인</button> -->
-							</div>
-						</div>
+								<button type="button" class="btn btn-default" id="closebtn" data-dismiss="modal">close</button>
+<!-- 							<div class="modal-footer">
+								<button type="button" class="btn btn-primary">로그인</button>
+							</div> -->
+			 			</div>  
 					</div>
 				</div>
 				<!-- 모달태그 끝 -->
 
-				<li class="nav-item ms-5"><a class="nav-link" href="/login"
-					style="font-size: 20px">로그인</a></li>
+				<li class="nav-item ms-5">
+					<a class="nav-link" href="/login" style="font-size: 20px">로그인</a>
+				</li>
 			</ul>
 		</div>
 	</div>
