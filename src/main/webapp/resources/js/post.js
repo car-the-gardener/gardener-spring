@@ -141,7 +141,25 @@ postService = (() => {
     })
   }
 
-
   return {modifyPost, updateFavorite, checkFavorite, deletePost}
 })()
 
+const subcribeService = (() => {
+  const insertSubscribe = (writerId, callback, error) => {
+    $.ajax({
+      url    : "/library/subscribe",
+      method : "POST",
+      data   : `writerId=${writerId}`,
+      success: (response) => {
+        console.log(response);
+        callback(response);
+      },
+      error  : (xhr, status) => {
+        console.log(xhr)
+        error(xhr)
+      }
+    })
+  }
+
+  return {insertSubscribe}
+})()

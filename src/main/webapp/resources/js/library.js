@@ -50,9 +50,10 @@ const observer = new IntersectionObserver((entries, observer) => {
       $.ajax({
         url    : `/library/favorite/${num}`,
         success: (response) => {
+          num += 1;
           postResponse = response;
           $("section").append(printFavorite());
-          num += 1;
+          showFavorite();
         },
         error  : (xhr, status) => {
           console.log(status);
@@ -71,8 +72,18 @@ $(".favorite").click(() => {
     num = 1;
   }
   $("section").html(printFavorite());
-  a();
+  showFavorite();
 })
+
+
+// 좋아요글 보기
+const showFavorite = () => {
+  $(".section-post > div").click((e) => {
+    const postnum = $(e.target).parent().parent().data("postnum");
+    location.href = `/post/${postnum}`;
+  })
+}
+showFavorite();
 
 // 구독 버튼
 $(".subscribe").click(() => {
@@ -82,12 +93,3 @@ $(".subscribe").click(() => {
     $("section").html(response);
   })
 })
-
-// 좋아요글 보기
-const a = () => {
-  $(".section-post > div").click((e) => {
-    const postnum = $(e.target).parent().parent().data("postnum");
-    location.href = `/post/${postnum}`;
-  })
-}
-a();

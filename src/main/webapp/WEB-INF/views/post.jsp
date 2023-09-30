@@ -303,7 +303,7 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
     let result = "";
 
     if ($(".nickname").val() === "") {
-      swal("로그인 오네가이시마스");
+      swal("로그인을 해주세요");
       return;
     }
 
@@ -314,15 +314,14 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
       result = "click"
     }
 
-
     postService.updateFavorite(postResponse.postnum, (response) => {
+      let favoriteCnt = Number($(".section-header-icon span").html());
       if (response === "false") {
-        let favoriteCnt = $(".section-header-icon span").html();
         $(e.target).removeClass("clicked");
         $(".section-header-icon span").html(favoriteCnt - 1);
         return;
       }
-      $(".section-header-icon span").html(postResponse.favorite + 1);
+      $(".section-header-icon span").html(favoriteCnt + 1);
     }, result)
   })
 
@@ -336,7 +335,15 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
 
   // 구독
   $(".writer-profile-pic button").click(() => {
-    alert("지야")
+    const writerBtn = $(".writer-profile-pic > button")
+    subcribeService.insertSubscribe(writerBtn.data("writer"), (response) => {
+          console.log(response, " <= 구독버튼 클릭");
+          writerBtn.class("sub");
+        },
+        (error) => {
+          console.log("예외 터짐")
+          writerBtn.removeClass("sub");
+        })
   })
 </script>
 </body>

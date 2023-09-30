@@ -3,6 +3,15 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gardener.mappers.LibraryMapper">
 
+
+    <insert id="insertSubscribe">
+        insert into subscribe (id, writer_id, loginid) values(seq_subscribe.nextval, #{writerId}, #{loginid})
+    </insert>
+
+    <select id="getSubscribe" resultType="Integer">
+        select * from subscribe where loginid = #{loginid} and writer_id = #{writerId}
+    </select>
+
     <resultMap id="postResultMap" type="Post">
         <id property="postnum" column="postnum"/>
         <result property="mainTitle" column="main_title"/>
@@ -18,30 +27,19 @@
         <result property="nickname" column="nickname"/>
     </resultMap>
 
-
-    <select id="getAllFavoritePost" resultMap="postResultMap">
-        <![CDATA[
-        select *
-        from (select /*+ INDEX_DESC(p POST_INDEX)*/ rownum rn, postnum, main_title, sub_title, content, main_title_img, category, favorite, nickname
-        from post p
-        join member m on p.loginid = m.loginid
-        where favorite > 0 and rownum <= 4) pm
-        join favorite f on pm.postnum = f.postnum
-        where loginid = #{loginid}
-        AND rn >=0
-        ]]>
-    </select>
-
     <select id="getAllFavoritePostWithPaging" resultMap="postResultMap">
         <![CDATA[
-        select *
-        from (select /*+ INDEX_DESC(p POST_INDEX)*/ rownum rn, postnum, main_title, sub_title, content, main_title_img, category, favorite, nickname
+        select  rn, id, postnum, main_title, sub_title, content, main_title_img, category, favorite, nickname
+        from (select /*+ INDEX_DESC(f SYS_C007984)*/ rownum rn, f.id, f.postnum, main_title, sub_title, content, main_title_img, category, favorite, nickname
         from post p
-        join member m on p.loginid = m.loginid
-        where favorite > 0 and rownum <= #{num} * 4) pm
-        join favorite f on pm.postnum = f.postnum
-        where loginid = #{loginid}
-        AND rn > (#{num} - 1) * 4
+               join member m on p.loginid = m.loginid
+               join favorite f on f.postnum = p.postnum
+        where favorite > 0 and f.loginid = #{loginid} and rownum <= #{num} * 4) where rn > (#{num} - 1) * 4
         ]]>
     </select>
+
+    <delete id="deleteSubscibe">
+        delete from subscribe where loginid = #{loginid} and writer_id = #{writerId}
+    </delete>
+
 </mapper>

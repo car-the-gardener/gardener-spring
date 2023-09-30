@@ -230,6 +230,10 @@ section article {
     height: 100%;
 }
 
+.writer-profile > .writer-profile-pic > button.sub {
+    background-color: #63c76a;
+}
+
 /* 작가 프로필 사진 끝*/
 /* 작가 프로필 끝 */
 
