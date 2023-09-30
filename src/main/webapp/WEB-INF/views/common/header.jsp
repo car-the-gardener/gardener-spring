@@ -44,7 +44,7 @@
                 <c:choose>
                 <c:when test="${!empty sessionScope.member.loginid}">
                     <li class="nav-item ms-5">
-                        <a class="nav-link" href="/library/like" style="font-size: 20px">서재</a>
+                        <a class="nav-link" href="/library" style="font-size: 20px">서재</a>
                     </li>
                     <li class="nav-item ms-5">
                         <a class="nav-link" href="#" style="font-size: 20px">나의 정원</a>

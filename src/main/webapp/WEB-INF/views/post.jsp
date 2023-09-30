@@ -72,6 +72,7 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
         </div>
         <div class="writer-profile-pic">
             <img src="https://thumb.mt.co.kr/06/2023/06/2023062717453220668_1.jpg/dims/optimize/" alt="작가 프로필 이미지">
+            <button>구독하기</button>
         </div>
     </div>
     <!-- 작가 프로필 끝 -->
@@ -103,8 +104,8 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
 <input type="hidden" value="${sessionScope.member.nickname}" class="nickname">
 <script>
   const postResponse = ${post};
-  console.log(postResponse, " postResponse")
   let pageNum = 1;
+
 
   $(".main-image").css("background-image", `url(\${postResponse?.mainTitleImg})`)
   $(".section-header-main-title").html(postResponse.mainTitle);
@@ -116,7 +117,11 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
   $(".writer-profile-name").html(postResponse.member.nickname);
   $(".writer-profile-intro").html(postResponse.member.intro);
   $(".writer-profile-pic img").attr("src", postResponse.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
+  $(".writer-profile-pic button").attr("data-writer", postResponse.member.loginid)
 
+  if ("${sessionScope.member.loginid}" === $(".writer-profile-pic button").data("writer")) {
+    $(".writer-profile-pic button").css("display", "none")
+  }
 
   // 좋아요 확인 요청
   const checkFavorite = () => {
@@ -129,7 +134,7 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
       }
       $(".section-header-icon span").html(count);
     });
-  }
+  };
   checkFavorite();
 
 
@@ -246,7 +251,6 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
   // 댓글 삭제
   $(".section-reply-list").on("click", ".reply-list--btn--remove", (e) => {
     replyService.removeReply($(e.currentTarget).data("id"), (response) => {
-      alert(response + " 삭제 => " + pageNum);
       showList(pageNum);
     })
   })
@@ -290,7 +294,6 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
   // 포스트 삭제
   $(".modify-btn button:last-child").click((e) => {
     postService.deletePost(postResponse.postnum, (response) => {
-      alert(response + " 삭제");
       location.href = "/";
     });
   })
@@ -299,16 +302,18 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
   $(".section-header-icon img[alt='좋아요 표시']").click((e) => {
     let result = "";
 
+    if ($(".nickname").val() === "") {
+      swal("로그인 오네가이시마스");
+      return;
+    }
+
     if ($(e.target).attr("class") === "favorite") {
       $(e.target).addClass("clicked");
       result = "clicked"
     } else {
       result = "click"
     }
-    if ($(".nickname").val() === "") {
-      swal("로그인 오네가이시마스");
-      return;
-    }
+
 
     postService.updateFavorite(postResponse.postnum, (response) => {
       if (response === "false") {
@@ -329,6 +334,10 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
     $(".modify-btn").css("display", "none");
   }
 
+  // 구독
+  $(".writer-profile-pic button").click(() => {
+    alert("지야")
+  })
 </script>
 </body>
 </html>

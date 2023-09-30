@@ -144,3 +144,4 @@ postService = (() => {
 
   return {modifyPost, updateFavorite, checkFavorite, deletePost}
 })()
+

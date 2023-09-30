@@ -2,23 +2,15 @@ package com.gardener.controller;
 
 import com.gardener.aop.exception.FindException;
 import com.gardener.domain.Member;
-import com.gardener.mappers.PostMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
 import com.gardener.domain.Post;
 import com.gardener.service.PostService;
 import com.google.gson.Gson;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -44,7 +36,7 @@ public class PostApiController {
     return postService.savePost(post);
   }
 
-  @GetMapping()
+  @GetMapping
   public List<Post> getAllMyPost(String loginid) {
     postService.findAllMyPost(loginid);
     return null;

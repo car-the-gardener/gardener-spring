@@ -27,13 +27,14 @@ public class LibraryController {
   private final LibraryService libraryService;
 
 
-  @GetMapping(value = "/like", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @GetMapping
   public void getAllFavoritePost(HttpSession session, Model model) throws FindException {
     String allFavoritePostWithPaging = getAllFavoritePostWithPaging(session, model, 1);
     model.addAttribute("post", allFavoritePostWithPaging);
   }
 
-  @GetMapping(value = "/like/{num}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  // produces 없으면 한글이 꺠짐,
+  @GetMapping(value = "/favorite/{num}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public @ResponseBody String getAllFavoritePostWithPaging(HttpSession session, Model model, @PathVariable int num) throws FindException {
     Gson gson = new Gson();
     Member member = (Member) session.getAttribute("member");
@@ -46,7 +47,11 @@ public class LibraryController {
       });
     }
 
-    model.addAttribute("post", gson.toJson(allPost));
     return gson.toJson(allPost);
+  }
+
+  @GetMapping("/subscribe")
+  public void getAllSubscribe() {
+    log.info("지야 안녕!");
   }
 }

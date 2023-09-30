@@ -40,7 +40,13 @@ li > span:hover {
     height: 200px;
 }
 
+.section-post > div:first-child {
+    width: 700px;
+}
+
 .section-post h4 {
+    margin: 0;
+    padding: 8px 0;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -48,14 +54,17 @@ li > span:hover {
 }
 
 .section-post h5 {
+    margin: 0;
+    padding: 8px 0;
     overflow: hidden;
     font-weight: bold;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.section-post > div:first-child {
-    width: 700px;
+.section-post h6 {
+    margin: 0;
+    padding: 8px 0;
 }
 
 .section-post > div:first-child > p {
