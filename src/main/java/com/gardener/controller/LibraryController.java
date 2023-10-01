@@ -50,7 +50,11 @@ public class LibraryController {
   }
 
   @GetMapping("/subscribe")
-  public void getAllSubscribe() {
+  public void getAllSubscribe(HttpSession session, Model model) {
+    Member member = (Member) session.getAttribute("member");
+    Gson gson = new Gson();
+    List<Member> allSubscribe = libraryService.findAllSubscribe(member.getLoginid());
+    model.addAttribute("member", gson.toJson(allSubscribe));
   }
 
   @PostMapping("/subscribe")

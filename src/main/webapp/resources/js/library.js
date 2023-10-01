@@ -71,6 +71,7 @@ $(".favorite").click(() => {
   if (num !== 1) {
     num = 1;
   }
+  $("section").html(""); // 없으면 구독버튼 클릭후 사라지지않음,
   $("section").html(showFavorite());
 
 })

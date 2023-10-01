@@ -1,3 +1,31 @@
-.hr {
-    display: none;
+* {
+    box-sizing: border-box;
+    max-width: 1690px;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.section-subscribe-wrapper--writer {
+    border: 1px solid #007bff;
+    width: 250px;
+    height: 250px;
+    text-align: center;
+}
+
+.section-subscribe-wrapper--writer > div {
+    width: 250px;
+    height: 125px;
+}
+
+.section-subscribe-wrapper--writer > div > img {
+    width: 150px;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.section-subscribe-wrapper--writer > div:last-child {
+    margin-top: 15px;
 }

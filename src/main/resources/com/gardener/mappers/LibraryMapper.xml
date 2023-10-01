@@ -42,4 +42,10 @@
         delete from subscribe where loginid = #{loginid} and writer_id = #{writerId}
     </delete>
 
+    <select id="getAllSubscribe" resultType="Member">
+        select /*+ INDEX_DESC(s SYS_C007880)*/*
+        from SUBSCRIBE s join member m
+        on s.WRITER_ID = m.LOGINID where s.loginid = #{loginid}
+    </select>
+
 </mapper>

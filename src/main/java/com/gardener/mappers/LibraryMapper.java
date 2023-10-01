@@ -1,5 +1,6 @@
 package com.gardener.mappers;
 
+import com.gardener.domain.Member;
 import com.gardener.domain.Post;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,4 +15,6 @@ public interface LibraryMapper {
   void insertSubscribe(@Param("loginid") String loginid, @Param("writerId") String writerId);
 
   void deleteSubscibe(@Param("loginid") String loginid, @Param("writerId") String writerId);
+
+  List<Member> getAllSubscribe(String loginid);
 }

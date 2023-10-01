@@ -42,4 +42,9 @@ public class LibraryService {
       libraryMapper.insertSubscribe(loginid, writerId);
     }
   }
+
+  public List<Member> findAllSubscribe(String loginid) {
+    return libraryMapper.getAllSubscribe(loginid);
+
+  }
 }
