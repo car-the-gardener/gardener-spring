@@ -104,6 +104,9 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
 <input type="hidden" value="${sessionScope.member.nickname}" class="nickname">
 <script>
   const postResponse = ${post};
+  const subscribeResponse = '${subscribe}';
+  const writerBtn = $(".writer-profile-pic > button")
+  console.log(subscribeResponse, "subscribeResponse")
   let pageNum = 1;
 
 
@@ -117,10 +120,10 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
   $(".writer-profile-name").html(postResponse.member.nickname);
   $(".writer-profile-intro").html(postResponse.member.intro);
   $(".writer-profile-pic img").attr("src", postResponse.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
-  $(".writer-profile-pic button").attr("data-writer", postResponse.member.loginid)
+  writerBtn.attr("data-writer", postResponse.member.loginid)
 
   if ("${sessionScope.member.loginid}" === $(".writer-profile-pic button").data("writer")) {
-    $(".writer-profile-pic button").css("display", "none")
+    $(".writer-profile-pic button").css("display", "none");
   }
 
   // 좋아요 확인 요청
@@ -335,16 +338,26 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
 
   // 구독
   $(".writer-profile-pic button").click(() => {
-    const writerBtn = $(".writer-profile-pic > button")
+
+    if ($(".nickname").val() === "") {
+      swal("로그인을 해주세요");
+      return;
+    }
+    
     subcribeService.insertSubscribe(writerBtn.data("writer"), (response) => {
           console.log(response, " <= 구독버튼 클릭");
-          writerBtn.class("sub");
+          writerBtn.addClass("sub");
         },
         (error) => {
           console.log("예외 터짐")
           writerBtn.removeClass("sub");
         })
   })
+
+  if (subscribeResponse === postResponse.member.loginid) {
+    writerBtn.addClass("sub");
+  }
+
 </script>
 </body>
 </html>

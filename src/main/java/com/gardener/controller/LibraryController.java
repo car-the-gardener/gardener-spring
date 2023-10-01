@@ -34,7 +34,7 @@ public class LibraryController {
     Gson gson = new Gson();
     Member member = (Member) session.getAttribute("member");
 
-    List<Post> allPost = libraryService.getAllFavoritePostWithPaging(member.getLoginid(), num);
+    List<Post> allPost = libraryService.findAllFavoritePostWithPaging(member.getLoginid(), num);
 
     // 이 부분 수정이 필요함,
     if (allPost.isEmpty()) {
@@ -49,11 +49,13 @@ public class LibraryController {
     return gson.toJson(allPost);
   }
 
+  @GetMapping("/subscribe")
+  public void getAllSubscribe() {
+  }
+
   @PostMapping("/subscribe")
-  public void getAllSubscribe(HttpSession session, String writerId) throws FindException {
-    log.info("저장할 작가 => {}", writerId);
+  public void insertSubscribe(HttpSession session, String writerId) throws FindException {
     Member member = (Member) session.getAttribute("member");
-    log.info("저장하는 사람 => {}", member.getLoginid());
     libraryService.insertSubscribe(member.getLoginid(), writerId);
   }
 }

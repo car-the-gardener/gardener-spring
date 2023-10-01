@@ -3,6 +3,7 @@ package com.gardener.controller;
 import com.gardener.aop.exception.FindException;
 import com.gardener.domain.Member;
 import com.gardener.domain.Post;
+import com.gardener.service.LibraryService;
 import com.gardener.service.PostService;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,9 @@ import java.util.List;
 @RequestMapping("/post")
 public class PostApiController {
 
-  private final PostService postService;
   static String path = "C:\\Users\\swans\\Documents\\workspace-sts-3.9.18.RELEASE\\gardener-spring\\src\\main\\webapp\\resources\\images\\post\\";
+  private final PostService postService;
+  private final LibraryService libraryService;
 
   /**
    * @param post
@@ -48,8 +50,10 @@ public class PostApiController {
    * 게시물 상세보기
    */
   @GetMapping("/{postnum}")
-  public ModelAndView findPostBypostnum(@PathVariable Long postnum) throws FindException {
+  public ModelAndView findPostBypostnum(@PathVariable Long postnum, HttpSession session) throws FindException {
+    Member member = (Member) session.getAttribute("member");
     Post post = postService.findPostByPostnum(postnum);
+    String result = libraryService.findSubscribe(member.getLoginid(), post.getLoginid());
 
     if (post == null) {
       throw new FindException();
@@ -58,6 +62,7 @@ public class PostApiController {
     ModelAndView mv = new ModelAndView();
     Gson gson = new Gson();
     mv.addObject("post", gson.toJson(post));
+    mv.addObject("subscribe", result);
     mv.setViewName("/post");
     return mv;
   }

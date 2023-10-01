@@ -21,7 +21,15 @@ public class LibraryService {
 
   private final LibraryMapper libraryMapper;
 
-  public List<Post> getAllFavoritePostWithPaging(String loginid, int num) {
+  public String findSubscribe(String loginid, String writerId) throws FindException {
+    Optional<Integer> subscribe = Optional.ofNullable(libraryMapper.getSubscribe(loginid, writerId));
+    if (subscribe.isPresent()) {
+      return writerId;
+    }
+    return "없음";
+  }
+
+  public List<Post> findAllFavoritePostWithPaging(String loginid, int num) {
     return libraryMapper.getAllFavoritePostWithPaging(loginid, num);
   }
 

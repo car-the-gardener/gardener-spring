@@ -71,8 +71,8 @@ $(".favorite").click(() => {
   if (num !== 1) {
     num = 1;
   }
-  $("section").html(printFavorite());
-  showFavorite();
+  $("section").html(showFavorite());
+
 })
 
 
