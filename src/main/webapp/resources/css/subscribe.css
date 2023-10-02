@@ -8,11 +8,24 @@ main {
     margin: 0 auto;
 }
 
+.section-subscribe-wrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 .section-subscribe-wrapper--writer {
     border: 1px solid #007bff;
     width: 250px;
     height: 250px;
+    margin: 15px;
     text-align: center;
+}
+
+@media screen and (max-width: 576px) {
+    .section-subscribe-wrapper--writer {
+        margin: 15px auto;
+    }
 }
 
 .section-subscribe-wrapper--writer > div {
@@ -22,6 +35,7 @@ main {
 
 .section-subscribe-wrapper--writer > div > img {
     width: 150px;
+    border: 1px solid #008fa1;
     height: 100%;
     border-radius: 50%;
 }
