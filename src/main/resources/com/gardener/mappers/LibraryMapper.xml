@@ -48,4 +48,13 @@
         on s.WRITER_ID = m.LOGINID where s.loginid = #{loginid}
     </select>
 
+    <select id="getAllSubscribeWithPaging" resultType="Member">
+        <![CDATA[
+        select rn, id, writer_id, nickname, intro, profile from
+        (select /*+ INDEX_DESC(s SYS_C007880)*/ rownum rn ,s.id, s.writer_id,nickname,intro,profile
+        from SUBSCRIBE s join member m on s.WRITER_ID = m.LOGINID where s.loginid = 'suwan' and rownum <= #{num} * 9)
+        where rn > (#{num} - 1) * 9
+        ]]>
+    </select>
+
 </mapper>

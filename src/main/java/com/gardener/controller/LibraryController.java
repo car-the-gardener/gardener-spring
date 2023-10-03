@@ -25,14 +25,14 @@ public class LibraryController {
 
   @GetMapping
   public void getAllFavoritePost(HttpSession session, Model model) throws FindException {
-    String allFavoritePostWithPaging = getAllFavoritePostWithPaging(session, model, 1);
+    String allFavoritePostWithPaging = getAllFavoritePostWithPaging(session, 1);
     model.addAttribute("post", allFavoritePostWithPaging);
   }
 
   @GetMapping(value = "/favorite/{num}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public @ResponseBody String getAllFavoritePostWithPaging(HttpSession session, Model model, @PathVariable int num) throws FindException {
-    Gson gson = new Gson();
+  public @ResponseBody String getAllFavoritePostWithPaging(HttpSession session, @PathVariable int num) throws FindException {
     Member member = (Member) session.getAttribute("member");
+    Gson gson = new Gson();
 
     List<Post> allPost = libraryService.findAllFavoritePostWithPaging(member.getLoginid(), num);
 
@@ -51,10 +51,16 @@ public class LibraryController {
 
   @GetMapping("/subscribe")
   public void getAllSubscribe(HttpSession session, Model model) {
+    String allSubscribeWithPaging = getAllSubscribeWithPaging(session, 1);
+    model.addAttribute("member", allSubscribeWithPaging);
+  }
+
+  @GetMapping("/subscribe/{num}")
+  public @ResponseBody String getAllSubscribeWithPaging(HttpSession session, int num) {
     Member member = (Member) session.getAttribute("member");
     Gson gson = new Gson();
-    List<Member> allSubscribe = libraryService.findAllSubscribe(member.getLoginid());
-    model.addAttribute("member", gson.toJson(allSubscribe));
+    List<Member> allSubscribe = libraryService.findAllSubscribeWithPaging(member.getLoginid(), num);
+    return gson.toJson(allSubscribe);
   }
 
   @PostMapping("/subscribe")

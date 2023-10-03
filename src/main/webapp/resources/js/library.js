@@ -7,6 +7,15 @@ if ($(".nickname").val() === "") {
   location.href = "/";
 }
 
+// 좋아요 버튼
+$(".favorite").click(() => {
+  $(".hr").css("display", "block");
+  if (num !== 1) {
+    num = 1;
+  }
+  $("section").html(""); // 없으면 구독버튼 클릭후 사라지지않음,
+})
+
 const printFavorite = () => {
   let post = "";
   for (p of postResponse) {
@@ -64,19 +73,6 @@ const observer = new IntersectionObserver((entries, observer) => {
 }, option);
 observer.observe(target);
 
-
-// 좋아요 버튼
-$(".favorite").click(() => {
-  $(".hr").css("display", "block");
-  if (num !== 1) {
-    num = 1;
-  }
-  $("section").html(""); // 없으면 구독버튼 클릭후 사라지지않음,
-  $("section").html(showFavorite());
-
-})
-
-
 // 좋아요글 보기
 const showFavorite = () => {
   $(".section-post > div").click((e) => {
@@ -86,11 +82,31 @@ const showFavorite = () => {
 }
 showFavorite();
 
+
 // 구독 버튼
 $(".subscribe").click(() => {
   // 바로 지우지 않으면, $("section").html(response); 이게 채워지는데 hr이 화면에 보이게 되므로 관찰 대상이되어 요청을 해버리게 된다.
   $(".hr").css("display", "none");
   $.get("/library/subscribe", (response) => {
     $("section").html(response);
+    let a = JSON.parse($(".memberResponse").val());
+    printSubscribe(a);
+    console.log($(".section-subscribe-wrapper > div:last-child"))
   })
 })
+
+const printSubscribe = (memberResponse) => {
+  let subscribe = "";
+  if (memberResponse.length === 0) {
+    $.get("/resources/exception-page/subscribe-exception.html", (response) => {
+      $("section").html(response);
+    })
+  } else {
+    for (m of memberResponse) {
+      subscribe += `<div class="section-subscribe-wrapper--writer"><div><img src='${m.profile}' alt='프로필 이미지'></div>`;
+      subscribe += `<div><p>${m.nickname}</p><hr><p>${m.intro}</p></div></div>`;
+    }
+    $(".section-subscribe-wrapper").html(subscribe);
+  }
+}
+
