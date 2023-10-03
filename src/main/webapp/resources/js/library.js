@@ -1,5 +1,6 @@
 let num = 2;
 let target = $(".hr")[0];
+let type = "favorite";
 let postResponse = JSON.parse($(".postResponse").val());
 
 if ($(".nickname").val() === "") {
@@ -9,6 +10,7 @@ if ($(".nickname").val() === "") {
 
 // 좋아요 버튼
 $(".favorite").click(() => {
+  type = "favorite";
   $(".hr").css("display", "block");
   if (num !== 1) {
     num = 1;
@@ -35,42 +37,31 @@ const printFavorite = () => {
 }
 
 const firstRequest = (() => {
+  target = $(".hr")[0];
   if (postResponse.length === 0) {
     console.log("가져올 글이 없습니다.");
     $.get("/resources/exception-page/favorite-exception.html", (response) => {
       $("section").html(response);
     });
   }
-
   $("section").html(printFavorite());
 })()
 
 // 뫈스크롤
-
 const option = {
   root      : null,
   rootMargin: "0px",
   threshold : 0.5
 }
 
-const observer = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      $.ajax({
-        url    : `/library/favorite/${num}`,
-        success: (response) => {
-          num += 1;
-          postResponse = response;
-          $("section").append(printFavorite());
-          showFavorite();
-        },
-        error  : (xhr, status) => {
-          console.log(status);
+const observer =
+    new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          request(type);
         }
       })
-    }
-  })
-}, option);
+    }, option);
 observer.observe(target);
 
 // 좋아요글 보기
@@ -87,15 +78,17 @@ showFavorite();
 $(".subscribe").click(() => {
   // 바로 지우지 않으면, $("section").html(response); 이게 채워지는데 hr이 화면에 보이게 되므로 관찰 대상이되어 요청을 해버리게 된다.
   $(".hr").css("display", "none");
+  type = "subscribe";
+
   $.get("/library/subscribe", (response) => {
     $("section").html(response);
-    let a = JSON.parse($(".memberResponse").val());
-    printSubscribe(a);
-    console.log($(".section-subscribe-wrapper > div:last-child"))
+    let memberResponse = $(".memberResponse").val();
+    printSubscribe(memberResponse);
   })
 })
 
-const printSubscribe = (memberResponse) => {
+const printSubscribe = (response) => {
+  let memberResponse = JSON.parse(response);
   let subscribe = "";
   if (memberResponse.length === 0) {
     $.get("/resources/exception-page/subscribe-exception.html", (response) => {
@@ -106,7 +99,29 @@ const printSubscribe = (memberResponse) => {
       subscribe += `<div class="section-subscribe-wrapper--writer"><div><img src='${m.profile}' alt='프로필 이미지'></div>`;
       subscribe += `<div><p>${m.nickname}</p><hr><p>${m.intro}</p></div></div>`;
     }
-    $(".section-subscribe-wrapper").html(subscribe);
+    $(".section-subscribe-wrapper").append(subscribe);
+    target = $(".section-subscribe-wrapper > div:last-child")[0];
+    observer.observe(target);
   }
 }
 
+const request = () => {
+  let url = "";
+  type === "favorite" ? url = `/library/favorite/${num}` : url = `/library/subscribe/${num}`;
+  $.ajax({
+    url,
+    success: (response) => {
+      num += 1;
+      if (type === "favorite") {
+        postResponse = response;
+        $("section").append(printFavorite());
+        showFavorite();
+      } else {
+        $(".section-subscribe-wrapper").html(printSubscribe(response));
+      }
+    },
+    error  : (xhr, status) => {
+      console.log(status);
+    }
+  })
+}

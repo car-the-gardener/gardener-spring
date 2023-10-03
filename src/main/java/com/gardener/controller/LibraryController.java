@@ -50,16 +50,22 @@ public class LibraryController {
   }
 
   @GetMapping("/subscribe")
-  public void getAllSubscribe(HttpSession session, Model model) {
+  public void getAllSubscribe(HttpSession session, Model model) throws FindException {
     String allSubscribeWithPaging = getAllSubscribeWithPaging(session, 1);
     model.addAttribute("member", allSubscribeWithPaging);
   }
 
-  @GetMapping("/subscribe/{num}")
-  public @ResponseBody String getAllSubscribeWithPaging(HttpSession session, int num) {
+  @GetMapping(value = "/subscribe/{num}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public @ResponseBody String getAllSubscribeWithPaging(HttpSession session, @PathVariable int num) throws FindException {
     Member member = (Member) session.getAttribute("member");
-    Gson gson = new Gson();
     List<Member> allSubscribe = libraryService.findAllSubscribeWithPaging(member.getLoginid(), num);
+    log.info("allSubscribe => {}", allSubscribe);
+    Gson gson = new Gson();
+
+    if (allSubscribe.isEmpty()) {
+      throw new FindException();
+    }
+
     return gson.toJson(allSubscribe);
   }
 
