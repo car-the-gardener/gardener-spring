@@ -16,7 +16,6 @@ public interface LibraryMapper {
 
   void deleteSubscibe(@Param("loginid") String loginid, @Param("writerId") String writerId);
 
-  List<Member> getAllSubscribe(String loginid);
 
   List<Member> getAllSubscribeWithPaging(@Param("loginid") String loginid, @Param("num") int num);
 }

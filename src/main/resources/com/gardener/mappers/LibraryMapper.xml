@@ -19,12 +19,16 @@
         <result property="content" column="content"/>
         <result property="mainTitleImg" column="main_title_img"/>
         <result property="category" column="category"/>
-        <association property="member" autoMapping="true" javaType="Member"
-                     resultMap="memberResultMap"/>
+        <collection property="member" resultMap="memberResultMap"/>
     </resultMap>
 
     <resultMap id="memberResultMap" type="Member">
         <result property="nickname" column="nickname"/>
+        <association property="writer" autoMapping="true" resultMap="writerResultMap"/>
+    </resultMap>
+
+    <resultMap id="writerResultMap" type="writer">
+        <id property="loginid" column="loginid"/>
     </resultMap>
 
     <select id="getAllFavoritePostWithPaging" resultMap="postResultMap">
@@ -42,15 +46,9 @@
         delete from subscribe where loginid = #{loginid} and writer_id = #{writerId}
     </delete>
 
-    <select id="getAllSubscribe" resultType="Member">
-        select /*+ INDEX_DESC(s SYS_C007880)*/*
-        from SUBSCRIBE s join member m
-        on s.WRITER_ID = m.LOGINID where s.loginid = #{loginid}
-    </select>
-
     <select id="getAllSubscribeWithPaging" resultType="Member">
         <![CDATA[
-        select rn, id, writer_id, nickname, intro, profile from
+        select rn, id, writer_id loginid, nickname, intro, profile from
         (select /*+ INDEX_DESC(s SYS_C007880)*/ rownum rn ,s.id, s.writer_id,nickname,intro,profile
         from SUBSCRIBE s join member m on s.WRITER_ID = m.LOGINID where s.loginid = 'suwan' and rownum <= #{num} * 9)
         where rn > (#{num} - 1) * 9

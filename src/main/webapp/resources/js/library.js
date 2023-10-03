@@ -65,9 +65,14 @@ const observer =
 observer.observe(target);
 
 // 좋아요글 보기
-const showFavorite = () => {
+/*const showFavorite = () => {
   $(".section-post > div").click((e) => {
     const postnum = $(e.target).parent().parent().data("postnum");
+    location.href = `/post/${postnum}`;
+  })*/
+const showFavorite = () => {
+  $(".section-post").on("click", "div", (e) => {
+    const postnum = $(e.currentTarget).parent().data("postnum");
     location.href = `/post/${postnum}`;
   })
 }
@@ -95,15 +100,22 @@ const printSubscribe = (response) => {
       $("section").html(response);
     })
   } else {
+    // loginid는 내가 로그인한 계정이 아니라 글쓴 작가의 아이디
     for (m of memberResponse) {
-      subscribe += `<div class="section-subscribe-wrapper--writer"><div><img src='${m.profile}' alt='프로필 이미지'></div>`;
+      subscribe += `<div class="section-subscribe-wrapper--writer" data-writer="${m.loginid}"><div><img src="${m.profile}" alt='프로필 이미지'></div>`;
       subscribe += `<div><p>${m.nickname}</p><hr><p>${m.intro}</p></div></div>`;
     }
     $(".section-subscribe-wrapper").append(subscribe);
     target = $(".section-subscribe-wrapper > div:last-child")[0];
     observer.observe(target);
+
+    $(".section-subscribe-wrapper--writer").on("click", "div", (e) => {
+      console.log($(e.currentTarget).parent().data("writer"), "클릭")
+    })
+
   }
 }
+
 
 const request = () => {
   let url = "";
