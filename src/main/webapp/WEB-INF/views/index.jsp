@@ -28,39 +28,52 @@
 
 
     <!-- JS파일 -->
-    <script src="/resources/js/index.js"></script>
+    <script src="/resources/js/indextest.js"></script>
     <script src="/resources/js/indexsub.js"></script>
 
-    <title>IntelliJ index</title>
+    <title>작가의 정원</title>
 </head>
 <body>
+
+	<!-- 결과를 받는 hidden -->
+	<input type="hidden" value="${resultNone}" class="resultNone"/>
+	
 	<!-- HEADER -->
 	<%@ include file="./common/header.jsp" %>
 
-<!-- search ------------------------------------------------------------------------영역 -->
+<!-- search 영역------------------------------------------------------------------------ -->
 <div id="search" style="margin-top:30px;">
     <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-8 offset-md-4">
+        <div class="row justify-content-md-end">
+            <div class="col-md-8">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                         <select class="form-select" name="search_param" id="search_param">
-	                        <option value="title">제목</option>
-	                        <option value="name">필명</option>
-	                        <option value="content">내용</option>
-                    	</select>
-                    </div>
-                    <input type="text" class="form-control" name="searchtext" placeholder="검색할 단어를 입력해주세요...">
-                    <span class="input-group-btn">
-		            	<button class="btn btn-primary" type="button" id="searchbtn"><i class="fa-solid fa-search"></i> Search</button>
-		            </span>
+	            	<div class="input-group-prepend">
+                    	<form method="get" action="/search">
+                    	
+	                        <select class="form-select" name="select" id="search_param">
+	                            <option name="title" value="title">제목</option>
+	                            <option name="name" value="name">필명</option>
+	                            <option name="content" value="content">내용</option>
+	                            <option name="all" value="all">전체</option>
+	                        </select>
+	                        
+	                </div>
+	                    
+	                    <input type="text" class="form-control" name="text" placeholder="검색할 단어를 입력해주세요...">
+	                    <!-- <input type="hidden" name="result" class="result"> -->
+	                    
+	                    <span class="input-group-btn">
+	                        <button class="btn btn-primary" type="button" id="searchbtn"><i class="fa-solid fa-search"></i> Search</button>
+	                    </span>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div><!-- ---------------------------------------------------------------search end -->
+</div>
+<!-- search 영역------------------------------------------------------------------------ -->
 
-<!-- carousel ----------------------------------------------------------------------영역 -->
+<!-- main img carousel 영역 ------------------------------------------------------------ -->
 <div class="body" style="margin-top:-70px">
 
     <div id="carousel img" >
@@ -72,22 +85,23 @@
                         <div class="image" style="background-image: url('/resources/images/main1.png')"></div>
                         <div class="text">
                             <blockquote>
-                                <p>
-                                    &ldquo; 질량의 크기는 부피와 비례하지 않는다
-                                    제비꽃같이 조그마한 그 계집애가
-                                    꽃잎처럼 하늘거리는 그 계집애가
-                                    지구보다 더 큰 질량으로 나를 끌어당긴다
-                                    순간 나는
-                                    뉴턴의 사과처럼
-                                    사정없이 그녀에게로 굴러 떨어졌다
-                                    쿵 소리를 내며 쿵쿵 소리를 내며
-                                    심장이
-                                    하늘에서 땅까지
-                                    아찔한 진자운동을 하였다.
-                                    첫사랑이었다.&rdquo;
+                            	<h4>사랑의 물리학</h4>
+                                <p style="margin-top:30px">
+                                    질량의 크기는 부피와 비례하지 않는다<br>
+                                    제비꽃같이 조그마한 그 계집애가<br>
+                                    꽃잎처럼 하늘거리는 그 계집애가<br>
+                                    지구보다 더 큰 질량으로 나를 끌어당긴다<br>
+                                    순간 나는<br>
+                                    뉴턴의 사과처럼<br>
+                                    사정없이 그녀에게로 굴러 떨어졌다<br>
+                                    쿵 소리를 내며 쿵쿵 소리를 내며<br>
+                                    심장이<br>
+                                    하늘에서 땅까지<br>
+                                    아찔한 진자운동을 하였다.<br>
+                                    첫사랑이었다.
                                 </p>
 
-                                <div class="author">&mdash;김인육</div>
+                                <div class="author">&mdash; 김인육</div>
                             </blockquote>
                         </div>
                     </div>
@@ -97,23 +111,31 @@
                         <div class="image" style="background-image: url('/resources/images/main3.png')"></div>
                         <div class="text">
                             <blockquote>
-                                <p>
-                                    &ldquo; 어느날 우리는 같은 시간 다른 공간에서
-                                    같은 음악을 다른 기분으로 듣는다.
-                                    종착역 보다 늦게 도착한다.
-                                    선율만 흐를뿐이다.&rdquo;
+                            	<h4>이유</h4>
+                                <p style="margin-top:30px">
+                                    네 눈이 그리도 이뻣던 것은<br>
+                                    가을 햇빛 탓이었을 것이다<br><br>                                 
+                                    네 눈이 그리도 맑았던 것은<br>
+                                    가을바람 탓이었을 것이다<br><br>
+                                    아니다 우리 앞에 이별의 시간이<br>
+                                    다가왔기 때문이다<br><br>
+                                    눈물이 하늘 강물이 너의 눈을<br>
+                                    더 이쁘게 맑게 보이도록 했던 것이다.
                                 </p>
 
-                                <div class="author">&mdash;오은</div>
+                                <div class="author">&mdash; 나태주</div>
                             </blockquote>
                         </div>
                     </div> <!-- .item -->
+
+                    
                 </div>
             </div>
         </div>
-    </div><!-- ------------------------------------------------------------------carousel img end -->
+    </div>
+<!-- main img carousel 영역 ------------------------------------------------------------ -->
 
-    <!-- category ----------------------------------------------------------------------영역 -->
+<!-- category ----------------------------------------------------------------------영역 -->
     <div class="category" style="margin-top:-70px">
         <div class="container bg-white rounded">
             <div class="h4 font-weight-bold text-center py-3">Keyword Search</div>
@@ -124,7 +146,8 @@
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 text-center d-flex align-items-center justify-content-center blue">
-                                <img src="https://freepngimg.com/thumb/microphone/11-microphone-png-image-thumb.png" alt="" />
+                                <img src="https://freepngimg.com/thumb/flowers_color/2-2-flowers-png-6.png"
+       							/>
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="#">
@@ -138,7 +161,9 @@
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
-                                <img src="https://freepngimg.com/thumb/email_marketing/5-2-email-png-thumb.png" alt="" />
+                                <img
+                                	src="https://www.freepnglogos.com/uploads/plane-png/plane-png-fort-wayne-international-airport-2.png"
+                                />
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="#">
@@ -153,8 +178,7 @@
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-purple">
                                 <img
-                                        src="https://freepngimg.com/thumb/technology/40061-1-machining-robot-download-free-image-thumb.png"
-                                        alt=""
+                                	src="https://freepngimg.com/thumb/love/7-2-love-free-png-image.png"
                                 />
                             </div>
                             <div class="d-flex flex-column">
@@ -170,9 +194,8 @@
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-cyan">
                                 <img
-                                        src="https://freepngimg.com/thumb/brain/80003-learning-human-albert-play-scientist-behavior-einstein-thumb.png"
-                                        alt=""
-                                />
+                                	src="https://freepngimg.com/thumb/android/31165-8-android-hd.png"
+                                 />
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="#">
@@ -185,10 +208,9 @@
                 <div class="col-lg-4 col-md-6 my-lg-3 my-3">
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
-                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pink">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center gray">
                                 <img
-                                        src="https://freepngimg.com/thumb/google/66809-google-docs-drive-plus-android-document-thumb.png"
-                                        alt=""
+                                	src="https://freepngimg.com/thumb/photography/3-2-photography-silhouette-png.png"
                                 />
                             </div>
                             <div class="d-flex flex-column">
@@ -202,10 +224,9 @@
                 <div class="col-lg-4 col-md-6 my-lg-3 my-3">
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
-                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pink">
                                 <img
-                                        src="https://www.freepnglogos.com/uploads/plane-png/plane-png-fort-wayne-international-airport-2.png"
-                                        alt=""
+                                	src="https://freepngimg.com/thumb/dog/9-dog-png-image-picture-download-dogs.png"
                                 />
                             </div>
                             <div class="d-flex flex-column">
@@ -221,8 +242,7 @@
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
                                 <img
-                                        src="https://www.freepnglogos.com/uploads/whatsapp-circle-message-messaging-messenger-round-icon--24.png"
-                                        alt=""
+                                	src="https://freepngimg.com/thumb/musical_notes/5-2-musical-notes-picture.png"
                                 />
                             </div>
                             <div class="d-flex flex-column">
@@ -238,8 +258,7 @@
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-green">
                                 <img
-                                        src="https://freepngimg.com/thumb/technology/63219-bin-recycling-computer-recycle-electronics-waste-electronic-thumb.png"
-                                        alt=""
+                                	src="https://freepngimg.com/thumb/clapperboard/6-2-clapperboard-png-picture.png"
                                 />
                             </div>
                             <div class="d-flex flex-column">
@@ -254,7 +273,8 @@
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pista">
-                                <img src="https://freepngimg.com/thumb/happy_person/4-2-happy-person-transparent-thumb.png" alt="" />
+                                <img src="https://freepngimg.com/thumb/egg/7-fried-egg-png-image.png"
+                                />
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="#">
@@ -324,6 +344,8 @@
 
     <!-- card grid -->
     <div class="cardgrid">
+    	<div class="h4 font-weight-bold text-center py-3">Writer Collection</div>
+        <p class="text-muted text-center py-3" style="margin-top:-30px">작가의 다양한 글 모음</p>
         <%@ include file="./common/cardgrid.jsp" %>
     </div>
 

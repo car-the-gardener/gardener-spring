@@ -5,21 +5,21 @@
       
         <li class="card">
           <div>
-            <img src="resources/images/main1.png" style="width: 270px; height: 150px; margin-bottom:10px" />
-            <h3 class="card-title">사랑의 물리학</h3>
-            <p style="color:black;">김인육</p>
+            <img src="https://i.imgur.com/UfZGfmi.jpg" style="width: 270px; height: 150px; margin-bottom:10px" />
+            <h3 class="card-title">이유</h3>
+            <p style="color:black;">나태주</p>
             <div class="card-content">
-              <p style="color:black;">드라마 도깨비에서 나와서 화제가 된 시</p>
+              <p style="color:black;">나태주시인의 사랑과 이별의 이유</p>
             </div>
           </div>
           <div class="card-link-wrapper">
-            <a href="" class="card-link">Read Click</a>
+            <a href="" class="card-link">Click me</a>
           </div>
         </li>
         
         <li class="card">
           <div>
-            <img src="resources/images/main2.png" style="width:270px; height: 150px; margin-bottom:10px" />
+            <img src="https://i.imgur.com/zRGhvXc.jpg" style="width:270px; height: 150px; margin-bottom:10px" />
             <h3 class="card-title">사랑의 답합</h3>
             <p style="color:black;">나태주</p>
             <div class="card-content">
@@ -27,27 +27,27 @@
             </div>
           </div>
           <div class="card-link-wrapper">
-            <a href="" class="card-link">Read Click</a>
+            <a href="" class="card-link">Click me</a>
           </div>
         </li>
         
          <li class="card">
           <div>
-            <img src="resources/images/main3.png" style="width: 270px; height: 150px; margin-bottom:10px" />
-            <h3 class="card-title">아찔</h3>
-            <p style="color:black;">오은</p>
+            <img src="https://i.imgur.com/d6dB0k9.jpg" style="width: 270px; height: 150px; margin-bottom:10px" />
+            <h3 class="card-title">그러므로</h3>
+            <p style="color:black;">나태주</p>
             <div class="card-content">
-              <p style="color:black;">오은시인의 첫번째 시집</p>
+              <p style="color:black;">그러므로 나는 너가 좋아하는 것이 좋다.</p>
             </div>
           </div>
           <div class="card-link-wrapper">
-            <a href="" class="card-link">Read Click</a>
+            <a href="" class="card-link">Click me</a>
           </div>
         </li>
         
           <li class="card">
           <div>
-            <img src="https://i.imgur.com/S8A738o.png" style="width: 270px; height: 150px; margin-bottom:10px" />
+            <img src="https://i.imgur.com/kq3PpW2.jpg" style="width: 270px; height: 150px; margin-bottom:10px" />
             <h3 class="card-title">작별</h3>
             <p style="color:black;">나태주</p>
             <div class="card-content">
@@ -55,21 +55,21 @@
             </div>
           </div>
           <div class="card-link-wrapper">
-            <a href="" class="card-link">Read Click</a>
+           	<a href="" class="card-link">Click me</a>
           </div>
         </li>
         
          <li class="card">
           <div>
             <img src="https://i.imgur.com/4Yo4bV9.jpg" style="width: 270px; height: 150px; margin-bottom:10px" />
-            <h3 class="card-title">만나</h3>
-            <p style="color:black;">최대호</p>
+            <h3 class="card-title">이 사람을</h3>
+            <p style="color:black;">나태주</p>
             <div class="card-content">
-              <p style="color:black;">최대호시인의 사랑의 관한 시</p>
+              <p style="color:black;">읽으면 읽을수록 눈물이 난다...</p>
             </div>
           </div>
           <div class="card-link-wrapper">
-            <a href="" class="card-link">Read Click</a>
+            <a href="" class="card-link">Click me</a>
           </div>
         </li>
         

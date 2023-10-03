@@ -9,7 +9,7 @@
 	<select id="selectByLoginid" resultType="Member" parameterType="string">
     <![CDATA[
     SELECT * FROM member WHERE loginid= #{loginid}
-    ]]>
+		]]>
 	</select>
 
 <select id="selectByNickname" resultType="Member" >
