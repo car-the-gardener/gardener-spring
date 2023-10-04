@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="/resources/js/findpwd.js"></script>
+    <script src="/resources/js/find_pwd.js"></script>
     <link rel="stylesheet" href="/resources/css/find_pwd.css">
     <title>비밀번호 찾기</title>
   </head>
@@ -15,7 +15,7 @@
 
   <body>
     <div class="logo">
-      <img src="../images/logo.png">
+      <img src="/resources/images/logo.png">
     </div>
 
     <!--내용 입력란-->
@@ -27,7 +27,7 @@
       <!--<input type="button" name="check" value="인증확인">-->
       <!--<input type="password" name="pwd"placeholder="변경할 비밀번호입력">-->
       <!--<input type="password" name="pwd"placeholder="변경할 비밀번호확인">-->
-      <button class="bt-find-pwd"><a href="./login.html">비밀번호 찾기</a></button><br>
+      <button class="bt-find-pwd">비밀번호 찾기</button><br>    
     </form>
 
 

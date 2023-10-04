@@ -18,10 +18,7 @@ $(document).ready(function () {
             sessionStorage.removeItem("name");
             alert("회원탈퇴가 완료되었습니다.");
             window.location.href = "/";
-          } else {
-          
-           
-            alert("회원탈퇴를 실패했습니다.");
+        
           }
         },
         error: function (xhr, textStatus, errorThrown) {

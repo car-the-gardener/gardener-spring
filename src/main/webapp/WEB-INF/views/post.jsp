@@ -15,7 +15,6 @@
 
 <body>
 loginid: <c:out value="${sessionScope.member.loginid}"/>
-nickname: <c:out value="${sessionScope.member.nickname}"/>
 
 <!-- 섹션 시작 -->
 <section>
