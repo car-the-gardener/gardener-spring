@@ -13,8 +13,6 @@ public interface PostMapper {
 
   Post findBypostnum(Long postnum);
 
-  List<Post> findAllMyPost(String loginid);
-
   Long updatePost(Post post);
 
   void updateTotalCnt(@Param("postnum") Long postnum, @Param("totalCnt") int totalCnt);

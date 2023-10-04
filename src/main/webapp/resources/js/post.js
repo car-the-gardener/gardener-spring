@@ -117,6 +117,7 @@ postService = (() => {
       url    : `/post/${postnum}/favorite`,
       async  : false,
       success: (response) => {
+        console.log(response, "좋아요")
         callback(response);
       },
       error  : (xhr, status) => {

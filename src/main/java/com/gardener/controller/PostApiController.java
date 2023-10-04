@@ -38,12 +38,6 @@ public class PostApiController {
     return postService.savePost(post);
   }
 
-  @GetMapping
-  public List<Post> getAllMyPost(String loginid) {
-    postService.findAllMyPost(loginid);
-    return null;
-  }
-
   /**
    * @param postnum
    * @return post -> json

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="/resources/js/posting.js"></script>
+    <script src="/resources/js/posting.js" defer></script>
     <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.css"/>
     <link rel="stylesheet" href="/resources/css/posting.css">
@@ -127,6 +127,9 @@
             </li>
         </ul>
 
+        <div>
+
+        </div>
 
     </div>
     <!-- 카테고리 끝 -->
@@ -140,21 +143,31 @@
 </section>
 <input class="postResponse" type="hidden" value='${post}'>
 <script>
-  const postResponse = ${post};
+  const writerResponse = JSON.parse('${member}');
+  const postResponse = '${post}';
+  console.log(writerResponse.type);
+
+  $(".secret-toggle").click(() => {
+    if (writerResponse.type !== true) {
+      $("input:checkbox[id='secret']").prop("checked", false);
+      $(".secret-toggle").css("background-color", "#fff")
+      $(".secret-toggle-btn").css("background-color", "rgb(121, 193, 150)");
+      $(".secret-toggle-btn").css("left", "4px");
+      swal("작가 신청을 해주세요");
+    }
+  })
 
   if (postResponse) {
-    $(".main-image").css(`background-image`, `url(\${postResponse.mainTitleImg})`)
-    $(".section-header-title input[name='title']").val(postResponse.mainTitle);
-    $(".section-header-title input[name='subtitle']").val(postResponse?.subTitle)
-    $(".ProseMirror").html(postResponse.content);
+    const postJson = JSON.parse(postResponse);
+    $(".main-image").css(`background-image`, `url(\${postResponse.mainTitleImg})`);
+    $(".section-header-title input[name='title']").val(postJson.mainTitle);
+    $(".section-header-title input[name='subtitle']").val(postJson?.subTitle);
+    $(".ProseMirror").html(postJson.content);
 
-    // checkbox를 checked로 바꿔야 하는구나
-    $("input[name='secret']").val(postResponse.publicYn === false ? 0 : 1);
-    /*if(postResponse.category)
-    $(".category li > input").val()*/
+    $("input[name='secret']").val(postJson.publicYn === false ? 0 : 1);
 
     // 버튼 이름 변경
-    $(".post-btn > button:last-child").text("수정")
+    $(".post-btn > button:last-child").text("수정");
   }
 
 

@@ -1,5 +1,6 @@
 package com.gardener.controller;
 
+import com.gardener.domain.Member;
 import com.gardener.domain.Post;
 import com.gardener.domain.dto.MainImgDTO;
 import com.gardener.service.PostService;
@@ -11,12 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,16 +38,18 @@ public class PostController {
   private final String uploadDir = Paths.get("C:", "tui-editor", "upload").toString();
 
   @GetMapping("/posting")
-  public void posting() {
+  public void posting(HttpSession session, Model model) {
+    Member member = (Member) session.getAttribute("member");
+    Gson gson = new Gson();
+    model.addAttribute("member", gson.toJson(member.getWriter()));
   }
 
   // 수정 시 페이지 이동
   @GetMapping("/posting/{postnum}")
-  public String suwan(@PathVariable Long postnum, HttpServletRequest request) {
+  public String updatePosting(@PathVariable Long postnum, HttpServletRequest request) {
     Gson gson = new Gson();
     Post post = postService.findPostByPostnum(postnum);
     String postToJson = gson.toJson(post);
-    log.info("넘길 데이터 => {}", postToJson);
     request.setAttribute("post", postToJson);
     return "/posting";
   }
