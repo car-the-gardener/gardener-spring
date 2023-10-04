@@ -60,17 +60,19 @@
 	                </div>
 	                    
 	                    <input type="text" class="form-control" name="text" placeholder="검색할 단어를 입력해주세요...">
-	                    <!-- <input type="hidden" name="result" class="result"> -->
+	                    
 	                    
 	                    <span class="input-group-btn">
 	                        <button class="btn btn-primary" type="button" id="searchbtn"><i class="fa-solid fa-search"></i> Search</button>
 	                    </span>
                     </form>
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- search 영역------------------------------------------------------------------------ -->
 
 <!-- main img carousel 영역 ------------------------------------------------------------ -->
@@ -142,22 +144,23 @@
             <p class="text-muted text-center py-3" style="margin-top:-30px">키워드로 분류된 다양한 글 모음</p>
 
             <div class="row">
-                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-circle mx-3 text-center d-flex align-items-center justify-content-center blue">
-                                <img src="https://freepngimg.com/thumb/pen/14-pen-png-image.png"
-       							/>
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>Poem</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+            
+               	 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+					 <a href="/category" class="box-link">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
+	                            <div class="rounded-circle mx-3 text-center d-flex align-items-center justify-content-center blue">
+	                                <img src="https://freepngimg.com/thumb/pen/14-pen-png-image.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>Poem</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
                 </div>
-                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                
+                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
@@ -173,6 +176,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">

@@ -29,7 +29,7 @@
     <script src="/resources/js/indextest.js"></script>
     <script src="/resources/js/search.js"></script>
     
-<title>search</title>
+<title>category</title>
 </head>
 <body>
 
@@ -39,7 +39,7 @@
   <!-- HEADER -->
   <%@ include file="./common/header.jsp" %>
   
-
+  
 <!-- search ------------------------------------------------------------------------영역 -->
 <div id="search" style="margin-top:30px;">
     <div class="container">
@@ -74,7 +74,7 @@
 	<!-- Team -->
     <section id="team" class="pb-5">
       <div class="container">
-        <h5 class="section-title h2" style="color:black">검색한 단어 : ${text}</h5>
+        <h5 class="section-title h2" style="color:black">카테고리 : ${text}</h5>
         <div class="row">
         
           <!-- Team member -->
