@@ -46,12 +46,20 @@
     <!--본문 내용 시작-->
     <header>
       <dl>
-        <!--프로필 사진 시작-->
+        <!--프로필 사진 시작
         <div class="profile-photo" style="margin-left: 140px">
           <img id="imgThumb" src="https://i.imgur.com/qyTEOBF.jpg" style="height: 150px" width="150px" />
           <span class="mask"></span>
           
+        </div>-->
+        <p>
+          <div class="img-pic">
+            <label for="imgBtn">
+                <img class="profile" src="/resources/images/profile.png" >
+            </label>
+            <input id="img" type="file" name="profile" style="display:none" >
         </div>
+        </p>
         <!--프로필 사진 끝-->
         <!--내 정보 내용 시작-->
         <nav>
@@ -70,12 +78,13 @@
           <p>
             <span>가입날 </span><input type="text" id="createDate" value="${member.createDate.substring(0, 10)}" readonly />
           </p>
-          <p>
+          <p>        
             <span>자기소개 </span>
-            <input class="intro" id="intro" readonly rows="3"  value= "${member.intro}" />
+            <textarea class="intro" id="intro" readonly rows="5">${member.intro}</textarea>
             <!--input type="hidden" id="profile"/-->
             <input type="hidden" id="type" value="${sessionScope.writer}"/>
 		</p>
+		
         </nav>
         <!--내 정보 내용 끝-->
       </dl>
