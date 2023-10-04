@@ -1,63 +1,85 @@
-@font-face {
-  font-family: "Dotum";
-  src: url(./font/KoPubDotumMedium.ttf);
+body{
+ font-family: Dotum, "돋움", Helvetica, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-  font-family: "Dotum";
-  /* aspect-ratio: ; */
+textarea.form-control{
+  width: 30%;
 }
 
 .signup {
-  margin: 0 350px;
-  width: 450px;
-  zoom: 1.8;
+  margin-left: 40%;
+  margin-top: 10px;  
+  font-size: 20px;
 }
+
+.signup input {
+	width: 30%;
+}
+
+.info #info__id {
+  position: relative;
+}
+
+#info__id button {
+  position: absolute;
+  width: 70px;
+  height: 30px;
+  top: 0;
+  bottom: 0;
+  right: 3px;
+  margin: auto 0;
+  border-radius: 3px;
+}
+
+
 
 /*프로필 이미지 첨부*/
 .profile {
-  width: 50px;
-  height: 40px;
-  margin: 30px 5px;
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin-left: 9%;
+  margin-top: 1px;  
 }
 .profile:hover {
   cursor: pointer;
 }
-.profile > b {
-  font-size: 1px;
-}
 
-.signup > div > b {
-  font-size: 9px;
+.profileText{
+	font-weight: bolder;
+	margin-bottom: 2%;
+	margin-left: 12.5%;	
 }
 
 .placehold-text {
-  width: 50px;
+  width: 10px;
 }
 
-.bt_area > type > span {
-  width: 100px;
-}
-
+ 
 /*아이디, 필명 중복확인 버튼*/
 .signup [type="button"] {
-  width: 144px;
-  height: 20px;
-  font-size: 10px;
+  width: 30%;
+  height: 40px;
   border: none;
   background-color:grey;
-  color: white;
+  color: white; 
 }
+
+.signup .iddupchk {
+	margin-bottom: 20px;
+}
+
+/*자기소개*/
+
 
 /*회원가입버튼*/
 .bt-Signup {
-  width: 144px;
-  height: 20px;
-  font-size: 10px;
+  width: 30%;
+  height: 40px;
   letter-spacing: 2px;
   background-color: rgb(121, 193, 150);
-  border-radius: 10px;
+  border-radius: 2px;
   border: none;
   color: white;
 }

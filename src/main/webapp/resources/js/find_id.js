@@ -20,7 +20,7 @@ $(() => {
 			success: (response) => {		
 				if (response != '0') {
 					alert('고객님의 아이디는 ' + response + ' 입니다')
-					location.href =`/`
+					location.href ="/login";
 				} else {
 					alert('잘못된 정보입니다, 다시 입력해주세요')
 				}
