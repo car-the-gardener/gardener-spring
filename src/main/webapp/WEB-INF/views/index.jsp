@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,23 +8,6 @@
 
     <!-- Jquery CDN -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
-    <!-- Bootstrap CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Carousel CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
-    <!-- Font Awesome CDN -->
-    <script src="https://kit.fontawesome.com/a00fe672c7.js" crossorigin="anonymous"></script>
-
-    <!-- CSS파일 -->
-    <link rel="stylesheet" href="/resources/css/index.css">
-    <link rel="stylesheet" href="/resources/css/carousel.css">
-    <link rel="stylesheet" href="/resources/css/img.css">
-    <link rel="stylesheet" href="/resources/css/category.css">
-    <link rel="stylesheet" href="/resources/css/cardgrid.css">
 
 
     <!-- JS파일 -->
@@ -45,7 +28,8 @@
             <div class="col-12 col-md-8 offset-md-4">
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown">
                             검색할 주제
                         </button>
                         <div class="dropdown-menu">
@@ -68,7 +52,7 @@
 <!-- carousel ----------------------------------------------------------------------영역 -->
 <div class="body" style="margin-top:-70px">
 
-    <div id="carousel img" >
+    <div id="carousel img">
         <div class="content">
             <div class="container">
 
@@ -129,7 +113,8 @@
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 text-center d-flex align-items-center justify-content-center blue">
-                                <img src="https://freepngimg.com/thumb/microphone/11-microphone-png-image-thumb.png" alt="" />
+                                <img src="https://freepngimg.com/thumb/microphone/11-microphone-png-image-thumb.png"
+                                     alt=""/>
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="#">
@@ -143,7 +128,7 @@
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
-                                <img src="https://freepngimg.com/thumb/email_marketing/5-2-email-png-thumb.png" alt="" />
+                                <img src="https://freepngimg.com/thumb/email_marketing/5-2-email-png-thumb.png" alt=""/>
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="#">
@@ -259,7 +244,8 @@
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pista">
-                                <img src="https://freepngimg.com/thumb/happy_person/4-2-happy-person-transparent-thumb.png" alt="" />
+                                <img src="https://freepngimg.com/thumb/happy_person/4-2-happy-person-transparent-thumb.png"
+                                     alt=""/>
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="#">
@@ -306,7 +292,7 @@
 
         <tr>
             <td>
-                <img src="https://i.imgur.com/ajdSOy8.png" class="writing-img" >
+                <img src="https://i.imgur.com/ajdSOy8.png" class="writing-img">
             <td>
                 <h2>아찔 -</h2>
                 <h2>오은영</h2>

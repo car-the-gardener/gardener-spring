@@ -9,17 +9,9 @@ $(() => {
     /* start of hooks */
     hooks: {
       addImageBlobHook(blob, callback) {  // 이미지 업로드 로직 커스텀
-        console.log(blob, "blob")
         try {
           const formData = new FormData();
           formData.append("image", blob);
-          for (let a of formData.keys()) {
-            console.log(a, "formData")
-          }
-          for (let a of formData.values()) {
-            console.log(a, "formData")
-            console.log(typeof a, "formData typoe")
-          }
           // 2. FileApiController - uploadEditorImage 메소드 호출
           $.ajax({
             url        : "/posting",

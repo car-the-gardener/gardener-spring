@@ -7,7 +7,6 @@
         insert into favorite (id, loginid, postnum) values (seq_favo.nextval, #{loginid}, #{postnum})
     </insert>
 
-
     <select id="findFavoriteByLoginid" resultType="FavoriteDTO">
         select * from favorite where postnum =#{postnum}
     </select>

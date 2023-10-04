@@ -2,24 +2,18 @@ package com.gardener.controller;
 
 import com.gardener.aop.exception.FindException;
 import com.gardener.domain.Member;
-import com.gardener.mappers.PostMapper;
-import org.springframework.http.HttpStatus;
+import com.gardener.domain.Post;
+import com.gardener.service.LibraryService;
+import com.gardener.service.PostService;
+import com.google.gson.Gson;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gardener.domain.Post;
-import com.gardener.service.PostService;
-import com.google.gson.Gson;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,8 +21,9 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/post")
 public class PostApiController {
 
-  private final PostService postService;
   static String path = "C:\\Users\\swans\\Documents\\workspace-sts-3.9.18.RELEASE\\gardener-spring\\src\\main\\webapp\\resources\\images\\post\\";
+  private final PostService postService;
+  private final LibraryService libraryService;
 
   /**
    * @param post
@@ -43,14 +38,22 @@ public class PostApiController {
     return postService.savePost(post);
   }
 
+  @GetMapping
+  public List<Post> getAllMyPost(String loginid) {
+    postService.findAllMyPost(loginid);
+    return null;
+  }
+
   /**
    * @param postnum
    * @return post -> json
    * 게시물 상세보기
    */
   @GetMapping("/{postnum}")
-  public ModelAndView findPostBypostnum(@PathVariable Long postnum) throws FindException {
+  public ModelAndView findPostBypostnum(@PathVariable Long postnum, HttpSession session) throws FindException {
+    Member member = (Member) session.getAttribute("member");
     Post post = postService.findPostByPostnum(postnum);
+    String result = libraryService.findSubscribe(member.getLoginid(), post.getLoginid());
 
     if (post == null) {
       throw new FindException();
@@ -59,6 +62,7 @@ public class PostApiController {
     ModelAndView mv = new ModelAndView();
     Gson gson = new Gson();
     mv.addObject("post", gson.toJson(post));
+    mv.addObject("subscribe", result);
     mv.setViewName("/post");
     return mv;
   }
@@ -76,4 +80,5 @@ public class PostApiController {
     postService.updatePostByPostnum(post);
     return post.getPostnum();
   }
+
 }

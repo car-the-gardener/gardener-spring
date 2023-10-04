@@ -15,10 +15,8 @@
 </head>
 
 <body>
-<% String id = (String) session.getAttribute("loginid");%>
-loginid = <%=id%>
 
-<c:out value="${sessionScope.loginid}"/>
+<c:out value="${sessionScope.member.loginid}"/>
 
 
 <!-- 섹션 시작 -->
@@ -143,7 +141,6 @@ loginid = <%=id%>
 <input class="postResponse" type="hidden" value='${post}'>
 <script>
   const postResponse = ${post};
-  console.log(postResponse, "수정할 데이터");
 
   if (postResponse) {
     $(".main-image").css(`background-image`, `url(\${postResponse.mainTitleImg})`)

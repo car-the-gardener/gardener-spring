@@ -1,13 +1,13 @@
 $(document).ready(() => {
   let clickStatus = 0;
-  
+
   alert("마이페이지로 이동");
   /* mypage 사용자 정보 가져오기 */
   $.ajax({
-    url: "http://localhost:8888/mypage",
-    method: "get",
+    url     : "http://localhost:8888/mypage",
+    method  : "get",
     dataType: "JSON",
-    success: (response) => {
+    success : (response) => {
       console.log(response);
       const userInfo = response;
 
@@ -18,7 +18,7 @@ $(document).ready(() => {
       $("#createDate").val(userInfo.createDate);
       $("#intro").val(userInfo.intro);
     },
-    error: (error) => {
+    error   : (error) => {
       console.log("Failed to get user info:", error);
     }
   });
@@ -29,7 +29,7 @@ $(document).ready(() => {
 
     if (clickStatus === 0) {
       inputs.each(function () {
-        if (this.id !== "createDate"&& this.id !== "loginid") {
+        if (this.id !== "createDate" && this.id !== "loginid") {
           $(this).removeAttr("readonly");
         }
       });
@@ -50,15 +50,15 @@ $(document).ready(() => {
       $("input").each(function () {
         data[this.id] = $(this).val();
       });
-       
+
       $.ajax({
-        url: "/mypage/update",
-        method: "POST",
-        data: data,
+        url    : "/mypage/update",
+        method : "POST",
+        data   : data,
         success: function (response) {
           console.log("Data successfully sent to the server!");
         },
-        error: function (error) {
+        error  : function (error) {
           console.log("Failed to send data to the server:", error);
         }
       });
@@ -66,4 +66,6 @@ $(document).ready(() => {
   });
 
   $("#joinDate").prop("readonly", true);
+
+
 });

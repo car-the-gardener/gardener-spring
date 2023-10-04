@@ -2,15 +2,10 @@ package com.gardener.service;
 
 import com.gardener.domain.Post;
 import com.gardener.mappers.PostMapper;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +22,8 @@ public class PostService {
     return postMapper.findBypostnum(postnum);
   }
 
-  public List<Post> findAllPost() {
-    List<Post> posts = postMapper.findAll();
+  public List<Post> findAllMyPost(String loginid) {
+    List<Post> posts = postMapper.findAllMyPost(loginid);
     return posts;
   }
 
