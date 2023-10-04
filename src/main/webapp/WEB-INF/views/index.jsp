@@ -146,7 +146,7 @@
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 text-center d-flex align-items-center justify-content-center blue">
-                                <img src="https://freepngimg.com/thumb/flowers_color/2-2-flowers-png-6.png"
+                                <img src="https://freepngimg.com/thumb/pen/14-pen-png-image.png"
        							/>
                             </div>
                             <div class="d-flex flex-column">
@@ -224,14 +224,14 @@
                 <div class="col-lg-4 col-md-6 my-lg-3 my-3">
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
-                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pink">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-green">
                                 <img
-                                	src="https://freepngimg.com/thumb/dog/9-dog-png-image-picture-download-dogs.png"
+                                	src="https://freepngimg.com/thumb/clapperboard/6-2-clapperboard-png-picture.png"
                                 />
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="#">
-                                    <b>Pet</b>
+                                    <b>Movie</b>
                                 </a>
                             </div>
                         </div>
@@ -256,16 +256,17 @@
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
                     <div class="box bg-white">
                         <div class="d-flex align-items-center">
-                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-green">
+                        	<div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pink">
                                 <img
-                                	src="https://freepngimg.com/thumb/clapperboard/6-2-clapperboard-png-picture.png"
+                                	src="https://freepngimg.com/thumb/dog/9-dog-png-image-picture-download-dogs.png"
                                 />
                             </div>
                             <div class="d-flex flex-column">
                                 <a href="#">
-                                    <b>Movie</b>
+                                    <b>Pet</b>
                                 </a>
                             </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -279,6 +280,54 @@
                             <div class="d-flex flex-column">
                                 <a href="#">
                                     <b>Cooking</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3" >
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-purple">
+                                <img src="https://freepngimg.com/thumb/teddy_bear/8-2-teddy-bear-png-file.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Child</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-cyan">
+                                <img src="https://freepngimg.com/thumb/sports_equipment/22346-3-sport-transparent-background.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Sports</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
+                                <img src="https://freepngimg.com/thumb/book/2-books-png-image.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Library</b>
                                 </a>
                             </div>
                         </div>
