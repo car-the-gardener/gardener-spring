@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,6 +15,10 @@
 </head>
 
 <body>
+
+<c:out value="${sessionScope.member.loginid}"/>
+
+
 <!-- 섹션 시작 -->
 <section>
     <!-- 섹션 헤더 시작 -->
@@ -24,10 +29,8 @@
     <div class="section-header-title">
         <input type="text" placeholder="제목을 입력해주세요" name="title" onfocus="this.placeholder=''"
                onblur="this.placeholder='제목을 입력해주세요'">
-        <div class="section-header-subtitle">
-            <input type="text" placeholder="소제목" name="subtitle" onfocus="this.placeholder=''"
-                   onblur="this.placeholder='소제목을 입력해주세요'">
-        </div>
+        <input type="text" placeholder="소제목" name="subtitle" onfocus="this.placeholder=''"
+               onblur="this.placeholder='소제목을 입력해주세요'">
         <!-- 이미지 btn 시작 -->
         <div class="img-pic">
             <label for="imgBtn">
@@ -135,8 +138,26 @@
     </div>
     <!-- 글쓰기 등록 btn 끝 -->
 </section>
-
+<input class="postResponse" type="hidden" value='${post}'>
 <script>
+  const postResponse = ${post};
+
+  if (postResponse) {
+    $(".main-image").css(`background-image`, `url(\${postResponse.mainTitleImg})`)
+    $(".section-header-title input[name='title']").val(postResponse.mainTitle);
+    $(".section-header-title input[name='subtitle']").val(postResponse?.subTitle)
+    $(".ProseMirror").html(postResponse.content);
+
+    // checkbox를 checked로 바꿔야 하는구나
+    $("input[name='secret']").val(postResponse.publicYn === false ? 0 : 1);
+    /*if(postResponse.category)
+    $(".category li > input").val()*/
+
+    // 버튼 이름 변경
+    $(".post-btn > button:last-child").text("수정")
+  }
+
+
 </script>
 
 </body>

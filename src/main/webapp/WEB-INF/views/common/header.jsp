@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:out value="${sessionScope.member.loginid}"/>
 
-<h1 style="text-align: center; margin-top: 10px">
+<h1 style="text-align: center; margin-top:10px;">
 	<a href="./"><img src="https://i.imgur.com/2enY1dP.png" /></a>
 </h1>
 

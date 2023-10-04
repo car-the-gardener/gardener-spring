@@ -14,19 +14,19 @@
 
     <resultMap id="PostResultMap" type="Post">
         <id property="postnum" column="postnum"/>
-        <result property="loginid" column="LOGINID"/>
+        <result property="loginid" column="loginid"/>
         <result property="mainTitle" column="main_title"/>
         <result property="subTitle" column="sub_title"/>
         <result property="content" column="content"/>
         <result property="mainTitleImg" column="main_title_img"/>
         <result property="category" column="category"/>
         <result property="publicYn" column="public_yn"/>
-        <result property="favorite" column="favorite"/>
+        <result property="favorite" column="FAVORITE"/>
         <result property="createDate" column="create_date"/>
         <association property="member" javaType="Member" autoMapping="true"/>
     </resultMap>
 
-    <select id="findById" resultMap="PostResultMap">
+    <select id="findBypostnum" resultMap="PostResultMap">
         select postnum, m.loginid, p.main_title, p.sub_title, p.content, p.main_title_img, p.category, p.total_cnt,
         p.public_yn,
         p.favorite, to_char(p.create_date,'yyyy-MM-dd') create_date, m.email, m.nickname, m.intro from post p join
@@ -35,8 +35,32 @@
         m.loginid where postnum = #{p.postnum}
     </select>
 
-    <select id="findAll" resultType="post">
-        select * from post
+    <select id="findAllMyPost" resultType="post">
+        select * from post where loginid = #{loginid}
     </select>
+
+    <update id="updatePost">
+        update post
+        set main_title = #{mainTitle}, sub_title = #{subTitle}, content = #{content}, main_title_img = #{mainTitleImg},
+        category
+        = #{category}, public_yn = #{publicYn}, create_date = systimestamp
+        where postnum = #{postnum}
+    </update>
+
+    <update id="updateTotalCnt">
+        update post
+        set total_cnt = #{totalCnt}
+        where postnum = #{postnum}
+    </update>
+
+    <update id="updateFavorite">
+        update post
+        set favorite = #{favorite}
+        where postnum = #{postnum}
+    </update>
+
+    <delete id="deletePost">
+        delete post where postnum = #{postnum}
+    </delete>
 
 </mapper>

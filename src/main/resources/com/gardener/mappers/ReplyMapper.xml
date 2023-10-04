@@ -7,19 +7,19 @@
         <selectKey resultType="long" keyProperty="id" order="BEFORE">
             select seq_reply.nextval from dual
         </selectKey>
-        insert into reply (id, loginid, post_num, content) values(#{id}, #{loginid}, #{postNum},
+        insert into reply (id, loginid, postnum, content) values(#{id}, #{loginid}, #{postnum},
         #{content})
     </insert>
 
     <select id="findById" resultType="Reply">
-        select id, loginid, post_num, content, report, to_char(create_date,'yyyy-MM-dd') create_date from reply
+        select id, loginid, postnum, content, report, to_char(create_date,'yyyy-MM-dd') create_date from reply
         where id = #{id}
     </select>
 
-    <resultMap id="commentResultMap" type="Reply">
+    <resultMap id="replyResultMap" type="Reply">
         <id property="id" column="id"/>
         <result property="loginid" column="loginid"/>
-        <result property="postNum" column="post_num"/>
+        <result property="postnum" column="postnum"/>
         <result property="content" column="content"/>
         <result property="report" column="report"/>
         <result property="createDate" column="create_date"/>
@@ -32,14 +32,14 @@
         <result property="profile" column="profile"/>
     </resultMap>
 
-    <select id="findAll" resultMap="commentResultMap">
+    <select id="findAll" resultMap="replyResultMap">
         <![CDATA[
         select  *
         from (select  /*+ INDEX(r index_reply) */
-        rownum rn, r.id,r.post_num, r.loginid, r.content, r.report ,to_char(r.create_date, 'yyyy-MM-dd') create_date, NICKNAME
+        rownum rn, r.id,r.postnum, r.loginid, r.content, r.report ,to_char(r.create_date, 'yyyy-MM-dd') create_date, NICKNAME
         from
         reply r join member m on r.loginid = m.loginid
-        WHERE post_num = #{postNum} AND rownum <= #{cri.pageNum} * #{cri.amount})
+        WHERE postnum = #{postnum} AND rownum <= #{cri.pageNum} * #{cri.amount})
         where rn > (#{cri.pageNum} - 1) * #{cri.amount}
         ]]>
     </select>
@@ -55,7 +55,7 @@
     </update>
 
     <select id="count" resultType="int">
-        select count(id) from reply where post_num = #{postNum}
+        select count(id) from reply where postnum = #{postnum}
     </select>
 
 </mapper>

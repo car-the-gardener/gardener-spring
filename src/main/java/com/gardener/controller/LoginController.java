@@ -21,16 +21,16 @@ import lombok.extern.log4j.Log4j;
 @Controller
 public class LoginController {
 
-	@Autowired
-	private MemberService service;
+  @Autowired
+  private MemberService service;
 
 	@GetMapping("/login")
 	public void login() {
 	};
 
-	@PostMapping("/login") // 로그인
-	public ResponseEntity<String> login(@RequestParam("loginid") String id, @RequestParam("password") String pwd,
-			HttpServletRequest request) throws FindException {
+  @PostMapping("/login") // 로그인
+  public ResponseEntity<String> login(@RequestParam("loginid") String id, @RequestParam("password") String pwd,
+                                      HttpServletRequest request) throws FindException {
 
 		Member member = service.login(id, pwd);
 		if (member != null) {
@@ -50,9 +50,9 @@ public class LoginController {
 		return "find_id";
 	};
 
-	@PostMapping("/find_id")
-	public ResponseEntity<String> findloginid(@RequestParam("nickname") String name,
-			@RequestParam("email") String email, HttpServletRequest request) throws FindException {
+  @PostMapping("/find_id")
+  public ResponseEntity<String> findloginid(@RequestParam("nickname") String name,
+                                            @RequestParam("email") String email, HttpServletRequest request) throws FindException {
 
 		try {
 			String m = service.findLoginid(name, email);
