@@ -17,6 +17,14 @@ img {
     max-width: 500px;
 }
 
+ul {
+    list-style: none;
+}
+
+a:link {
+    text-decoration: none;
+    color: black;
+}
 
 /* 헤더 시작 */
 /*header CSS*/
@@ -177,6 +185,10 @@ section article {
     height: 40px;
 }
 
+.section-header-icon img.clicked {
+    background-color: #63c76a;
+}
+
 .modify-btn {
     width: 450px;
     display: flex;
@@ -209,6 +221,7 @@ section article {
 .writer-profile > .writer-profile-pic {
     width: 170px;
     height: 170px;
+    text-align: center;
 }
 
 .writer-profile > .writer-profile-pic > img {
@@ -217,80 +230,100 @@ section article {
     height: 100%;
 }
 
+.writer-profile > .writer-profile-pic > button.sub {
+    background-color: #63c76a;
+}
+
 /* 작가 프로필 사진 끝*/
 /* 작가 프로필 끝 */
 
 /* 댓글 시작 */
-.section-comment > div {
-    margin-bottom: 30px;
-    text-align: end;
-}
-
-.section-comment > div > h3 {
-    display: flex;
-}
-
-.section-comment > div > button {
-    width: 60px;
-    height: 40px;
-}
-
-.section-comment > div > textarea {
-    width: 900px;
-    height: 150px;
-    resize: none;
-}
-
-.section-comment {
+.section-reply {
     width: 900px;
     margin: 0 auto;
     margin-top: 50px;
 }
 
-.section-comment > .section-comment-wrap > .section-comment-write {
-    display: flex;
+.section-reply > div > button {
+    position: relative;
+    left: 820px;
+    width: 80px;
+    height: 40px;
 }
 
-.section-comment > .section-comment-wrap > .section-comment-write + p {
-    margin: 0 0 20px;
-    text-align: start;
-}
-
-.section-comment
-> .section-comment-wrap
-> .section-comment-write
-> div:nth-child(1) {
-    width: 720px;
-    text-align: start;
-}
-
-.section-comment
-> .section-comment-wrap
-> .section-comment-write
-> div:nth-child(2) {
-    display: flex;
-    justify-content: space-between;
-    height: 50px;
-    width: 180px;
+.section-reply > div > textarea {
+    width: 900px;
+    height: 150px;
+    resize: none;
 }
 
 /* 댓글 끝 */
 
+/* 댓글 목록 시작*/
+.section-reply > div:first-child > div:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-reply > div:first-child > div:first-child > div {
+    display: flex;
+    align-items: center;
+}
+
+.section-reply-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.section-reply-list > .section-reply-list--top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-reply-list > .section-reply-list--top > div {
+    display: flex;
+}
+
+.reply-list--btn {
+    height: 30px;
+}
+
+.section-reply-list img {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.edit-mode {
+    border: 1px solid #007bff;
+}
+
+/* 댓글 목록 끝*/
+
 /* 페이지 네이션 시작 */
+.pagination-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
 .pagination {
-    font-size: x-large;
+    display: flex;
+    margin: 20px 0;
+    justify-content: center;
+    cursor: pointer;
+
+}
+
+.pagination > li {
+    width: 40px;
     text-align: center;
 }
 
-.pagination span {
-    cursor: pointer;
-    display: inline-block;
-    width: 50px;
-    border: 1px solid;
+.pagination li.page-item.active > a {
+    color: #63c76a;
+    font-weight: bold;
 }
 
 /* 페이지 네이션 끝 */
-
 
 div.footer > footer > div > p.footer-center {
     text-align: center;

@@ -3,15 +3,16 @@ package com.gardener.mappers;
 import com.gardener.domain.Member;
 
 public interface MemberMapper {
-	public Member selectByLoginid(String loginid);
 
-	public Member selectByNickname(String nickname);
+	Member selectByLoginid(String loginid);
 
-	public void insert(Member m);
+	Member selectByNickname(String nickname);
 
-	public Member findMember(String loginid);
+	void insert(Member m);
 
-	public void updateMember(Member m);
+	void updateMember(Member mamber);
 
-	public boolean deleteMember(String loginid);
+	boolean deleteMember(String loginid);
+
+	boolean deleteapply(String loginid);
 }

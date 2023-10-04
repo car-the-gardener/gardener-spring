@@ -49,7 +49,9 @@ public class MemberService {
 
 	// 로그인
 	public Member login(String loginId, String pwd) throws FindException {
+		log.warn("loginid :[" + loginId + "], pwd :[" + pwd + "]");
 		Member m = mapper.selectByLoginid(loginId);
+		log.warn("member :" + m);
 		if (pwd.equals(m.getPwd())) {
 			return m; // 로그인 성공
 		} else {

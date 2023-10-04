@@ -1,38 +1,52 @@
 package com.gardener.controller;
 
+import com.gardener.domain.Post;
 import com.gardener.domain.dto.MainImgDTO;
-import lombok.extern.java.Log;
+import com.gardener.service.PostService;
+import com.google.gson.Gson;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class PostController {
+  private final PostService postService;
   private final String uploadDir = Paths.get("C:", "tui-editor", "upload").toString();
 
   @GetMapping("/posting")
   public void posting() {
+  }
+
+  // 수정 시 페이지 이동
+  @GetMapping("/posting/{postnum}")
+  public String suwan(@PathVariable Long postnum, HttpServletRequest request) {
+    Gson gson = new Gson();
+    Post post = postService.findPostByPostnum(postnum);
+    String postToJson = gson.toJson(post);
+    log.info("넘길 데이터 => {}", postToJson);
+    request.setAttribute("post", postToJson);
+    return "/posting";
   }
 
 
@@ -41,6 +55,7 @@ public class PostController {
   @ResponseBody
   public ResponseEntity<MainImgDTO> uploadMainImage(MultipartFile image) {
     MainImgDTO dto = new MainImgDTO();
+
     if (image.isEmpty()) {
       return new ResponseEntity<>(new MainImgDTO(), HttpStatus.BAD_GATEWAY);
     }
@@ -59,6 +74,7 @@ public class PostController {
       uploadPath.mkdirs();
     }
 
+
     try {
       File saveFile = new File(uploadPath, saveFileName);
       image.transferTo(saveFile);
@@ -70,30 +86,10 @@ public class PostController {
     } catch (IOException e) {
       e.printStackTrace();
       throw new RuntimeException();
+    } finally {
     }
   }
 
-  // 메인 이미지 불러오기 
-  @GetMapping("/image-print-main")
-  @ResponseBody
-  public ResponseEntity<byte[]> getImage(String filename) {
-    log.info("file name = {}", filename);
-    File file = new File("c:\\tui-editor\\upload\\" + filename);
-    log.info("main file = {}", file);
-
-    ResponseEntity<byte[]> result = null;
-
-    try {
-      HttpHeaders headers = new HttpHeaders();
-      headers.add("Content-Type", Files.probeContentType(file.toPath()));
-      System.out.println(headers.getContentType() + " get Content Type");
-      System.out.println(Files.probeContentType(file.toPath()) + " probeContetnttpoye");
-      result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), HttpStatus.OK);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return result;
-  }
 
   @PostMapping(value = "/posting", produces = "text/plain; charset=utf-8")
   public @ResponseBody String uploadEditorImage(@RequestParam final MultipartFile image) {
@@ -110,10 +106,11 @@ public class PostController {
     if (!uploadPath.exists()) {
       uploadPath.mkdirs();
     }
+
     try {
       File uploadFile = new File(uploadPath, saveFileName);
       image.transferTo(uploadFile);
-      return saveFileName;
+      return getFolder() + "\\content\\" + saveFileName;
     } catch (IOException e) {
       e.printStackTrace();
       throw new RuntimeException(e);
@@ -135,16 +132,19 @@ public class PostController {
     if (sort.equals("main")) {
       log.info("main 처리 시작");
       fileFullPath = Paths.get(uploadDir, filename).toString();
+      log.info("fileFullPath main => {}", fileFullPath);
     } else {
-      fileFullPath = Paths.get(uploadDir, getFolder() + "\\content", filename).toString();
+      fileFullPath = Paths.get(uploadDir, filename).toString();
+      log.info("fileFullPath content => {}", fileFullPath);
     }
 
     File uploadFile = new File(fileFullPath);
+
     if (!uploadFile.exists()) {
       throw new RuntimeException();
     }
+
     try {
-      //이미지 파일을 byte[]로 변환 후 반환
       byte[] imgBytes = Files.readAllBytes(uploadFile.toPath());
       return imgBytes;
     } catch (IOException e) {
@@ -153,6 +153,21 @@ public class PostController {
     }
   }
 
+  /**
+   * @param postnum
+   * @return 삭제된 게시글 번호
+   */
+  @DeleteMapping(value = "/post/{postnum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public Long deletePostByPostnum(@PathVariable Long postnum) {
+    Post post = postService.findPostByPostnum(postnum);
+    String mainTitleImg = post.getMainTitleImg();
+    String content = post.getContent();
+
+    //postService.deletePostByPostnum(postnum);
+    return postnum;
+  }
+
+
   // 폴더 생성 함수
   private String getFolder() {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -160,5 +175,4 @@ public class PostController {
     String str = sdf.format(date);
     return str.replace("-", File.separator);
   }
-
 }
