@@ -100,7 +100,7 @@ $(document).ready(() => {
 
     // 이미지 요소의 src 속성을 선택한 파일의 URL로 설정
     if (selectedFile) {
-        var fileReader = new FileReader();l
+        var fileReader = new FileReader();
         fileReader.onload = function (e) {
             $(".profile").attr("src", e.target.result);
         };
