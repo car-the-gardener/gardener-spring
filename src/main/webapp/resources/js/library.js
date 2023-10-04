@@ -64,12 +64,6 @@ const observer =
     }, option);
 observer.observe(target);
 
-// 좋아요글 보기
-/*const showFavorite = () => {
-  $(".section-post > div").click((e) => {
-    const postnum = $(e.target).parent().parent().data("postnum");
-    location.href = `/post/${postnum}`;
-  })*/
 const showFavorite = () => {
   $(".section-post").on("click", "div", (e) => {
     const postnum = $(e.currentTarget).parent().data("postnum");
@@ -77,7 +71,6 @@ const showFavorite = () => {
   })
 }
 showFavorite();
-
 
 // 구독 버튼
 $(".subscribe").click(() => {
@@ -129,7 +122,7 @@ const request = () => {
         $("section").append(printFavorite());
         showFavorite();
       } else {
-        $(".section-subscribe-wrapper").html(printSubscribe(response));
+        $(".section-subscribe-wrapper").html(printSubscribe(JSON.stringify(response)));
       }
     },
     error  : (xhr, status) => {

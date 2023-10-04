@@ -15,10 +15,8 @@
 </head>
 
 <body>
-<% String id = (String) session.getAttribute("loginid");%>
-loginid = <%=id%>
 
-<c:out value="${sessionScope.loginid}"/>
+<c:out value="${sessionScope.member.loginid}"/>
 
 
 <!-- 섹션 시작 -->
