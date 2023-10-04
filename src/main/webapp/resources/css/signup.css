@@ -1,25 +1,15 @@
-@font-face {
-  font-family:"Dotum" ;
-  src: url(/resources/font/KoPubDotumMedium.ttf);
-}
-
 body{
  font-family: Dotum, "돋움", Helvetica, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-  font-family: "Dotum";
-  /* aspect-ratio: ; */
+textarea.form-control{
+  width: 30%;
 }
-
 
 .signup {
   margin-left: 40%;
-  margin-top: 30px;
-  //width: 450px;
- 
-  font-size: 24px;
+  margin-top: 10px;  
+  font-size: 20px;
 }
 
 .signup input {
@@ -40,6 +30,9 @@ body{
   margin: auto 0;
   border-radius: 3px;
 }
+
+
+
 /*프로필 이미지 첨부*/
 .profile {
   display: flex;
@@ -47,28 +40,22 @@ body{
   width: 120px;
   height: 120px;
   margin-left: 9%;
-  margin-bottom: 30px;
-  
+  margin-top: 1px;  
 }
 .profile:hover {
   cursor: pointer;
 }
-.text {
-   margin-left: 3.5%;
-}
 
-.signup > div >bv {
+.profileText{
+	font-weight: bolder;
+	margin-bottom: 2%;
+	margin-left: 12.5%;	
 }
 
 .placehold-text {
   width: 10px;
 }
 
-/* .bt_area > type > span {
-  width: 70px;
-}
- */
- 
  
 /*아이디, 필명 중복확인 버튼*/
 .signup [type="button"] {
@@ -76,13 +63,15 @@ body{
   height: 40px;
   border: none;
   background-color:grey;
-  color: white;
- 
+  color: white; 
 }
 
 .signup .iddupchk {
 	margin-bottom: 20px;
 }
+
+/*자기소개*/
+
 
 /*회원가입버튼*/
 .bt-Signup {

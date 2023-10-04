@@ -22,21 +22,12 @@ public class Member {
 	private String profile; // 프로필사진
 	private Writer writer;
 
-	public Member(String loginid, String pwd, String email, String name) {
-		this.loginid = loginid;
-		this.pwd = pwd;
-		this.email = email;
-		this.nickname = name;
-	}
-
-	// 겨운
 	public Member(String loginid, String pwd, String email, String nickname, String intro) {
 		this.loginid = loginid;
 		this.pwd = pwd;
 		this.email = email;
 		this.nickname = nickname;
 		this.intro = intro;
-
 	}
 
 }
