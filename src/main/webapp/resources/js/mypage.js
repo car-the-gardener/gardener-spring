@@ -69,19 +69,22 @@ $(document).ready(() => {
       $("input").each(function () {
         data[this.id] = $(this).val();
       });
+<<<<<<< HEAD
       $("textarea").each(function () {      
        data[this.id] = $(this).val();
       });
+=======
+>>>>>>> e7ebcd59cef560557ab0949aaac28080f29263ec
 
       $.ajax({
-        url: "/mypage/update",
-        method: "POST",
-        data: data,
+        url    : "/mypage/update",
+        method : "POST",
+        data   : data,
         success: function (response) {
           console.log("Data successfully sent to the server!");
           getUserInfo();
         },
-        error: function (error) {
+        error  : function (error) {
           console.log("Failed to send data to the server:", error);
         }
       });
@@ -89,6 +92,7 @@ $(document).ready(() => {
   });
 
   $("#joinDate").prop("readonly", true);
+<<<<<<< HEAD
   
   //프로필 업로드
    profile.click(() => {       
@@ -124,4 +128,8 @@ $(document).ready(() => {
       });
   
   
+=======
+
+
+>>>>>>> e7ebcd59cef560557ab0949aaac28080f29263ec
 });

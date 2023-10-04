@@ -14,6 +14,7 @@
 
     <resultMap id="PostResultMap" type="Post">
         <id property="postnum" column="postnum"/>
+        <result property="loginid" column="loginid"/>
         <result property="mainTitle" column="main_title"/>
         <result property="subTitle" column="sub_title"/>
         <result property="content" column="content"/>
@@ -34,8 +35,8 @@
         m.loginid where postnum = #{p.postnum}
     </select>
 
-    <select id="findAll" resultType="post">
-        select * from post
+    <select id="findAllMyPost" resultType="post">
+        select * from post where loginid = #{loginid}
     </select>
 
     <update id="updatePost">

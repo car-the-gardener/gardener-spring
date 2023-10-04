@@ -76,12 +76,18 @@ public class MemberService {
 	}
 
 	// 비밀번호찾기
-	public String findPwd(String loginId, String email) throws FindException {
-		Member m = mapper.selectByLoginid(loginId);
-		if (loginId.equals(m.getLoginid()) && email.equals(m.getEmail())) {
-			return m.getPwd();
+	public String findPwd(String loginid, String email) throws FindException {
+
+		Member m = mapper.selectByLoginid(loginid);
+
+		if (m != null) {
+			if (loginid.equals(m.getLoginid()) && email.equals(m.getEmail())) {
+				return m.getPwd();
+			} else {
+				throw new FindException("잘못된 정보입니다, 다시 입력해주세요");
+			}
 		} else {
-			throw new FindException("잘못된 정보입니다, 다시 입력해주세요");
+			throw new FindException("잘못된 정보입니다. 다시 입력해주세요");
 		}
 	}
 
