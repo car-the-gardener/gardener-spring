@@ -1,5 +1,7 @@
 package com.gardener.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gardener.aop.exception.FindException;
 import com.gardener.aop.exception.UpdateException;
@@ -40,12 +43,36 @@ public class MypageController {
 	}
 
 	/**
+	 * Mypage 프로필 변경
+	 */
+	@PostMapping("/profile")
+	public ResponseEntity<String> uploadFormPost(MultipartFile[] uploadFile) {
+		String uploadFolder = "C:\\upload";
+		for (MultipartFile multipartFile : uploadFile) {
+			log.info("--------------------------");
+			log.info("upload File Name:" + multipartFile.getOriginalFilename());
+			log.info("upload File Size:" + multipartFile.getSize());
+
+			String uploadFileName = multipartFile.getOriginalFilename();
+
+			File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
+
+			try {
+				multipartFile.transferTo(saveFile);
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * 계정 삭제
 	 */
 	@PostMapping("/delete")
 	@ResponseBody
 	public ResponseEntity<String> deleteMember(@RequestParam String loginid, HttpSession session) {
-		if (loginid == null || loginid.isEmpty()) {
+		if (loginid == null) {
 			String errorMessage = "사용자 ID가 전달되지 않았습니다.";
 			return ResponseEntity.badRequest().body(errorMessage);
 		}
@@ -69,22 +96,19 @@ public class MypageController {
 	 */
 
 	@PostMapping(value = "/update")
-	public ResponseEntity<String> updateMember(@RequestParam("loginid") String loginid, @RequestParam("pwd") String pwd,
-			@RequestParam("email") String email, @RequestParam("nickname") String nickname,
-			@RequestParam("intro") String intro, Model model, HttpSession session) throws FindException {
+	public ResponseEntity<String> updateMember(@RequestParam String loginid, @RequestParam String pwd,
+			@RequestParam String email, @RequestParam String nickname, @RequestParam String intro, HttpSession session)
+			throws FindException {
 
 		try {
-			log.warn("loginid:" + loginid);
 			Member member = service.selectByLoginid(loginid);
 
-			// Member 객체의 필드들을 업데이트
 			member.setLoginid(loginid);
 			member.setPwd(pwd);
 			member.setEmail(email);
 			member.setNickname(nickname);
 			member.setIntro(intro);
 
-			// 업데이트된 Member 객체를 데이터베이스에 저장
 			service.updateMember(member);
 			session.setAttribute("member", member);
 

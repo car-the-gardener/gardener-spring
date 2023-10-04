@@ -1,5 +1,8 @@
 $(document).ready(() => {
   let clickStatus = 0;
+  
+  const profile =  $(".profile");  
+  
 
   alert("마이페이지로 이동");
   /* mypage 사용자 정보 가져오기 */
@@ -34,6 +37,7 @@ $(document).ready(() => {
   /*정보수정 시작하기*/
   $(".modifybtn.btn").on("click", function () {
     const inputs = $("input");
+    const textareas = $("textarea");
 
     if (clickStatus === 0) {
       inputs.each(function () {
@@ -41,6 +45,9 @@ $(document).ready(() => {
           $(this).removeAttr("readonly");
         }
       });
+       textareas.each(function () {
+      $(this).removeAttr("readonly");
+    });
       $(".modifybtn.btn").text("정보 완료");
 
       alert("정보수정 시작");
@@ -49,6 +56,10 @@ $(document).ready(() => {
       inputs.each(function () {
         $(this).prop("readonly", true);
       });
+      textareas.each(function () {
+      $(this).prop("readonly", true);
+      });
+    
       $(".modifybtn.btn").text("정보 수정");
       clickStatus = 0;
 
@@ -57,6 +68,9 @@ $(document).ready(() => {
       const data = {};
       $("input").each(function () {
         data[this.id] = $(this).val();
+      });
+      $("textarea").each(function () {      
+       data[this.id] = $(this).val();
       });
 
       $.ajax({
@@ -75,4 +89,39 @@ $(document).ready(() => {
   });
 
   $("#joinDate").prop("readonly", true);
+  
+  //프로필 업로드
+   profile.click(() => {       
+     $("#img").click();
+   });
+
+  $('#img').change((e) => {  
+   var selectedFile = e.target.files[0];   
+
+    // 이미지 요소의 src 속성을 선택한 파일의 URL로 설정
+    if (selectedFile) {
+        var fileReader = new FileReader();l
+        fileReader.onload = function (e) {
+            $(".profile").attr("src", e.target.result);
+        };
+        fileReader.readAsDataURL(selectedFile);
+        }      
+  });
+  var formData = new FormData();
+     var inputFile = $("input[name = 'uploadFile']");     
+    var files = inputFile[0].files; 
+  
+     formData.append("uploadFile", files[0]);
+  
+     $.ajax({
+        url: "/profile",
+        processData: false,
+        contentType: false,
+        data: formData,
+        type: "post",
+        success: function(result){           
+        }     
+      });
+  
+  
 });

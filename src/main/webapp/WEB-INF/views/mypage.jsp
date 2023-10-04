@@ -55,9 +55,9 @@
         <p>
           <div class="img-pic">
             <label for="imgBtn">
-                <img src="/resources/images/image.png" alt="">
+                <img class="profile" src="/resources/images/profile.png" >
             </label>
-            <input id="imgBtn" type="file" name="image" accept="image/*" hidden>
+            <input id="img" type="file" name="profile" style="display:none" >
         </div>
         </p>
         <!--프로필 사진 끝-->
@@ -78,9 +78,9 @@
           <p>
             <span>가입날 </span><input type="text" id="createDate" value="${member.createDate.substring(0, 10)}" readonly />
           </p>
-          <p>
+          <p>        
             <span>자기소개 </span>
-            <input class="intro" id="intro" readonly rows="3"  value= "${member.intro}" />
+            <textarea class="intro" id="intro" readonly rows="5">${member.intro}</textarea>
             <!--input type="hidden" id="profile"/-->
             <input type="hidden" id="type" value="${sessionScope.writer}"/>
 		</p>
