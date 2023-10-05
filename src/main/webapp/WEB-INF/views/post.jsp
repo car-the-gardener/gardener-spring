@@ -105,9 +105,7 @@ loginid: <c:out value="${sessionScope.member.loginid}"/>
   const postResponse = ${post};
   const subscribeResponse = '${subscribe}';
   const writerBtn = $(".writer-profile-pic > button")
-  console.log(subscribeResponse, "subscribeResponse")
   let pageNum = 1;
-
 
   $(".main-image").css("background-image", `url(\${postResponse?.mainTitleImg})`)
   $(".section-header-main-title").html(postResponse.mainTitle);
@@ -120,6 +118,21 @@ loginid: <c:out value="${sessionScope.member.loginid}"/>
   $(".writer-profile-intro").html(postResponse.member.intro);
   $(".writer-profile-pic img").attr("src", postResponse.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
   writerBtn.attr("data-writer", postResponse.member.loginid)
+
+  // 글자수 체크
+  $(".section-reply textarea").keyup((e) => {
+    let reply = $(e.target).val().trim().length;
+    $(".section-reply p:last-child").text(`(\${reply}/200)`)
+
+    if (reply > 200) {
+      console.log($(e.target).val().substring(0, 201))
+      console.log($(e.target).val().substring(0, 200).length)
+      $(e.target).val($(e.target).val().substring(0, 200));
+      $(".section-reply p:last-child").text(`(200/200)`)
+      swal("200글자 이하만 가능합니다.")
+    }
+  })
+
 
   if ("${sessionScope.member.loginid}" === $(".writer-profile-pic button").data("writer")) {
     $(".writer-profile-pic button").css("display", "none");
