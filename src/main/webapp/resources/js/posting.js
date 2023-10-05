@@ -92,7 +92,7 @@ const setPost = (sort, postnum) => {
   const mainTitleImgUrl = $(".main-image").css("background-image");
   const mainTitleImg = mainTitleImgUrl.slice(mainTitleImgUrl.indexOf("/image"), mainTitleImgUrl.lastIndexOf("\""));
   const content = editor.getHTML();
-
+  console.log(content, "content");
   if (mainTitle.length === 0) {
     alert("제목을 적어주세요")
   }
@@ -125,7 +125,7 @@ const setPost = (sort, postnum) => {
       mainTitleImg,
       favorite: 0
     };
-
+    return;
     $.ajax({
       url        : "/post",
       method     : "POST",
@@ -178,3 +178,4 @@ $(".post-btn > button:last-child").click((e) => {
 if ($(".postResponse").val()) {
   editor.setHTML(JSON.parse($(".postResponse").val()).content);
 }
+console.log($("button[aria-label='Insert image']"))

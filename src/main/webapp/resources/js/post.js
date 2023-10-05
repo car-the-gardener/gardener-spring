@@ -161,6 +161,5 @@ const subcribeService = (() => {
       }
     })
   }
-
   return {insertSubscribe}
 })()

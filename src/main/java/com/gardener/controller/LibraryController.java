@@ -74,4 +74,11 @@ public class LibraryController {
     Member member = (Member) session.getAttribute("member");
     libraryService.insertSubscribe(member.getLoginid(), writerId);
   }
+
+  @GetMapping("/writer/{writerId}")
+  public String writerPage(@PathVariable String writerId) {
+    log.info("writerId => {}", writerId);
+    return "/library/writer";
+  }
+
 }

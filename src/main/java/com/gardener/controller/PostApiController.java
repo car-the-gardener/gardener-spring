@@ -47,7 +47,11 @@ public class PostApiController {
   public ModelAndView findPostBypostnum(@PathVariable Long postnum, HttpSession session) throws FindException {
     Member member = (Member) session.getAttribute("member");
     Post post = postService.findPostByPostnum(postnum);
-    String result = libraryService.findSubscribe(member.getLoginid(), post.getLoginid());
+    String result = "";
+    
+    if (member != null) {
+      result = libraryService.findSubscribe(member.getLoginid(), post.getLoginid());
+    }
 
     if (post == null) {
       throw new FindException();

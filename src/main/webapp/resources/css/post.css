@@ -228,6 +228,7 @@ section article {
     border-radius: 50%;
     width: 100%;
     height: 100%;
+    cursor: pointer;
 }
 
 .writer-profile > .writer-profile-pic > button.sub {

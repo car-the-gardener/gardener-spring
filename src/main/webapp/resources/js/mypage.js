@@ -1,17 +1,18 @@
 $(document).ready(() => {
   let clickStatus = 0;
-  
-  const profile =  $(".profile");  
-  
+
+  const profile = $(".profile");
+
 
   alert("마이페이지로 이동");
+
   /* mypage 사용자 정보 가져오기 */
   function getUserInfo() {
     $.ajax({
-      url: "/mypage",
-      method: "get",
+      url     : "/mypage",
+      method  : "get",
       dataType: "JSON",
-      success: (response) => {
+      success : (response) => {
         console.log(response);
         const userInfo = response;
 
@@ -22,16 +23,17 @@ $(document).ready(() => {
         $("#createDate").val(userInfo.createDate);
         $("#intro").val(userInfo.intro);
       },
-      error: (xhr, status, error) => {
+      error   : (xhr, status, error) => {
         console.log(
-          "Failed to get user info. Status:",
-          status,
-          "Error:",
-          error
+            "Failed to get user info. Status:",
+            status,
+            "Error:",
+            error
         );
       },
     });
   }
+
   getUserInfo();
 
   /*정보수정 시작하기*/
@@ -45,9 +47,9 @@ $(document).ready(() => {
           $(this).removeAttr("readonly");
         }
       });
-       textareas.each(function () {
-      $(this).removeAttr("readonly");
-    });
+      textareas.each(function () {
+        $(this).removeAttr("readonly");
+      });
       $(".modifybtn.btn").text("정보 완료");
 
       alert("정보수정 시작");
@@ -57,9 +59,9 @@ $(document).ready(() => {
         $(this).prop("readonly", true);
       });
       textareas.each(function () {
-      $(this).prop("readonly", true);
+        $(this).prop("readonly", true);
       });
-    
+
       $(".modifybtn.btn").text("정보 수정");
       clickStatus = 0;
 
@@ -69,12 +71,10 @@ $(document).ready(() => {
       $("input").each(function () {
         data[this.id] = $(this).val();
       });
-<<<<<<< HEAD
-      $("textarea").each(function () {      
-       data[this.id] = $(this).val();
+
+      $("textarea").each(function () {
+        data[this.id] = $(this).val();
       });
-=======
->>>>>>> e7ebcd59cef560557ab0949aaac28080f29263ec
 
       $.ajax({
         url    : "/mypage/update",
@@ -92,44 +92,38 @@ $(document).ready(() => {
   });
 
   $("#joinDate").prop("readonly", true);
-<<<<<<< HEAD
-  
-  //프로필 업로드
-   profile.click(() => {       
-     $("#img").click();
-   });
 
-  $('#img').change((e) => {  
-   var selectedFile = e.target.files[0];   
+  //프로필 업로드
+  profile.click(() => {
+    $("#img").click();
+  });
+
+  $('#img').change((e) => {
+    var selectedFile = e.target.files[0];
 
     // 이미지 요소의 src 속성을 선택한 파일의 URL로 설정
     if (selectedFile) {
-        var fileReader = new FileReader();
-        fileReader.onload = function (e) {
-            $(".profile").attr("src", e.target.result);
-        };
-        fileReader.readAsDataURL(selectedFile);
-        }      
+      var fileReader = new FileReader();
+      fileReader.onload = function (e) {
+        $(".profile").attr("src", e.target.result);
+      };
+      fileReader.readAsDataURL(selectedFile);
+    }
   });
   var formData = new FormData();
-     var inputFile = $("input[name = 'uploadFile']");     
-    var files = inputFile[0].files; 
-  
-     formData.append("uploadFile", files[0]);
-  
-     $.ajax({
-        url: "/profile",
-        processData: false,
-        contentType: false,
-        data: formData,
-        type: "post",
-        success: function(result){           
-        }     
-      });
-  
-  
-=======
+  var inputFile = $("input[name = 'uploadFile']");
+  var files = inputFile[0].files;
 
+  formData.append("uploadFile", files[0]);
 
->>>>>>> e7ebcd59cef560557ab0949aaac28080f29263ec
+  $.ajax({
+    url        : "/profile",
+    processData: false,
+    contentType: false,
+    data       : formData,
+    type       : "post",
+    success    : function (result) {
+    }
+  });
+  
 });

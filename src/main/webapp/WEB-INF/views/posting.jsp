@@ -74,56 +74,32 @@
             <li><input type="radio" name="cate" value="IT" hidden>
                 <span>IT</span>
             </li>
-            <li><input type="radio" name="cate" value="시사" hidden>
-                <span>시사</span>
-            </li>
-            <li><input type="radio" name="cate" value="육이" hidden>
-                <span>육아</span>
-            </li>
-            <li><input type="radio" name="cate" value="요리" hidden>
-                <span>요리</span>
-            </li>
-            <li><input type="radio" name="cate" value="운동" hidden>
-                <span>운동</span>
-            </li>
-            <li><input type="radio" name="cate" value="문화" hidden>
-                <span>문화</span>
-            </li>
             <li><input type="radio" name="cate" value="사진" hidden>
                 <span>사진</span>
-            </li>
-        </ul>
-
-        <ul>
-            <li><input type="radio" name="cate" value="인문학" hidden>
-                <span>인문학</span>
-            </li>
-            <li><input type="radio" name="cate" value="역사" hidden>
-                <span>역사</span>
-            </li>
-            <li><input type="radio" name="cate" value="애완동물" hidden>
-                <span>애완동물</span>
-            </li>
-            <li><input type="radio" name="cate" value="자연" hidden>
-                <span>자연</span>
-            </li>
-            <li><input type="radio" name="cate" value="풍경" hidden>
-                <span>풍경</span>
-            </li>
-            <li><input type="radio" name="cate" value="친목" hidden>
-                <span>친목</span>
             </li>
             <li><input type="radio" name="cate" value="영화" hidden>
                 <span>영화</span>
             </li>
-            <li><input type="radio" name="cate" value="심리" hidden>
-                <span>심리</span>
-            </li>
+        </ul>
+
+        <ul>
             <li><input type="radio" name="cate" value="음악" hidden>
                 <span>음악</span>
             </li>
-            <li><input type="radio" name="cate" value="일상" hidden>
-                <span>일상</span>
+            <li><input type="radio" name="cate" value="애완동물" hidden>
+                <span>애완동물</span>
+            </li>
+            <li><input type="radio" name="cate" value="요리" hidden>
+                <span>요리</span>
+            </li>
+            <li><input type="radio" name="cate" value="육아" hidden>
+                <span>육아</span>
+            </li>
+            <li><input type="radio" name="cate" value="운동" hidden>
+                <span>운동</span>
+            </li>
+            <li><input type="radio" name="cate" value="독서" hidden>
+                <span>독서</span>
             </li>
         </ul>
 
