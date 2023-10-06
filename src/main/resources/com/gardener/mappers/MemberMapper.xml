@@ -57,6 +57,14 @@
 		WHERE LOGINID = #{loginid}
 		]]>
 	</update>
+	
+	<update id="updateprofile" parameterType="Member">
+		<![CDATA[
+		UPDATE member
+		SET profile = #{profile}
+		WHERE LOGINID = #{loginid}
+		]]>
+	</update>
 
 
 	<delete id="deleteMember" parameterType="String">
