@@ -8,6 +8,10 @@ main {
     margin: 0 auto;
 }
 
+hr {
+    margin: 8px 0;
+}
+
 .section-subscribe-wrapper {
     display: flex;
     justify-content: space-between;

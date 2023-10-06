@@ -47,4 +47,13 @@ public class LibraryService {
   public List<Member> findAllSubscribeWithPaging(String loginid, int num) {
     return libraryMapper.getAllSubscribeWithPaging(loginid, num);
   }
+
+  public List<Member> findAllSubscribedWriter(String loginid) {
+    return libraryMapper.getAllSubscribedWriter(loginid);
+  }
+
+  public List<Post> findAllSubscribedWriterPost(String writerId, int num) {
+    return libraryMapper.getAllSubscribedWriterPost(writerId, num);
+  }
+
 }

@@ -41,6 +41,7 @@ public class PostController {
   public void posting(HttpSession session, Model model) {
     Member member = (Member) session.getAttribute("member");
     Gson gson = new Gson();
+    log.info("member.getWriter() => {}", member.getWriter());
     model.addAttribute("member", gson.toJson(member.getWriter()));
   }
 
