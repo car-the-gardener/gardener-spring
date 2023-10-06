@@ -48,7 +48,7 @@ public class PostApiController {
     Member member = (Member) session.getAttribute("member");
     Post post = postService.findPostByPostnum(postnum);
     String result = "";
-    
+
     if (member != null) {
       result = libraryService.findSubscribe(member.getLoginid(), post.getLoginid());
     }
