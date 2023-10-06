@@ -1,4 +1,3 @@
-package com.gardener.mappers;
 
 import com.gardener.domain.Reply;
 import com.gardener.util.Criteria;

@@ -1,54 +1,69 @@
 $(() => {
-	  //header
-  const header = $("body>div.header");
-  header.load("../html/header.html");
-
-  //footer
-  const footer = $("body>div.footer");
-  footer.load("../html/footer.html");
-
-	
   //DOM트리에서 form객체찾기
-  const formObj = $("form.signup");
-
-  //아이디 입력란 객체 찾기
-  const inputIdObj = $("form.signup>input[name=loginId]");
-
-  //아이디 중복확인 버튼 객체 찾기
-  const btIdDupChk = $("form.signup button.iddupchk");
-
-  //이메일 입력란 객체 찾기
-  const inputEmailObj = $("form.signup>input[name=email]");
-
-  //필명 입력란 객체 찾기
-  const inputNameObj = $("form.signup>input[name=name]");
-
+  const formObj = $("form.signup");  
+  
+  //프로필 객체
+  const profile =  $(".profile");  
+  
+  //ID 중복확인 버튼 객체
+  const btIdDupChk = $("form.signup input.iddupchk"); 
+  
+  //비밀번호
+  const pwd = $("form.signup input.pwd");
+  
+  //비밀번호 확인
+  const pwdCfm =$("form.signup input.confirm");
+  
+  //이메일
+  const email = $("form.signup input[name=loginid]");
+  
+  //필명
+  const nickname = $("form.signup input[name=nickname]");
+  
   //필명 중복확인 버튼 객체 찾기
   const btNameDupchk = $("form.signup button.namedupchk");
 
   //가입버튼 객체 찾기
-  const btSignup = $("form.signup.bt-Signup");
+  const btSignup = $("form.signup.bt-Signup"); 	
+  
+  
+  //프로필 업로드
+   profile.click(() => {    	
+ 	 $("#img").click();
+   });
 
+  $('#img').change((e) => {  
+   var selectedFile = e.target.files[0];	
 
-	// 세션 없애기
-	$.ajax({
-		url:"/back/signup",
-		success:()=>{
-			
-		}
-	})
+    // 이미지 요소의 src 속성을 선택한 파일의 URL로 설정
+    if (selectedFile) {
+        var fileReader = new FileReader();
+        fileReader.onload = function (e) {
+            $(".profile").attr("src", e.target.result);
+        };
+        fileReader.readAsDataURL(selectedFile);
+        }   	
+  });
+  
+  //ID 중복확인  
+  btIdDupChk.click(() => {     
+    const loginid = $("input[name='loginid']").val();
+  	const iddupchk = $("input[name='iddupchk']").val();
 
-
-  btIdDupChk.click(() => {
-    const loginId = $("input[name='loginId']").val();
+  	//아이디 입력란이 빈칸인 경우
+  	if (loginid == '') {
+  	  swal('ID를 입력하세요');
+  	  return;
+  	}
+  	
     $.ajax({
-      url: "/back/iddupchk",
-      methoed: "get",
-      data: `idcheck=${loginId}`,
-      success: (responseData) => {
-        console.log(responseData);
-        if (responseData === "1") {
-          swal("사용 가능한 아이디 입니다");
+      url: "/id_chk",
+      method: "get",
+      data: "loginid=" + loginid , //`idcheck=${loginId}`
+      success: (response) => {
+        console.log(response);
+        if (!response) {
+          swal("사용 가능한 아이디 입니다");        
         } else {
           swal("중복된 아이디 입니다, 다른 아이디를 입력해주세요");
         }
@@ -56,48 +71,75 @@ $(() => {
     });
   });
 
-  btNameDupchk.click(() => {
-    const name = $("input[name='name']").val();
-    $.ajax({
-      url: "/back/namechk",
-      methoed: "get",
-      data: `namecheck=${name}`,
-      success: (responseData) => {
-        console.log(responseData);
-        if (responseData === "1") {
-          swal("사용 가능한 필명 입니다");
-        } else {
-          swal("중복된 필명 입니다, 다른 필명을 입력해주세요");
-        }
-      },
-    });
-  });
 
-  formObj.submit((e) => {
-	  if($("form input").val() === "null" && $("form input").val() === ""){
-		  alert("이런")
-	  }
-	  
-    $(e.target)
-      .attr("action", "/back/signup")
-      .attr("method", "post");
+  //Nickname중복확인
+  btNameDupchk.click(() => {  
+  
+  //아이디 중복확인 버튼 객체 찾기
+	 const btIdDupChk = $("form.signup input.iddupchk");  	
+	 const nickname = $("input[name='nickname']").val();
+    //필명 입력란이 빈칸인 경우
+  	if (nickname == '') {
+  	  swal('필명을 입력하세요');
+  	  return;
+  	}  
+     
+	  $.ajax({
+	    url: "/name_chk",
+	  	methoed: "get",
+	    data: "nickname=" + nickname,  //"nickname=${nickname}",
+	    success: (response) => {	      
+	      if (!response) {
+	        swal("사용 가능한 필명 입니다");
+	      } else {
+         	swal("중복된 필명 입니다. 다른 필명을 입력해주세요");
+       }
+     },
+   });
+ });
+
+  
+  //회원가입
+  formObj.submit((e) => {      
+  	//1.비밀번호 확인
+	if (pwd.val() != pwdCfm.val()){	
+		alert("비밀번호를 다시 입력해주세요");
+		return;
+	}
+	
+  
+  	//2. 프로필 이미지 업로드 
+	var formData = new FormData();
+  	var inputFile = $("input[name = 'uploadFile']");     
+    var files = inputFile[0].files; 
+  
+  	formData.append("uploadFile", files[0]);
+  
+  	$.ajax({
+	  	url: "/profile",
+	  	processData: false,
+	  	contentType: false,
+	  	data: formData,
+	  	type: "post",
+	  	success: function(result){	  		
+	  	}  	
+   	});
+
+   	   	
+   	   	
+  	//3. 회원가입  
+ 	const data = $(e.target).serialize();
+ 	console.log(data, "ㅇㅅㅇ ");
     $.ajax({
-      url: formObj.attr("action"),
-      method: formObj.attr("method"),
-      data: formObj.serialize(),
-      success: (responseObj) => {
-        console.log(responseObj);
-        if (responseObj === "1") {
-          //가입 성공인경우
+      url: "/signup",
+      method: "post",
+      data: data,
+      success: (data) => {      	    
           alert("회원가입이 되었습니다");
-          location.href = "./login.html"; //페이지 이동
-        } else {
-          //가입 실패인경우
-          alert("빈칸을 채워주세요");
-        }
+          location.href = "./login"; //페이지 이동
       },
       error: (xhr) => {
-        alert("에러:" + xhr.status);
+        alert("회원가입 실패했습니다");
       },
     });
     return false;
