@@ -13,7 +13,7 @@ import com.gardener.service.HomeService;
 import com.gardener.service.SearchService;
 
 @Controller
-public class HomeController {
+public class MyGardenController {
 	
 	@Autowired
 	private HomeService service;
@@ -24,7 +24,7 @@ public class HomeController {
 	//좋아요가 가장많은 글의 작가의 글을 모두 가져오는 객체
 	List<Search> TopCollection = new ArrayList<Search>();
 	
-  @GetMapping("/")
+  @GetMapping("/mygarden")
   public String home(Model model) {
 	  
 	  faveriteTop = service.FavoriteTop();

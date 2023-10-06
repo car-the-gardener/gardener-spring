@@ -13,7 +13,7 @@
             </div>
           </div>
           <div class="card-link-wrapper">
-            <a href="" class="card-link">Click me</a>
+            <a href="" class="card-link" style="border-color:#007b5e;">Click me</a>
           </div>
         </li>
         
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="card-link-wrapper">
-            <a href="" class="card-link">Click me</a>
+            <a href="" class="card-link" style="border-color:#007b5e;">Click me</a>
           </div>
         </li>
         
@@ -41,7 +41,7 @@
             </div>
           </div>
           <div class="card-link-wrapper">
-            <a href="" class="card-link">Click me</a>
+            <a href="" class="card-link" style="border-color:#007b5e;">Click me</a>
           </div>
         </li>
         
@@ -55,7 +55,7 @@
             </div>
           </div>
           <div class="card-link-wrapper">
-           	<a href="" class="card-link">Click me</a>
+           	<a href="" class="card-link" style="border-color:#007b5e;">Click me</a>
           </div>
         </li>
         
@@ -69,7 +69,7 @@
             </div>
           </div>
           <div class="card-link-wrapper">
-            <a href="" class="card-link">Click me</a>
+            <a href="" class="card-link" style="border-color:#007b5e;">Click me</a>
           </div>
         </li>
         

@@ -36,6 +36,9 @@
                         <a class="nav-link" href="#" style="font-size: 20px">나의 정원</a>
                     </li>
                     <li class="nav-item ms-5">
+                        <a class="nav-link" href="/mypage" style="font-size: 20px">작가신청</a>
+                    </li>
+                    <li class="nav-item ms-5">
                         <a class="nav-link" href="/mypage" style="font-size: 20px">마이페이지</a>
                     </li>
                     <li class="nav-item ms-5">
@@ -44,10 +47,14 @@
                 </c:when>
                 <c:otherwise>
                 <li class="nav-item ms-5">
-                    <a class="nav-link" href="#" style="font-size: 20px">회원가입</a>
+                    <a class="nav-link" href="/magazine" style="font-size: 20px">매거진</a>
+                </li>
+                <li class="nav-item ms-5">
+                    <a class="nav-link" href="/singup" style="font-size: 20px">회원가입</a>
                 </li>
                 <li class="nav-item ms-5">
                     <a class="nav-link" href="/login" style="font-size: 20px">로그인</a>
+                </li>
                     </c:otherwise>
                     </c:choose>
             </ul>

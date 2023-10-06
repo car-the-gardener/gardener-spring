@@ -1,4 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.gardener.domain.Search" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.lang.Long" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,25 +56,24 @@
             <div class="col-md-8">
                 <div class="input-group">
 	            	<div class="input-group-prepend">
-                    	<form method="get" action="/search">
+                    	<form method="get" action="/search" class="search-form">
                     	
 	                        <select class="form-select" name="select" id="search_param">
-	                            <option name="title" value="title">제목</option>
-	                            <option name="name" value="name">필명</option>
-	                            <option name="content" value="content">내용</option>
-	                            <option name="all" value="all">전체</option>
+	                            <option value="title" ${select eq 'title'?'selected':''}>제목</option>
+	                            <option value="name" ${select eq 'name'?'selected':''}>필명</option>
+	                            <option value="content" ${select eq 'content'?'selected':''}>내용</option>
+	                            <option value="all" ${select eq 'all'?'selected':''}>전체</option>
 	                        </select>
-	                        
 	                </div>
+	                        
 	                    
-	                    <input type="text" class="form-control" name="text" placeholder="검색할 단어를 입력해주세요...">
-	                    
+	                    <input type="text" class="form-control" name="text" placeholder="검색할 단어를 입력해주세요..." value="${text}">
 	                    
 	                    <span class="input-group-btn">
-	                        <button class="btn btn-primary" type="button" id="searchbtn"><i class="fa-solid fa-search"></i> Search</button>
+	                        <button class="btn btn-primary" type="button" id="searchbtn" style="background-color:#007b5e; border-color:#007b5e;">
+	                        <i class="fa-solid fa-search"></i> Search</button>
 	                    </span>
                     </form>
-                    
                 </div>
             </div>
         </div>
@@ -81,7 +88,6 @@
     <div id="carousel img" >
         <div class="content">
             <div class="container">
-
                 <div class="owl-carousel slide-one-item">
                     <div class="d-md-flex testimony-29101 align-items-stretch">
                         <div class="image" style="background-image: url('/resources/images/main1.png')"></div>
@@ -145,11 +151,11 @@
 
             <div class="row">
             
-               	 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-					 <a href="/category" class="box-link">
+               	<div class="col-lg-4 col-md-6 my-lg-0 my-3">
+					 <a href="/category?category=시">
 	                    <div class="box bg-white">
 	                        <div class="d-flex align-items-center">
-	                            <div class="rounded-circle mx-3 text-center d-flex align-items-center justify-content-center blue">
+                            <div class="rounded-circle mx-3 text-center d-flex align-items-center justify-content-center blue">
 	                                <img src="https://freepngimg.com/thumb/pen/14-pen-png-image.png" />
 	                            </div>
 	                            <div class="d-flex flex-column">
@@ -161,181 +167,168 @@
                 </div>
                 
                  <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
+					 <a href="/category?category=여행">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
-                                <img
-                                	src="https://www.freepnglogos.com/uploads/plane-png/plane-png-fort-wayne-international-airport-2.png"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>Travel</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+	                                <img src="https://www.freepnglogos.com/uploads/plane-png/plane-png-fort-wayne-international-airport-2.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>Travel</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
                 </div>
                 
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
+					 <a href="/category?category=연애">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-purple">
-                                <img
-                                	src="https://freepngimg.com/thumb/love/7-2-love-free-png-image.png"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>Love</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+	                                <img src="https://freepngimg.com/thumb/love/7-2-love-free-png-image.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>Love</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
                 </div>
-                <div class="col-lg-4 col-md-6 my-lg-3 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-cyan">
-                                <img
-                                	src="https://freepngimg.com/thumb/android/31165-8-android-hd.png"
-                                 />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>IT</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 my-lg-3 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center gray">
-                                <img
-                                	src="https://freepngimg.com/thumb/photography/3-2-photography-silhouette-png.png"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>photo</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 my-lg-3 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-green">
-                                <img
-                                	src="https://freepngimg.com/thumb/clapperboard/6-2-clapperboard-png-picture.png"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>Movie</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
+					 <a href="/category?category=IT">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
+	                        	<div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-cyan">
+	                                <img src="https://freepngimg.com/thumb/android/31165-8-android-hd.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>IT</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+					 <a href="/category?category=사진">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
+	                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center gray">
+	                                <img src="https://freepngimg.com/thumb/photography/3-2-photography-silhouette-png.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>photo</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+					 <a href="/category?category=영화">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
+                            	<div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-green">
+	                                <img src="https://freepngimg.com/thumb/clapperboard/6-2-clapperboard-png-picture.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>Movie</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+					 <a href="/category?category=음악">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
-                                <img
-                                	src="https://freepngimg.com/thumb/musical_notes/5-2-musical-notes-picture.png"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>Music</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+	                                <img src="https://freepngimg.com/thumb/musical_notes/5-2-musical-notes-picture.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>Music</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
                 </div>
-                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
+                
+               <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+					 <a href="/category?category=애완동물">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
                         	<div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pink">
-                                <img
-                                	src="https://freepngimg.com/thumb/dog/9-dog-png-image-picture-download-dogs.png"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>Pet</b>
-                                </a>
-                            </div>
-                           
-                        </div>
-                    </div>
+	                                <img src="https://freepngimg.com/thumb/dog/9-dog-png-image-picture-download-dogs.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>Pet</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
                 </div>
+                
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
+					 <a href="/category?category=요리">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pista">
-                                <img src="https://freepngimg.com/thumb/egg/7-fried-egg-png-image.png"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>Cooking</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+	                                <img src="https://freepngimg.com/thumb/egg/7-fried-egg-png-image.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>Cooking</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
                 </div>
                 
-                <div class="col-lg-4 col-md-6 my-lg-0 my-3" >
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+					 <a href="/category?category=육아">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-purple">
-                                <img src="https://freepngimg.com/thumb/teddy_bear/8-2-teddy-bear-png-file.png"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>Child</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+	                                <img src="https://freepngimg.com/thumb/teddy_bear/8-2-teddy-bear-png-file.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>Child</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
                 </div>
                 
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
+					 <a href="/category?category=운동">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-cyan">
-                                <img src="https://freepngimg.com/thumb/sports_equipment/22346-3-sport-transparent-background.png"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>Sports</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+	                                <img src="https://freepngimg.com/thumb/sports_equipment/22346-3-sport-transparent-background.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>Sports</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
                 </div>
                 
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                    <div class="box bg-white">
-                        <div class="d-flex align-items-center">
+					 <a href="/category?category=도서">
+	                    <div class="box bg-white">
+	                        <div class="d-flex align-items-center">
                             <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
-                                <img src="https://freepngimg.com/thumb/book/2-books-png-image.png"
-                                />
-                            </div>
-                            <div class="d-flex flex-column">
-                                <a href="#">
-                                    <b>Library</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+	                                <img src="https://freepngimg.com/thumb/book/2-books-png-image.png" />
+	                            </div>
+	                            <div class="d-flex flex-column">
+	                                <b>Library</b>
+	                            </div>
+	                        </div>
+	                    </div>
+		            </a>
                 </div>
             </div>
         </div>
@@ -347,61 +340,94 @@
     <p class="text-muted text-center py-3" style="margin-top:-30px">작가의 정원에서 추천하는 글</p>
 
     <table cellspacing="0px" class="writing-list">
-        <tr>
-            <td>
-                <a href="./post.html">
-                    <img src="https://i.imgur.com/8OKpmst.jpg" class="writing-img">
-                </a>
-            </td>
-            <td>
-                <h2>사랑의 물리학 -</h2>
-                <h2>김인육</h2>
-                <p>질량의 크기는 부피와 비례하지 않는다. 제비꽃같이 조그마한 그 계집애가 꽃잎같이 하늘거리는 그
-                    계집애가...</p>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <img src="https://i.imgur.com/J91Dzsg.jpg" class="writing-img">
-            </td>
-            <td>
-                <h2>사랑에 답함 -</h2>
-                <h2>나태주</h2>
-                <p>예쁘지 않은 것을 예쁘게 보아주는 것이 사랑이다 좋지 않은 것을 좋게 생각해주는 것이 사랑이다...</p>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <img src="https://i.imgur.com/ajdSOy8.png" class="writing-img" >
-            <td>
-                <h2>아찔 -</h2>
-                <h2>오은영</h2>
-                <p>어느날 우리는 같은 시간 다른 공간에서 같은 음악을 다른 기분으로 듣는다....</p>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <img src="https://i.imgur.com/svjft1X.jpg" class="writing-img">
-            </td>
-            <td>
-                <h2>하고많은 것들 중에 당신을 사랑하였다 -</h2>
-                <h2>서덕준</h2>
-                <p>하고많은 것들 중에 하필 당신을 사랑하였으나 그는 나에게 정차하는 일이 없었다...</p>
-            </td>
-        </tr>
+    
+    <% int faveriteTopSize = (int)request.getAttribute("faveriteTopSize");
+        List<Search> faveriteTop = (List<Search>) request.getAttribute("faveriteTop");
+        
+        	for(int i=0; i<faveriteTopSize; i++){
+        		//객체 하나 가져온다
+        		 Search recommend = faveriteTop.get(i);
+        		 
+        		//timestamp 포멧팅
+        		 Timestamp timestamp = Timestamp.valueOf(recommend.getCreatedate());
+        	     Date date = new Date(timestamp.getTime()); 
+        	     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+        	     String formatDate = dateFormat.format(date);
+        	     
+        	   //content html태그 빼기
+        	     String content = recommend.getContent().replaceAll("<[^>]*>", "");	   
+        	   
+        	   //postnum Long타입으로 변환
+        	   //String postnumStr =  recommend.getPostnum();
+        	   //long postnum = Long.parseLong(postnumStr);
+        %>
+	         <tr class="search-postnum" data-postnum="<%=recommend.getPostnum()%>">
+	            <td>
+	                 <img src= <%=recommend.getMaintitleimg() %> class="writing-img">
+	            </td>
+	            <td>
+	                <h2><%=recommend.getMaintitle() %> -</h2>
+	                <h2><%=recommend.getNickname() %></h2>
+	                <p><%=recommend.getSubtitle() %></p>
+	                <p class="recommend-content"><%=content%></p>
+	            </td>
+	        </tr>
+        </form>
+ 		<%	
+        	}
+        %>
     </table>
     <!-- 추천하는글 end ---------------------------------------------------------------------- -->
 
-    <!-- card grid -->
-    <div class="cardgrid">
+    <!-- Writer Collection 영역 ---------------------------------------------------------->
     	<div class="h4 font-weight-bold text-center py-3">Writer Collection</div>
         <p class="text-muted text-center py-3" style="margin-top:-30px">작가의 다양한 글 모음</p>
-        <%@ include file="./common/cardgrid.jsp" %>
+    <div class="cardgrid">
+        <div class="container" style="margin-top:10px">
+      		<ul class="cards">
+      		
+      		<% int TopCollectionSize = (int)request.getAttribute("TopCollectionSize");
+	      		
+	            List<Search> topcollection = (List<Search>) request.getAttribute("TopCollection");
+	            
+	            	for(int i=0; i<TopCollectionSize; i++){
+	            		//객체 하나 가져온다
+	            		 Search collection = topcollection.get(i);
+	            		 
+	            		//timestamp 포멧팅
+	            		 Timestamp timestamp = Timestamp.valueOf(collection.getCreatedate());
+	            	     Date date = new Date(timestamp.getTime()); 
+	            	     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
+	            	     String formatDate = dateFormat.format(date);
+	            	     
+	            	   //content html태그 빼기
+	            	     String content = collection.getContent().replaceAll("<[^>]*>", "");	   
+						 
+            %>
+      			 <li class="card">
+			          <div>
+			            <img src=<%=collection.getMaintitleimg() %>; style="width: 270px; height: 150px; margin-bottom:10px" />
+			            <h3 class="card-title"><%=collection.getMaintitle() %></h3>
+			            <p style="color:black;"><%=collection.getNickname() %></p>
+			            <div class="card-content">
+			              <p style="color:black;"><%=collection.getSubtitle() %></p>
+			            </div>
+			          </div>
+			          <div class="card-link-wrapper">
+			            <a href="/post/<%=collection.getPostnum() %>" class="card-link" style="border-color:#007b5e;">Click me</a>
+			          </div>
+			        </li>
+		<%	
+        	}
+        %>
+			</ul>
+    	</div>
     </div>
-
+	<!-- Writer Collection 영역 --------------------------------------------->
+	
+	
+	
+	
 </div><!-- body end -->
 
 <!-- FOOTER -->

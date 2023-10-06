@@ -78,14 +78,16 @@
 	<!-- Team -->
     <section id="team" class="pb-5">
       <div class="container">
-        <h5 class="section-title h2" style="color:black">검색한 단어 : ${text}</h5>
+        <h5 class="section-title h2" style="color:black;">매거진</h5>
         <div class="row">
         
         <% int resultTotal = (int)request.getAttribute("resultTotal");
-        List<Search> searchResult = (List<Search>) request.getAttribute("searchResult");
+        List<Search> searchResult = (List<Search>) request.getAttribute("magazine");
         
         	for(int i=0; i<resultTotal; i++){
+        		//객체 하나를 가져오는 작업
         		 Search result = searchResult.get(i);
+        		 
         		 Timestamp timestamp = Timestamp.valueOf(result.getCreatedate());
         	     Date date = new Date(timestamp.getTime()); 
         	     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
