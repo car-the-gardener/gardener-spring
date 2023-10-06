@@ -14,8 +14,7 @@ public interface SearchMapper {
 	
 	public List<Search> searchAll(String text);
 	
-//	public Search searchCategory();
+	public List<Search> magazine();
 	
-
 	
 }

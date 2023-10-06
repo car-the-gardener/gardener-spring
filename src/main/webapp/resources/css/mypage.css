@@ -18,6 +18,19 @@ h1>a>img {
 	height: 150px;
 }
 
+.profile {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  margin-left: 9%;
+  margin-top: 1px;  
+}
+.profile:hover {
+  cursor: pointer;
+}
+
+
 header>nav>ul {
 	list-style-type: none;
 	padding-left: 200px;
@@ -83,7 +96,7 @@ body>header {
 	width: 500px;
 	border: solid 2px rgb(192, 192, 192);
 	border-radius: 12px;
-	height: 500px;
+	height: 600px;
 	display: flex;
 	align-items: center;
 	margin: 0 auto;
@@ -96,8 +109,9 @@ body>header>nav {
 }
 
 .intro {
-	width: 200px;
-	height: 3em;
+	width: auto;
+	height: 5em;
+	resize: none;
 }
 
 /*버튼 위치 시작*/
@@ -124,6 +138,13 @@ body>header>nav {
 input[readonly] {
      font-weight: bold;
 }
+
+.container {
+     text-align: center; 
+    }
+    
+    
+
 /*버튼 꾸미기 끝*/
 
 /*회원탈퇴 버튼 시작

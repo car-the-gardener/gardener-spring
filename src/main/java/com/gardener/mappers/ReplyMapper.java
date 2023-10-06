@@ -1,24 +1,24 @@
 package com.gardener.mappers;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.gardener.domain.Reply;
 import com.gardener.util.Criteria;
+import com.gardener.util.ReplyPaging;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ReplyMapper {
 
-	int insert(Reply reply);
+  int insert(Reply reply);
 
-	Reply findById(Long id);
+  Reply findById(Long id);
 
-	List<Reply> findAll(@Param("cri") Criteria cri, @Param("postnum") Long postnum);
+  List<Reply> findAll(@Param("cri") Criteria cri, @Param("postnum") Long postnum);
 
-	int delete(Long id);
+  int delete(Long id);
 
-	int update(Reply reply);
+  int update(Reply reply);
 
-	int count(Long postnum);
+  int count(Long postnum);
 
 }

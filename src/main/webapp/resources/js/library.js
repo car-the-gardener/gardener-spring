@@ -63,7 +63,6 @@ const observer =
       })
     }, option);
 observer.observe(target);
-
 const showFavorite = () => {
   $(".section-post").on("click", "div", (e) => {
     const postnum = $(e.currentTarget).parent().data("postnum");
@@ -103,9 +102,9 @@ const printSubscribe = (response) => {
     observer.observe(target);
 
     $(".section-subscribe-wrapper--writer").on("click", "div", (e) => {
-      console.log($(e.currentTarget).parent().data("writer"), "클릭")
+      const writerId = $(e.currentTarget).parent().data("writer");
+      location.href = `/library/writer/${writerId}`;
     })
-
   }
 }
 
