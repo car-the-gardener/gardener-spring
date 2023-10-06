@@ -104,10 +104,13 @@ postService = (() => {
       url    : `/post/${postnum}`,
       method : "DELETE",
       success: (response) => {
+        console.log(response)
+        console.log(typeof response)
+        location.href = "/";
         callback(response);
       },
       error  : (xhr, status) => {
-        console.log(status)
+        console.log(xhr)
       }
     })
   }

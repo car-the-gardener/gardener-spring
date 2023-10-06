@@ -187,7 +187,6 @@ loginid: <c:out value="${sessionScope.member.loginid}"/>
         } else {
           reply += `<div>
               <img src="/resources/images/thumbs-up.png" alt="좋아요 표시">
-              <span>5</span>
               <div><img src="/resources/images/report.png" alt="신고 이미지"></div>
           </div>`
         }

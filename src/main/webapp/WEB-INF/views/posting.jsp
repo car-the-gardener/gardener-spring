@@ -15,10 +15,6 @@
 </head>
 
 <body>
-
-<c:out value="${sessionScope.member.loginid}"/>
-
-
 <!-- 섹션 시작 -->
 <section>
   <!-- 섹션 헤더 시작 -->
@@ -122,6 +118,11 @@
   const writerResponse = '${member}';
   const postResponse = '${post}';
 
+  if (!writerResponse) {
+    swal("로그인 해주세요")
+    location.href = "/";
+  }
+
   $(".secret-toggle").click(() => {
     if (JSON.parse(writerResponse).type !== true) {
       $("input:checkbox[id='secret']").prop("checked", false);
@@ -130,7 +131,7 @@
       $(".secret-toggle-btn").css("left", "4px");
       swal("작가 신청을 해주세요");
     }
-  })
+  });
 
   if (postResponse) {
     const postJson = JSON.parse(postResponse);
@@ -144,7 +145,6 @@
     // 버튼 이름 변경
     $(".post-btn > button:last-child").text("수정");
   }
-
 
 </script>
 

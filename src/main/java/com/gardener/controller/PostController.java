@@ -1,5 +1,6 @@
 package com.gardener.controller;
 
+import com.gardener.aop.exception.FindException;
 import com.gardener.domain.Member;
 import com.gardener.domain.Post;
 import com.gardener.domain.dto.MainImgDTO;
@@ -38,10 +39,12 @@ public class PostController {
   private final String uploadDir = Paths.get("C:", "tui-editor", "upload").toString();
 
   @GetMapping("/posting")
-  public void posting(HttpSession session, Model model) {
+  public void posting(HttpSession session, Model model) throws FindException {
     Member member = (Member) session.getAttribute("member");
     Gson gson = new Gson();
-    log.info("member.getWriter() => {}", member.getWriter());
+    if (member == null) {
+      throw new FindException();
+    }
     model.addAttribute("member", gson.toJson(member.getWriter()));
   }
 
@@ -163,13 +166,14 @@ public class PostController {
    * @param postnum
    * @return 삭제된 게시글 번호
    */
-  @DeleteMapping(value = "/post/{postnum}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  public Long deletePostByPostnum(@PathVariable Long postnum) {
+  @DeleteMapping("/post/{postnum}")
+  public @ResponseBody Long deletePostByPostnum(@PathVariable Long postnum) {
     Post post = postService.findPostByPostnum(postnum);
     String mainTitleImg = post.getMainTitleImg();
     String content = post.getContent();
 
-    //postService.deletePostByPostnum(postnum);
+    postService.deletePostByPostnum(postnum);
+    System.out.println(postnum + "삭제 번호");
     return postnum;
   }
 

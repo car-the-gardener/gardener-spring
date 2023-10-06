@@ -125,7 +125,7 @@ const setPost = (sort, postnum) => {
       mainTitleImg,
       favorite: 0
     };
-    return;
+
     $.ajax({
       url        : "/post",
       method     : "POST",
