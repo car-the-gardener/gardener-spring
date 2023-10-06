@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -73,5 +74,35 @@ public class LibraryController {
   public void insertSubscribe(HttpSession session, String writerId) throws FindException {
     Member member = (Member) session.getAttribute("member");
     libraryService.insertSubscribe(member.getLoginid(), writerId);
+  }
+
+  @GetMapping(value = "/writer/{writerId}")
+  public String writerPage(@PathVariable String writerId, HttpSession session, Model model) {
+    writerPageWithPaging(writerId, 1, session, model);
+    return "/library/writer";
+  }
+
+  @GetMapping(value = "/writer/{writerId}/{num}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  public @ResponseBody List<String> writerPageWithPaging(@PathVariable String writerId, @PathVariable int num, HttpSession session, Model model) {
+    Member member = (Member) session.getAttribute("member");
+    List<String> list = new ArrayList<>();
+    Gson gson = new Gson();
+
+    List<Post> allSubscribedWriterPost = libraryService.findAllSubscribedWriterPost(writerId, num);
+
+    allSubscribedWriterPost.forEach(post -> {
+      String s = post.getContent().replaceAll("<[^>]*>", "");
+      post.setContent(s);
+    });
+
+    model.addAttribute("writer", gson.toJson(allSubscribedWriterPost));
+    list.add(gson.toJson(allSubscribedWriterPost));
+
+    log.info("받은 num => {}", num);
+    if (member != null && num == 1) {
+      model.addAttribute("subscribe", gson.toJson(libraryService.findAllSubscribedWriter(member.getLoginid())));
+      list.add(gson.toJson(libraryService.findAllSubscribedWriter(member.getLoginid())));
+    }
+    return list;
   }
 }

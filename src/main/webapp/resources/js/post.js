@@ -104,10 +104,13 @@ postService = (() => {
       url    : `/post/${postnum}`,
       method : "DELETE",
       success: (response) => {
+        console.log(response)
+        console.log(typeof response)
+        location.href = "/";
         callback(response);
       },
       error  : (xhr, status) => {
-        console.log(status)
+        console.log(xhr)
       }
     })
   }
@@ -117,6 +120,7 @@ postService = (() => {
       url    : `/post/${postnum}/favorite`,
       async  : false,
       success: (response) => {
+        console.log(response, "좋아요")
         callback(response);
       },
       error  : (xhr, status) => {
@@ -160,6 +164,5 @@ const subcribeService = (() => {
       }
     })
   }
-
   return {insertSubscribe}
 })()
