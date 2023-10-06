@@ -65,7 +65,7 @@ $(document).ready((e) => {
       textareas.each(function () {
         $(this).removeAttr("readonly");
       });
-      $(".modifybtn.btn").text("정보 완료");
+      $(".modifybtn.btn").text("수정 완료");
 
       alert("정보수정 시작");
       clickStatus = 1;
