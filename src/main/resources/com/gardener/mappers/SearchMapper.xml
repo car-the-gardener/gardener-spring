@@ -33,7 +33,7 @@
     </select>
     
 	
-    <!-- text창에 아무것도 입력안했을때 모든 글 가져오는 쿼리 -->
+    <!-- 전체로 검색하는 SQL -->
     <select id="searchAll" parameterType="String" resultType="com.gardener.domain.Search">
         <![CDATA[
 	        SELECT p.postnum, p.main_title, p.main_title_img, p.sub_title, p.content, p.category, p.total_cnt, p.favorite, p.create_date, m.nickname, m.intro
@@ -42,13 +42,14 @@
         ]]>
     </select>
     
-    <!--
-    카테고리로 검색 SQL
-    <select id="searchCategory" parameterType="String" resultType="com.gardener.domain.Search">
-        SELECT name, maintitle, content, maintitleimg
-        FROM MEMBER m JOIN POST p ON(m.id = p.usernum)
-        WHERE CATEGORY = #{category}
-    </select> -->
+    <!-- 매거진에서 모든 글을 가져오는 SQL -->
+    <select id="magazine" parameterType="String" resultType="com.gardener.domain.Search">
+        <![CDATA[
+	        SELECT p.postnum, p.main_title, p.main_title_img, p.sub_title, p.content, p.category, p.total_cnt, p.favorite, p.create_date, m.nickname, m.intro
+			FROM MEMBER m JOIN POST p ON (m.LOGINID = p.LOGINID)
+			ORDER BY p.create_date desc
+        ]]>
+    </select>
 
 
 </mapper>

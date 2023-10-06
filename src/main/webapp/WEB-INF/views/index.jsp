@@ -1,365 +1,537 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Jquery CDN -->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-  <!-- Bootstrap CDN -->
-  <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-  />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Carousel CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- Carousel CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
-  <!-- Font Awesome CDN -->
-  <script
-          src="https://kit.fontawesome.com/a00fe672c7.js"
-          crossorigin="anonymous"
-  ></script>
+    <!-- Font Awesome CDN -->
+    <script
+      src="https://kit.fontawesome.com/a00fe672c7.js"
+      crossorigin="anonymous"
+    ></script>
 
+    <!-- CSS파일 -->
+    <link rel="stylesheet" href="/resources/css/index.css" />
+    <link rel="stylesheet" href="/resources/css/carousel.css" />
+    <link rel="stylesheet" href="/resources/css/img.css" />
+    <link rel="stylesheet" href="/resources/css/category.css" />
+    <link rel="stylesheet" href="/resources/css/cardgrid.css" />
+    <link rel="stylesheet" href="/resources/css/login.css" />
+    <link rel="stylesheet" href="/resources/css/signup.css" />
+	<link rel="stylesheet" href="/resources/css/header.css" />
+    
 
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script src="/resources/js/login.js"></script>
-  <link rel="stylesheet" href="/resources/css/login.css"/>
-  <link rel="stylesheet" href="/resources/css/header.css"/>
+    <!-- JS파일 -->
+    <script src="/resources/js/indextest.js"></script>
+    <script src="/resources/js/indexsub.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ 	<script src="/resources/js/loginModal.js"></script>	
+ 	<script src="/resources/js/signupModal.js"></script>	
+    
 
-  <!-- CSS파일 -->
-  <link rel="stylesheet" href="/resources/css/index.css"/>
-  <link rel="stylesheet" href="/resources/css/carousel.css"/>
-  <link rel="stylesheet" href="/resources/css/img.css"/>
-  <link rel="stylesheet" href="/resources/css/category.css"/>
-  <link rel="stylesheet" href="/resources/css/cardgrid.css"/>
-
-  <!-- JS파일 -->
-  <script src="/resources/js/indextest.js"></script>
-  <script src="/resources/js/indexsub.js"></script>
-
-  <title>작가의 정원</title>
+    <title>작가의 정원</title>
 </head>
 <body>
 
-<!-- 결과를 받는 hidden -->
-<input type="hidden" value="${resultNone}" class="resultNone"/>
-
-<!-- HEADER -->
-<%@ include file="./common/header.jsp" %>
+	<!-- 결과를 받는 hidden -->
+	<input type="hidden" value="${resultNone}" class="resultNone"/>
+	
+	<!-- HEADER -->
+	<%@ include file="./common/header.jsp" %>
 
 <!-- search 영역------------------------------------------------------------------------ -->
 <div id="search" style="margin-top:30px;">
-  <div class="container">
-    <div class="row justify-content-md-end">
-      <div class="col-md-8">
-        <div class="input-group">
-          <div class="input-group-prepend">
-            <form method="get" action="/search">
-
-              <select class="form-select" name="select" id="search_param">
-                <option name="title" value="title">제목</option>
-                <option name="name" value="name">필명</option>
-                <option name="content" value="content">내용</option>
-                <option name="all" value="all">전체</option>
-              </select>
-
-          </div>
-
-          <input type="text" class="form-control" name="text" placeholder="검색할 단어를 입력해주세요...">
-          <!-- <input type="hidden" name="result" class="result"> -->
-
-          <span class="input-group-btn">
-	                        <button class="btn btn-primary" type="button" id="searchbtn"><i
-                                  class="fa-solid fa-search"></i> Search</button>
+    <div class="container">
+        <div class="row justify-content-md-end">
+            <div class="col-md-8">
+                <div class="input-group">
+	            	<div class="input-group-prepend">
+                    	<form method="get" action="/search">
+                    	
+	                        <select class="form-select" name="select" id="search_param">
+	                            <option name="title" value="title">제목</option>
+	                            <option name="name" value="name">필명</option>
+	                            <option name="content" value="content">내용</option>
+	                            <option name="all" value="all">전체</option>
+	                        </select>
+	                        
+	                </div>
+	                    
+	                    <input type="text" class="form-control" name="text" placeholder="검색할 단어를 입력해주세요...">
+	                    <!-- <input type="hidden" name="result" class="result"> -->
+	                    
+	                    <span class="input-group-btn">
+	                        <button class="btn btn-primary" type="button" id="searchbtn"><i class="fa-solid fa-search"></i> Search</button>
 	                    </span>
-          </form>
+                    </form>
+                </div>
+              </div>
+              <input
+                type="hidden"
+                name="search_param"
+                value="all"
+                id="search_param"
+              />
+              <input
+                type="text"
+                class="form-control"
+                name="x"
+                placeholder="검색할 단어를 입력해주세요..."
+              />
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">
+                  <i class="fa-solid fa-search"></i> Search
+                </button>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
-</div>
 </div>
 <!-- search 영역------------------------------------------------------------------------ -->
 
 <!-- main img carousel 영역 ------------------------------------------------------------ -->
 <div class="body" style="margin-top:-70px">
 
-  <div id="carousel img">
-    <div class="content">
-      <div class="container">
-        <div class="owl-carousel slide-one-item">
-          <div class="d-md-flex testimony-29101 align-items-stretch">
-            <div
-                    class="image"
-                    style="background-image: url('/resources/images/main1.png')"
-            ></div>
-            <div class="text">
-              <blockquote>
-                <p>
-                  &ldquo; 질량의 크기는 부피와 비례하지 않는다 제비꽃같이
-                  조그마한 그 계집애가 꽃잎처럼 하늘거리는 그 계집애가
-                  지구보다 더 큰 질량으로 나를 끌어당긴다 순간 나는 뉴턴의
-                  사과처럼 사정없이 그녀에게로 굴러 떨어졌다 쿵 소리를 내며
-                  쿵쿵 소리를 내며 심장이 하늘에서 땅까지 아찔한 진자운동을
-                  하였다. 첫사랑이었다.&rdquo;
-                </p>
+    <div id="carousel img" >
+        <div class="content">
+          <div class="container">
+            <div class="owl-carousel slide-one-item">
+              <div class="d-md-flex testimony-29101 align-items-stretch">
+                <div
+                  class="image"
+                  style="background-image: url('/resources/images/main1.png')"
+                ></div>
+                <div class="text">
+                  <blockquote>
+                    <p>
+                      &ldquo; 질량의 크기는 부피와 비례하지 않는다 제비꽃같이
+                      조그마한 그 계집애가 꽃잎처럼 하늘거리는 그 계집애가
+                      지구보다 더 큰 질량으로 나를 끌어당긴다 순간 나는 뉴턴의
+                      사과처럼 사정없이 그녀에게로 굴러 떨어졌다 쿵 소리를 내며
+                      쿵쿵 소리를 내며 심장이 하늘에서 땅까지 아찔한 진자운동을
+                      하였다. 첫사랑이었다.&rdquo;
+                    </p>
 
                 <div class="owl-carousel slide-one-item">
-                  <div class="d-md-flex testimony-29101 align-items-stretch">
-                    <div class="image"
-                         style="background-image: url('/resources/images/main1.png')"></div>
-                    <div class="text">
-                      <blockquote>
-                        <h4>사랑의 물리학</h4>
-                        <p style="margin-top:30px">
-                          질량의 크기는 부피와 비례하지 않는다<br>
-                          제비꽃같이 조그마한 그 계집애가<br>
-                          꽃잎처럼 하늘거리는 그 계집애가<br>
-                          지구보다 더 큰 질량으로 나를 끌어당긴다<br>
-                          순간 나는<br>
-                          뉴턴의 사과처럼<br>
-                          사정없이 그녀에게로 굴러 떨어졌다<br>
-                          쿵 소리를 내며 쿵쿵 소리를 내며<br>
-                          심장이<br>
-                          하늘에서 땅까지<br>
-                          아찔한 진자운동을 하였다.<br>
-                          첫사랑이었다.
-                        </p>
+                    <div class="d-md-flex testimony-29101 align-items-stretch">
+                        <div class="image" style="background-image: url('/resources/images/main1.png')"></div>
+                        <div class="text">
+                            <blockquote>
+                            	<h4>사랑의 물리학</h4>
+                                <p style="margin-top:30px">
+                                    질량의 크기는 부피와 비례하지 않는다<br>
+                                    제비꽃같이 조그마한 그 계집애가<br>
+                                    꽃잎처럼 하늘거리는 그 계집애가<br>
+                                    지구보다 더 큰 질량으로 나를 끌어당긴다<br>
+                                    순간 나는<br>
+                                    뉴턴의 사과처럼<br>
+                                    사정없이 그녀에게로 굴러 떨어졌다<br>
+                                    쿵 소리를 내며 쿵쿵 소리를 내며<br>
+                                    심장이<br>
+                                    하늘에서 땅까지<br>
+                                    아찔한 진자운동을 하였다.<br>
+                                    첫사랑이었다.
+                                </p>
 
-                        <div class="author">&mdash; 김인육</div>
-                      </blockquote>
+                                <div class="author">&mdash; 김인육</div>
+                            </blockquote>
+                        </div>
                     </div>
-                  </div>
-                  <!-- .item -->
-                  <div class="d-md-flex testimony-29101 align-items-stretch">
-                    <div class="image"
-                         style="background-image: url('/resources/images/main3.png')"></div>
-                    <div class="text">
-                      <blockquote>
-                        <h4>이유</h4>
-                        <p style="margin-top:30px">
-                          네 눈이 그리도 이뻣던 것은<br>
-                          가을 햇빛 탓이었을 것이다<br><br>
-                          네 눈이 그리도 맑았던 것은<br>
-                          가을바람 탓이었을 것이다<br><br>
-                          아니다 우리 앞에 이별의 시간이<br>
-                          다가왔기 때문이다<br><br>
-                          눈물이 하늘 강물이 너의 눈을<br>
-                          더 이쁘게 맑게 보이도록 했던 것이다.
-                        </p>
 
-                        <div class="author">&mdash; 나태주</div>
-                      </blockquote>
-                    </div>
-                  </div> <!-- .item -->
+                    <!-- .item -->
+                    <div class="d-md-flex testimony-29101 align-items-stretch">
+                        <div class="image" style="background-image: url('/resources/images/main3.png')"></div>
+                        <div class="text">
+                            <blockquote>
+                            	<h4>이유</h4>
+                                <p style="margin-top:30px">
+                                    네 눈이 그리도 이뻣던 것은<br>
+                                    가을 햇빛 탓이었을 것이다<br><br>                                 
+                                    네 눈이 그리도 맑았던 것은<br>
+                                    가을바람 탓이었을 것이다<br><br>
+                                    아니다 우리 앞에 이별의 시간이<br>
+                                    다가왔기 때문이다<br><br>
+                                    눈물이 하늘 강물이 너의 눈을<br>
+                                    더 이쁘게 맑게 보이도록 했던 것이다.
+                                </p>
 
+                                <div class="author">&mdash; 나태주</div>
+                            </blockquote>
+                        </div>
+                    </div> <!-- .item -->
 
+                    
                 </div>
             </div>
-          </div>
         </div>
-        <!-- main img carousel 영역 ------------------------------------------------------------ -->
+    </div>
+<!-- main img carousel 영역 ------------------------------------------------------------ -->
 
-        <!-- category ----------------------------------------------------------------------영역 -->
-        <div class="category" style="margin-top:-70px">
-          <div class="container bg-white rounded">
-            <div class="h4 font-weight-bold text-center py-3">Keyword Search</div>
-            <p class="text-muted text-center py-3" style="margin-top: -30px">
-              키워드로 분류된 다양한 글 모음
-            </p>
+<!-- category ----------------------------------------------------------------------영역 -->
+    <div class="category" style="margin-top:-70px">
+        <div class="container bg-white rounded">
+          <div class="h4 font-weight-bold text-center py-3">Keyword Search</div>
+          <p class="text-muted text-center py-3" style="margin-top: -30px">
+            키워드로 분류된 다양한 글 모음
+          </p>
 
             <div class="row">
-              <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 text-center d-flex align-items-center justify-content-center blue">
-                      <img src="https://freepngimg.com/thumb/pen/14-pen-png-image.png"
-                      />
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 text-center d-flex align-items-center justify-content-center blue">
+                                <img src="https://freepngimg.com/thumb/pen/14-pen-png-image.png"
+       							/>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Poem</b>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>Poem</b>
-                      </a>
+                </div>
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
+                                <img
+                                	src="https://www.freepnglogos.com/uploads/plane-png/plane-png-fort-wayne-international-airport-2.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Travel</b>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-purple">
+                                <img
+                                	src="https://freepngimg.com/thumb/love/7-2-love-free-png-image.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Love</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 my-lg-3 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-cyan">
+                                <img
+                                	src="https://freepngimg.com/thumb/android/31165-8-android-hd.png"
+                                 />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>IT</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 my-lg-3 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center gray">
+                                <img
+                                	src="https://freepngimg.com/thumb/photography/3-2-photography-silhouette-png.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>photo</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 my-lg-3 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-green">
+                                <img
+                                	src="https://freepngimg.com/thumb/clapperboard/6-2-clapperboard-png-picture.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Movie</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
+                                <img
+                                	src="https://freepngimg.com/thumb/musical_notes/5-2-musical-notes-picture.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Music</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                        	<div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pink">
+                                <img
+                                	src="https://freepngimg.com/thumb/dog/9-dog-png-image-picture-download-dogs.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Pet</b>
+                                </a>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pista">
+                                <img src="https://freepngimg.com/thumb/egg/7-fried-egg-png-image.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Cooking</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3" >
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-purple">
+                                <img src="https://freepngimg.com/thumb/teddy_bear/8-2-teddy-bear-png-file.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Child</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-cyan">
+                                <img src="https://freepngimg.com/thumb/sports_equipment/22346-3-sport-transparent-background.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Sports</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+                    <div class="box bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
+                                <img src="https://freepngimg.com/thumb/book/2-books-png-image.png"
+                                />
+                            </div>
+                            <div class="d-flex flex-column">
+                                <a href="#">
+                                    <b>Library</b>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+              <div class="box bg-white">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange"
+                  >
+                    <img
+                      src="https://freepngimg.com/thumb/email_marketing/5-2-email-png-thumb.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="d-flex flex-column">
+                    <a href="#">
+                      <b>Travel</b>
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
-                      <img
-                              src="https://www.freepnglogos.com/uploads/plane-png/plane-png-fort-wayne-international-airport-2.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>Travel</b>
-                      </a>
-                    </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+              <div class="box bg-white">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-purple"
+                  >
+                    <img
+                      src="https://freepngimg.com/thumb/technology/40061-1-machining-robot-download-free-image-thumb.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="d-flex flex-column">
+                    <a href="#">
+                      <b>Love</b>
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-purple">
-                      <img
-                              src="https://freepngimg.com/thumb/love/7-2-love-free-png-image.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>Love</b>
-                      </a>
-                    </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-lg-3 my-3">
+              <div class="box bg-white">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-cyan"
+                  >
+                    <img
+                      src="https://freepngimg.com/thumb/brain/80003-learning-human-albert-play-scientist-behavior-einstein-thumb.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="d-flex flex-column">
+                    <a href="#">
+                      <b>IT</b>
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6 my-lg-3 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-cyan">
-                      <img
-                              src="https://freepngimg.com/thumb/android/31165-8-android-hd.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>IT</b>
-                      </a>
-                    </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-lg-3 my-3">
+              <div class="box bg-white">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pink"
+                  >
+                    <img
+                      src="https://freepngimg.com/thumb/google/66809-google-docs-drive-plus-android-document-thumb.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="d-flex flex-column">
+                    <a href="#">
+                      <b>photo</b>
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6 my-lg-3 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center gray">
-                      <img
-                              src="https://freepngimg.com/thumb/photography/3-2-photography-silhouette-png.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>photo</b>
-                      </a>
-                    </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-lg-3 my-3">
+              <div class="box bg-white">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange"
+                  >
+                    <img
+                      src="https://www.freepnglogos.com/uploads/plane-png/plane-png-fort-wayne-international-airport-2.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="d-flex flex-column">
+                    <a href="#">
+                      <b>Pet</b>
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6 my-lg-3 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-green">
-                      <img
-                              src="https://freepngimg.com/thumb/clapperboard/6-2-clapperboard-png-picture.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>Movie</b>
-                      </a>
-                    </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+              <div class="box bg-white">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange"
+                  >
+                    <img
+                      src="https://www.freepnglogos.com/uploads/whatsapp-circle-message-messaging-messenger-round-icon--24.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="d-flex flex-column">
+                    <a href="#">
+                      <b>Music</b>
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
-                      <img
-                              src="https://freepngimg.com/thumb/musical_notes/5-2-musical-notes-picture.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>Music</b>
-                      </a>
-                    </div>
+            </div>
+            <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+              <div class="box bg-white">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-green"
+                  >
+                    <img
+                      src="https://freepngimg.com/thumb/technology/63219-bin-recycling-computer-recycle-electronics-waste-electronic-thumb.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="d-flex flex-column">
+                    <a href="#">
+                      <b>Movie</b>
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pink">
-                      <img
-                              src="https://freepngimg.com/thumb/dog/9-dog-png-image-picture-download-dogs.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>Pet</b>
-                      </a>
-                    </div>
-
+            </div>
+            <div class="col-lg-4 col-md-6 my-lg-0 my-3">
+              <div class="box bg-white">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pista"
+                  >
+                    <img
+                      src="https://freepngimg.com/thumb/happy_person/4-2-happy-person-transparent-thumb.png"
+                      alt=""
+                    />
                   </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-pista">
-                      <img src="https://freepngimg.com/thumb/egg/7-fried-egg-png-image.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>Cooking</b>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-purple">
-                      <img src="https://freepngimg.com/thumb/teddy_bear/8-2-teddy-bear-png-file.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>Child</b>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-cyan">
-                      <img src="https://freepngimg.com/thumb/sports_equipment/22346-3-sport-transparent-background.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>Sports</b>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-6 my-lg-0 my-3">
-                <div class="box bg-white">
-                  <div class="d-flex align-items-center">
-                    <div class="rounded-circle mx-3 d-flex align-items-center justify-content-center pale-orange">
-                      <img src="https://freepngimg.com/thumb/book/2-books-png-image.png"
-                      />
-                    </div>
-                    <div class="d-flex flex-column">
-                      <a href="#">
-                        <b>Library</b>
-                      </a>
-                    </div>
+                  <div class="d-flex flex-column">
+                    <a href="#">
+                      <b>Cooking</b>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -382,7 +554,7 @@
         <tr>
           <td>
             <a href="./post.html">
-              <img src="https://i.imgur.com/8OKpmst.jpg" class="writing-img"/>
+              <img src="https://i.imgur.com/8OKpmst.jpg" class="writing-img" />
             </a>
           </td>
           <td>
@@ -397,7 +569,7 @@
 
         <tr>
           <td>
-            <img src="https://i.imgur.com/J91Dzsg.jpg" class="writing-img"/>
+            <img src="https://i.imgur.com/J91Dzsg.jpg" class="writing-img" />
           </td>
           <td>
             <h2>사랑에 답함 -</h2>
@@ -411,7 +583,7 @@
 
         <tr>
           <td>
-            <img src="https://i.imgur.com/ajdSOy8.png" class="writing-img"/>
+            <img src="https://i.imgur.com/ajdSOy8.png" class="writing-img" />
           </td>
 
           <td>
@@ -426,7 +598,7 @@
 
         <tr>
           <td>
-            <img src="https://i.imgur.com/svjft1X.jpg" class="writing-img"/>
+            <img src="https://i.imgur.com/svjft1X.jpg" class="writing-img" />
           </td>
           <td>
             <h2>하고많은 것들 중에 당신을 사랑하였다 -</h2>
@@ -440,52 +612,15 @@
       </table>
       <!-- 추천하는글 end ---------------------------------------------------------------------- -->
 
-      <!-- card grid -->
-      <div class="cardgrid">
-        <div class="h4 font-weight-bold text-center py-3">Writer Collection</div>
+    <!-- card grid -->
+    <div class="cardgrid">
+    	<div class="h4 font-weight-bold text-center py-3">Writer Collection</div>
         <p class="text-muted text-center py-3" style="margin-top:-30px">작가의 다양한 글 모음</p>
         <%@ include file="./common/cardgrid.jsp" %>
-      </div>
-      <!-- body end -->
+    </div>
+    <!-- body end -->
 
-      <!-- FOOTER -->
-      <%@ include file="./common/footer.jsp" %>
-</body>
+    <!-- FOOTER -->
+    <%@ include file="./common/footer.jsp" %>
+  </body>
 </html>
-
-<script type="text/javascript">
-  $(() => {
-    $('li.nav-item.ms-5 a.nav-link[href="/login"]').click(function (e) {
-      e.preventDefault();
-      $('#myModal').modal('show');
-    });
-
-    $("#closebtn").on("click", () => {
-      location.href = "/"; //페이지 이동
-    })
-
-    const url = "http://localhost:8888";
-    const formObj = $("form.login");
-    const data = $(e.target).serialize();
-    $.ajax({
-      url    : "/",
-      method : "post",
-      data   : data,
-      success: (response) => {
-        console.log(response, "response")
-        if (response.trim() == 1) {
-          //로그인 성공인 경우
-          swal("환영합니다");
-          location.href = "/"; //페이지 이동
-        } else if (response.trim() == 0) {
-          //로그인 실패인 경우
-          $("form.login>input[name=id]").focus();
-        }
-      },
-      error  : (xhr) => {
-        swal("잘못된 정보입니다. 다시 입력해주세요.");
-      }
-    });
-
-  });
-</script>

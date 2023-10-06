@@ -21,6 +21,12 @@ div.logo {
   zoom: 1.5;
 }
 
+/*로고 사이즈*/
+.logo>img{
+ 	width: 270px;
+ 	height: 180px; 
+ }
+ 
 form.find-pwd {
   width: 250px;
  margin: auto;
