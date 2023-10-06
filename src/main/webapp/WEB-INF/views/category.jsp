@@ -7,7 +7,6 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.sql.Timestamp" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,16 +32,18 @@
 
     <!--JS파일 -->
     <script src="/resources/js/indextest.js"></script>
-    <!--  <script src="/resources/js/search.js"></script>-->
     
-<title>search</title>
+<title>category</title>
 </head>
 <body>
 
-	  <!-- HEADER -->
-	  <%@ include file="./common/header.jsp" %>
-
-
+	<!-- 결과를 받는 hidden -->
+	<!--<input type="hidden" value='${searchResult}' id="searchResult"/>-->
+	
+  <!-- HEADER -->
+  <%@ include file="./common/header.jsp" %>
+  
+  
 <!-- search ------------------------------------------------------------------------영역 -->
 <div id="search" style="margin-top:30px;">
     <div class="container">
@@ -58,7 +59,6 @@
 	                            <option value="content" ${select eq 'content'?'selected':''}>내용</option>
 	                            <option value="all" ${select eq 'all'?'selected':''}>전체</option>
 	                        </select>
-	                        
 	                </div>
 	                    
 	                    <input type="text" class="form-control" name="text" placeholder="검색할 단어를 입력해주세요..." value="${text}">
@@ -78,7 +78,7 @@
 	<!-- Team -->
     <section id="team" class="pb-5">
       <div class="container">
-        <h5 class="section-title h2" style="color:black">검색한 단어 : ${text}</h5>
+        <h5 class="section-title h2" style="color:black">카테고리 : ${category}</h5>
         <div class="row">
         
         <% int resultTotal = (int)request.getAttribute("resultTotal");
@@ -91,8 +91,10 @@
         	     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
         	     String formatDate = dateFormat.format(date);
         	     
-        	     String content = result.getContent().replaceAll("<[^>]*>", "");	
+        	   
+        	     String content = result.getContent().replaceAll("<[^>]*>", "");	       
         %>
+        
           <!-- Team member -->
           <div class="col-xs-12 col-sm-6 col-md-4">
             <div class="image-flip">
@@ -154,7 +156,7 @@
             </div>
           </div>
           <!-- ./Team member -->
-        <%	
+          <%	
         	}
         %>
           
@@ -164,7 +166,6 @@
 
   <!--footer-->
   <%@ include file="./common/footer.jsp" %>
-  
 
 </body>
 </html>

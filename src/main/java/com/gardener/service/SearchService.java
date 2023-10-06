@@ -30,11 +30,9 @@ public class SearchService {
     	return mapper.searchAll(text);
     }
     
-//    
-//    public void searchCategory() {
-//    	mapper.searchCategory();
-//    }
-    
+    public List<Search> magazine(){
+    	return mapper.magazine();
+    }
     
     
     

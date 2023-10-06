@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: while;
+  background: #fff;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 15%);
   scroll-snap-align: start;
@@ -52,8 +52,8 @@
 .card .card-link {
   display: inline-block;
   text-decoration: none;
-  color: black;				/*  click text 색상 */
-  background: yellowgreen;	/* click background 색상 */
+  color: #fff;				/*  click text 색상 */
+  background: #007b5e;	/* click background 색상 */
   padding: 6px 12px;
   border-radius: 8px;
   transition: background 0.2s;
@@ -61,7 +61,8 @@
 }
 
 .card:hover .card-link {
-  background: rgb(152, 241, 107); 	/*마우스가 올라 갔을때 버튼 색상 */
+  color: #fff;				/*  click text 색상 */
+  background: #007b5e; 	/*마우스가 올라 갔을때 버튼 색상 */
   
 }
 
@@ -75,7 +76,7 @@
 }
 
 .cards::-webkit-scrollbar-thumb {
-  background: yellowgreen;	/*스크롤바 넘기는 생상*/
+  background: #007b5e;	/*스크롤바 넘기는 생상*/
 }
 
 .cards::-webkit-scrollbar-track {

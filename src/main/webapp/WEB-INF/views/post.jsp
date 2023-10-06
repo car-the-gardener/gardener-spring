@@ -117,7 +117,7 @@ loginid: <c:out value="${sessionScope.member.loginid}"/>
   $(".section-header-icon span").html(postResponse.favorite);
   $(".writer-profile-name").html(postResponse.member.nickname);
   $(".writer-profile-intro").html(postResponse.member.intro);
-  $(".writer-profile-pic img").attr("src", postResponse.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
+  $(".writer-profile-pic img").attr("src", postResponse.member.profile)
   writerBtn.attr("data-writer", postResponse.member.loginid)
 
   // 글자수 체크

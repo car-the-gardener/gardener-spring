@@ -16,8 +16,6 @@ h1>a>img {
 	height: 150px;
 }
 
-
-
 /*header CSS*/
 
 
@@ -105,6 +103,24 @@ h3 {
 	display: inline;
 }
 
+.recommend-content{
+	overflow: hidden;
+  	white-space: nowrap;
+  	text-overflow: ellipsis;
+  	max-width:1000px;
+  	
+}
+
+
+/*body CSS*/
+
+
+
+
+
+
+
+/*footer CSS*/
 footer {
 	display: block;
 	background-color: black;
