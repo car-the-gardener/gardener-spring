@@ -14,8 +14,6 @@
 </head>
 
 <body>
-loginid: <c:out value="${sessionScope.member.loginid}"/>
-nickname: <c:out value="${sessionScope.member.nickname}"/>
 
 <!-- 섹션 시작 -->
 <section>
@@ -39,6 +37,19 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
 
     <!-- 아티클 시작 -->
     <article>
+        사랑의 물리학 / 김인육
+        질량의 크기는 부피와 비례하지 않는다
+        제비꽃같이 조그마한 그 계집애가
+        꽃잎같이 하늘거리는 그 계집애가
+        지구보다 더 큰 질량으로 나를 끌어당긴다.
+        순간, 나는
+        뉴턴의 사과처럼
+        사정없이 그녀에게로 굴러 떨어졌다
+        쿵 소리를 내며, 쿵쿵 소리를 내며
+        심장이
+        하늘에서 땅까지
+        아찔한 진자운동을 계속하였다
+        첫사랑이었다.
     </article>
     <!-- 아티클 끝 -->
 
@@ -48,12 +59,13 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
         <!-- 섹션 헤더 엄지척,신고 시작 -->
         <div class="section-header-icon">
             <div>
-                <img src="/resources/images/thumbs-up.png" alt="좋아요 표시" class="favorite">
+                <img src="/resources/images/thumbs-up.png" alt="좋아요 표시">
                 <span>5</span>
-                <div><img src="/resources/images/report.png" alt="신고 이미지" class="report"></div>
+                <div><img src="/resources/images/report.png" alt="신고 이미지"></div>
             </div>
         </div>
         <!-- 섹션 헤더 엄지척,신고 끝 -->
+
         <div class="modify-btn">
             <div>
                 <button>수정</button>
@@ -72,7 +84,6 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
         </div>
         <div class="writer-profile-pic">
             <img src="https://thumb.mt.co.kr/06/2023/06/2023062717453220668_1.jpg/dims/optimize/" alt="작가 프로필 이미지">
-            <button>구독하기</button>
         </div>
     </div>
     <!-- 작가 프로필 끝 -->
@@ -101,16 +112,13 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
 
 <!-- 푸터 -->
 <div class="footer"></div>
-<input type="hidden" value="${sessionScope.member.nickname}" class="nickname">
+
 <script>
   const postResponse = ${post};
-  const subscribeResponse = '${subscribe}';
-  const writerBtn = $(".writer-profile-pic > button")
-  console.log(subscribeResponse, "subscribeResponse")
+  console.log(postResponse, " postResponse")
   let pageNum = 1;
 
-
-  $(".main-image").css("background-image", `url(\${postResponse?.mainTitleImg})`)
+  $(".main-image").css("background-image", `url(\${postResponse.mainTitleImg})`)
   $(".section-header-main-title").html(postResponse.mainTitle);
   $(".section-header-main-subtitle").html(postResponse?.subTitle || "");
   $(".section-header-info-writer").html(postResponse.member.nickname);
@@ -120,30 +128,10 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
   $(".writer-profile-name").html(postResponse.member.nickname);
   $(".writer-profile-intro").html(postResponse.member.intro);
   $(".writer-profile-pic img").attr("src", postResponse.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
-  writerBtn.attr("data-writer", postResponse.member.loginid)
-
-  if ("${sessionScope.member.loginid}" === $(".writer-profile-pic button").data("writer")) {
-    $(".writer-profile-pic button").css("display", "none");
-  }
-
-  // 좋아요 확인 요청
-  const checkFavorite = () => {
-    postService.checkFavorite(postResponse.postnum, (response) => {
-      let count = response?.no?.length || 0;
-      $(".section-header-icon img[alt='좋아요 표시']").removeClass("click");
-      if (response?.yes?.length > 0) {
-        count += 1;
-        $(".section-header-icon img[alt='좋아요 표시']").addClass("clicked");
-      }
-      $(".section-header-icon span").html(count);
-    });
-  };
-  checkFavorite();
-
 
   // 댓글 리스트 불러오기
   const showList = (page) => {
-    replyService.getAllReply({postnum: postResponse.postnum, page: page || 1}, (response) => {
+    replyService.getAllReply({postNum: postResponse.postnum, page: page || 1}, (response) => {
       $(".section-reply p:first-child").text(`\${response.replyCnt}개`);
       let reply = "";
 
@@ -151,13 +139,12 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
       // 새로운 댓글 달았을때 뒤로 페이지 이동
       if (page === -1) {
         pageNum = Math.ceil(response.replyCnt / 5.0); // 이건 10개씩 보여주기로 한 기준이라 10으로 나눈건가?? 난 5로 보여줘야하는데 5로 바꿀까?
+        console.log(pageNum, "새로 추가시 pageNum")
         showList(pageNum);
         return;
       }
 
       if (response.list.length === 0 || response.list === null) {
-        $(".section-reply-list").html("");
-        $(".pagination-wrap").html("");
         return;
       }
 
@@ -167,15 +154,7 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
         reply += `<div><img src="https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg" alt="유저 이미지">`
         reply += `<div><p class='reply-list--name'>\${response.list[i].member.nickname}</p>`
         reply += `<p class='reply-list--date'><small>\${dateTime}</small></p></div></div>`
-        if (response.list[i].member.nickname === $(".nickname").val()) {
-          reply += `<div class='reply-list--btn'><button class="reply-list--btn--remove" data-id=\${response.list[i].id}>삭제</button> <button class="reply-list--btn--modify" data-id=\${response.list[i].id}>수정</button></div>`;
-        } else {
-          reply += `<div>
-              <img src="/resources/images/thumbs-up.png" alt="좋아요 표시">
-              <span>5</span>
-              <div><img src="/resources/images/report.png" alt="신고 이미지"></div>
-          </div>`
-        }
+        reply += `<div class='reply-list--btn'><button class="reply-list--btn--remove" data-id=\${response.list[i].id}>삭제</button> <button class="reply-list--btn--modify" data-id=\${response.list[i].id}>수정</button></div>`
         reply += `</div>`
         reply += `<div contenteditable = "false" data-id=\${response.list[i].id}>\${response.list[i].content} </div>`
         reply += `</div> <hr>`
@@ -237,7 +216,7 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
   $(".section-reply button").click(() => {
     const data = {
       content: $(".section-reply textarea").val().trim(),
-      postnum: postResponse.postnum
+      postNum: postResponse.postnum
     }
 
     if (data.content === "") {
@@ -245,7 +224,7 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
       return;
     }
 
-    replyService.addReply(data, (response) => {
+    replyService.add(data, (response) => {
       $(".section-reply textarea").val("");
       showList(-1);
     });
@@ -253,7 +232,7 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
 
   // 댓글 삭제
   $(".section-reply-list").on("click", ".reply-list--btn--remove", (e) => {
-    replyService.removeReply($(e.currentTarget).data("id"), (response) => {
+    replyService.remove($(e.currentTarget).data("id"), (response) => {
       showList(pageNum);
     })
   })
@@ -278,7 +257,7 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
         id     : replyId
       };
 
-      replyService.modifyReply(reply, (response) => {
+      replyService.modify(reply, (response) => {
         replyDiv.removeClass("edit-mode");
         replyDiv.prop("contenteditable", "false");
         replyDiv.html();
@@ -288,75 +267,6 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
       })
     }
   })
-
-  // 포스트 수정
-  $(".modify-btn button:first-child").click((e) => {
-    postService.modifyPost(`/posting/\${postResponse.postnum}`);
-  })
-
-  // 포스트 삭제
-  $(".modify-btn button:last-child").click((e) => {
-    postService.deletePost(postResponse.postnum, (response) => {
-      location.href = "/";
-    });
-  })
-
-  // 좋아요
-  $(".section-header-icon img[alt='좋아요 표시']").click((e) => {
-    let result = "";
-
-    if ($(".nickname").val() === "") {
-      swal("로그인을 해주세요");
-      return;
-    }
-
-    if ($(e.target).attr("class") === "favorite") {
-      $(e.target).addClass("clicked");
-      result = "clicked"
-    } else {
-      result = "click"
-    }
-
-    postService.updateFavorite(postResponse.postnum, (response) => {
-      let favoriteCnt = Number($(".section-header-icon span").html());
-      if (response === "false") {
-        $(e.target).removeClass("clicked");
-        $(".section-header-icon span").html(favoriteCnt - 1);
-        return;
-      }
-      $(".section-header-icon span").html(favoriteCnt + 1);
-    }, result)
-  })
-
-
-  // 유저 구별
-  if ($(".nickname").val() === postResponse.member.nickname) {
-    $(".section-header-icon img[alt='신고 이미지']").css("display", "none");
-  } else {
-    $(".modify-btn").css("display", "none");
-  }
-
-  // 구독
-  $(".writer-profile-pic button").click(() => {
-
-    if ($(".nickname").val() === "") {
-      swal("로그인을 해주세요");
-      return;
-    }
-    
-    subcribeService.insertSubscribe(writerBtn.data("writer"), (response) => {
-          console.log(response, " <= 구독버튼 클릭");
-          writerBtn.addClass("sub");
-        },
-        (error) => {
-          console.log("예외 터짐")
-          writerBtn.removeClass("sub");
-        })
-  })
-
-  if (subscribeResponse === postResponse.member.loginid) {
-    writerBtn.addClass("sub");
-  }
 
 </script>
 </body>
