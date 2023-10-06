@@ -140,8 +140,8 @@
                       	<p class="writer-intro"><%=result.getIntro()%></p>
                       </div>
                       
-                      <form method="get" action="/post">
-                      	<button type="button" class="btn btn-primary">
+                      <form method="get" action="/post/<%=result.getPostnum()%>">
+                      	<button type="submit" class="btn btn-primary">
 	                      	<i class="fa fa-solid fa-magnifying-glass"></i> Read me</a>
                       	</button>
                       </form>

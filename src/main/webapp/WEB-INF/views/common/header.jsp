@@ -30,7 +30,7 @@
                         <a class="nav-link" href="/library" style="font-size: 20px">서재</a>
                     </li>
                     <li class="nav-item ms-5">
-                        <a class="nav-link" href="#" style="font-size: 20px">나의 정원</a>
+                        <a class="nav-link" href="/mygarden" style="font-size: 20px">나의 정원</a>
                     </li>
                     <li class="nav-item ms-5">
                         <a class="nav-link" href="/mypage" style="font-size: 20px">작가신청</a>
