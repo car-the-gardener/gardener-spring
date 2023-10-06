@@ -4,7 +4,10 @@ import java.util.List;
 
 import com.gardener.domain.Search;
 
-public interface CategoryMapper {
+public interface MygardenMapper {
 	
-	public List<Search> searchCategory(String category);
+	public List<Search> Mygarden(String loginid);
+	
+	
+	
 }

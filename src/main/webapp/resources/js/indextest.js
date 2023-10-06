@@ -19,7 +19,7 @@ $(()=>{
         if (textValue == "") {
             alert("검색할 단어를 입력해주세요");
         }else{
-     		$('form').submit();
+     		$('.search-form').submit();
      		
         }
            
@@ -54,4 +54,45 @@ $(()=>{
     //입력창에 엔터를 누르면 할 일 end
   
 //전체적인 검색기능 영역 end --------------------------------------------------------------------
+
+//recommed 영역 start-----------------------------------------------------------------------
+	var tableTr = $('.search-postnum');
+	
+	
+	//var trClassName = tableTr.attr("class");
+	//console.log(trClassName);
+	
+	tableTr.click((e)=>{
+		var postnumS = $(e.currentTarget).data("postnum"); //String타입이다.
+		console.log(postnumS);
+		var postnumInt = parseInt(postnumS);
+		console.log(postnumInt);
+		
+		
+		window.location.href = "/post/"+postnumS;
+	})
+
+//recommed 영역 end--------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 })
