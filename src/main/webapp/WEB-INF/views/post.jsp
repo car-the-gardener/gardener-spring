@@ -3,98 +3,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="/resources/js/post.js"></script>
-    <link rel="stylesheet" href="/resources/css/post.css">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+          integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="/resources/js/post.js"></script>
+  <link rel="stylesheet" href="/resources/css/post.css">
+  <title>Document</title>
 </head>
 
 <body>
 loginid: <c:out value="${sessionScope.member.loginid}"/>
-nickname: <c:out value="${sessionScope.member.nickname}"/>
 
 <!-- 섹션 시작 -->
 <section>
-    <!-- 섹션 헤더 시작 -->
-    <div class="section-header-image">
-        <div class=" main-image"></div>
-    </div>
-    <!-- 섹션 헤더 제목 시작 -->
-    <div class="section-header-title">
-        <div class="section-header-main-title">대제목</div>
-        <div class="section-header-main-subtitle">물리학 하는 사람들은 로맨틱하다.</div>
-    </div>
-    <!-- 섹션 헤더 제목 끝 -->
-    <!-- 섹션 헤더 글 정보 시작 -->
-    <div class="section-header-info">
-        <div class="section-header-info-writer">이완</div>
-        <div class="section-header-info-date">2023-07-26</div>
-    </div>
-    <!-- 섹션 헤더 글 정보 끝 -->
-    <!-- 섹션 헤더 끝 -->
+  <!-- 섹션 헤더 시작 -->
+  <div class="section-header-image">
+    <div class=" main-image"></div>
+  </div>
+  <!-- 섹션 헤더 제목 시작 -->
+  <div class="section-header-title">
+    <div class="section-header-main-title">대제목</div>
+    <div class="section-header-main-subtitle">물리학 하는 사람들은 로맨틱하다.</div>
+  </div>
+  <!-- 섹션 헤더 제목 끝 -->
+  <!-- 섹션 헤더 글 정보 시작 -->
+  <div class="section-header-info">
+    <div class="section-header-info-writer">이완</div>
+    <div class="section-header-info-date">2023-07-26</div>
+  </div>
+  <!-- 섹션 헤더 글 정보 끝 -->
+  <!-- 섹션 헤더 끝 -->
 
-    <!-- 아티클 시작 -->
-    <article>
-    </article>
-    <!-- 아티클 끝 -->
+  <!-- 아티클 시작 -->
+  <article>
+  </article>
+  <!-- 아티클 끝 -->
 
-    <!-- 수정, 삭제, 저장 버튼 시작 -->
-    <!-- 내 글을 확인할 때는 수정, 삭제만 보이게, 다른 사람 글은 반대로 -->
-    <div class="btn-wrap">
-        <!-- 섹션 헤더 엄지척,신고 시작 -->
-        <div class="section-header-icon">
-            <div>
-                <img src="/resources/images/thumbs-up.png" alt="좋아요 표시" class="favorite">
-                <span>5</span>
-                <div><img src="/resources/images/report.png" alt="신고 이미지" class="report"></div>
-            </div>
-        </div>
-        <!-- 섹션 헤더 엄지척,신고 끝 -->
-        <div class="modify-btn">
-            <div>
-                <button>수정</button>
-                <button>삭제</button>
-            </div>
-        </div>
+  <!-- 수정, 삭제, 저장 버튼 시작 -->
+  <!-- 내 글을 확인할 때는 수정, 삭제만 보이게, 다른 사람 글은 반대로 -->
+  <div class="btn-wrap">
+    <!-- 섹션 헤더 엄지척,신고 시작 -->
+    <div class="section-header-icon">
+      <div>
+        <img src="/resources/images/thumbs-up.png" alt="좋아요 표시" class="favorite">
+        <span>5</span>
+        <div><img src="/resources/images/report.png" alt="신고 이미지" class="report"></div>
+      </div>
     </div>
-    <!-- 수정, 삭제, 저장 버튼 끝 -->
+    <!-- 섹션 헤더 엄지척,신고 끝 -->
+    <div class="modify-btn">
+      <div>
+        <button>수정</button>
+        <button>삭제</button>
+      </div>
+    </div>
+  </div>
+  <!-- 수정, 삭제, 저장 버튼 끝 -->
 
-    <!-- 작가 프로필 시작 -->
+  <!-- 작가 프로필 시작 -->
+  <hr>
+  <div class="writer-profile">
+    <div class="writer-profile-info">
+      <div class="writer-profile-name">이수완</div>
+      <div class="writer-profile-intro">충남 보령시에서 왔수다</div>
+    </div>
+    <div class="writer-profile-pic">
+      <img src="https://thumb.mt.co.kr/06/2023/06/2023062717453220668_1.jpg/dims/optimize/" alt="작가 프로필 이미지">
+      <button>구독하기</button>
+    </div>
+  </div>
+  <!-- 작가 프로필 끝 -->
+
+  <!-- 댓글 쓰기 -->
+  <div class="section-reply">
+    <div>
+      <div>
+        <p>첫 댓글을 남겨주세요</p>
+        <p>(x/200)</p>
+      </div>
+      <textarea></textarea>
+      <button>댓글작성</button>
+    </div>
     <hr>
-    <div class="writer-profile">
-        <div class="writer-profile-info">
-            <div class="writer-profile-name">이수완</div>
-            <div class="writer-profile-intro">충남 보령시에서 왔수다</div>
-        </div>
-        <div class="writer-profile-pic">
-            <img src="https://thumb.mt.co.kr/06/2023/06/2023062717453220668_1.jpg/dims/optimize/" alt="작가 프로필 이미지">
-            <button>구독하기</button>
-        </div>
-    </div>
-    <!-- 작가 프로필 끝 -->
+  </div>
 
-    <!-- 댓글 쓰기 -->
-    <div class="section-reply">
-        <div>
-            <div>
-                <p>첫 댓글을 남겨주세요</p>
-                <p>(x/200)</p>
-            </div>
-            <textarea></textarea>
-            <button>댓글작성</button>
-        </div>
-        <hr>
-    </div>
+  <%--댓글 표시--%>
+  <div class="section-reply-list"></div>
 
-    <%--댓글 표시--%>
-    <div class="section-reply-list"></div>
-
-    <!-- 페이지네이션 시작 -->
-    <div class="pagination-wrap"></div>
+  <!-- 페이지네이션 시작 -->
+  <div class="pagination-wrap"></div>
 
 </section>
 <!-- 섹션 끝 -->
@@ -106,9 +105,7 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
   const postResponse = ${post};
   const subscribeResponse = '${subscribe}';
   const writerBtn = $(".writer-profile-pic > button")
-  console.log(subscribeResponse, "subscribeResponse")
   let pageNum = 1;
-
 
   $(".main-image").css("background-image", `url(\${postResponse?.mainTitleImg})`)
   $(".section-header-main-title").html(postResponse.mainTitle);
@@ -121,6 +118,21 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
   $(".writer-profile-intro").html(postResponse.member.intro);
   $(".writer-profile-pic img").attr("src", postResponse.member.profile || "https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg")
   writerBtn.attr("data-writer", postResponse.member.loginid)
+
+  // 글자수 체크
+  $(".section-reply textarea").keyup((e) => {
+    let reply = $(e.target).val().trim().length;
+    $(".section-reply p:last-child").text(`(\${reply}/200)`)
+
+    if (reply > 200) {
+      console.log($(e.target).val().substring(0, 201))
+      console.log($(e.target).val().substring(0, 200).length)
+      $(e.target).val($(e.target).val().substring(0, 200));
+      $(".section-reply p:last-child").text(`(200/200)`)
+      swal("200글자 이하만 가능합니다.")
+    }
+  })
+
 
   if ("${sessionScope.member.loginid}" === $(".writer-profile-pic button").data("writer")) {
     $(".writer-profile-pic button").css("display", "none");
@@ -138,7 +150,10 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
       $(".section-header-icon span").html(count);
     });
   };
-  checkFavorite();
+  if (subscribeResponse !== "") {
+    // 아.. 개선 필요
+    checkFavorite();
+  }
 
 
   // 댓글 리스트 불러오기
@@ -172,7 +187,6 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
         } else {
           reply += `<div>
               <img src="/resources/images/thumbs-up.png" alt="좋아요 표시">
-              <span>5</span>
               <div><img src="/resources/images/report.png" alt="신고 이미지"></div>
           </div>`
         }
@@ -343,7 +357,7 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
       swal("로그인을 해주세요");
       return;
     }
-    
+
     subcribeService.insertSubscribe(writerBtn.data("writer"), (response) => {
           console.log(response, " <= 구독버튼 클릭");
           writerBtn.addClass("sub");
@@ -358,6 +372,11 @@ nickname: <c:out value="${sessionScope.member.nickname}"/>
     writerBtn.addClass("sub");
   }
 
+  // 작가 프로필 사진 클릭 시 작가페이지 이동
+  $(".writer-profile-pic > img").click((e) => {
+    const writerId = $(e.target).siblings().data("writer");
+    location.href = `/library/writer/\${writerId}`
+  })
 </script>
 </body>
 </html>

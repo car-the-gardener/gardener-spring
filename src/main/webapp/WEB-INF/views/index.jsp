@@ -57,7 +57,7 @@
                 <div class="input-group">
 	            	<div class="input-group-prepend">
                     	<form method="get" action="/search" class="search-form">
-                    	
+
 	                        <select class="form-select" name="select" id="search_param">
 	                            <option value="title" ${select eq 'title'?'selected':''}>제목</option>
 	                            <option value="name" ${select eq 'name'?'selected':''}>필명</option>
@@ -65,10 +65,10 @@
 	                            <option value="all" ${select eq 'all'?'selected':''}>전체</option>
 	                        </select>
 	                </div>
-	                        
-	                    
+
+
 	                    <input type="text" class="form-control" name="text" placeholder="검색할 단어를 입력해주세요..." value="${text}">
-	                    
+
 	                    <span class="input-group-btn">
 	                        <button class="btn btn-primary" type="button" id="searchbtn" style="background-color:#007b5e; border-color:#007b5e;">
 	                        <i class="fa-solid fa-search"></i> Search</button>
@@ -79,7 +79,6 @@
         </div>
     </div>
 </div>
-
 <!-- search 영역------------------------------------------------------------------------ -->
 
 <!-- main img carousel 영역 ------------------------------------------------------------ -->
@@ -150,7 +149,7 @@
             <p class="text-muted text-center py-3" style="margin-top:-30px">키워드로 분류된 다양한 글 모음</p>
 
             <div class="row">
-            
+
                	<div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=시">
 	                    <div class="box bg-white">
@@ -165,7 +164,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                  <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=여행">
 	                    <div class="box bg-white">
@@ -180,7 +179,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=연애">
 	                    <div class="box bg-white">
@@ -195,7 +194,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=IT">
 	                    <div class="box bg-white">
@@ -210,7 +209,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=사진">
 	                    <div class="box bg-white">
@@ -225,7 +224,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=영화">
 	                    <div class="box bg-white">
@@ -240,7 +239,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=음악">
 	                    <div class="box bg-white">
@@ -255,7 +254,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=애완동물">
 	                    <div class="box bg-white">
@@ -270,7 +269,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=요리">
 	                    <div class="box bg-white">
@@ -285,7 +284,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=육아">
 	                    <div class="box bg-white">
@@ -300,7 +299,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=운동">
 	                    <div class="box bg-white">
@@ -315,7 +314,7 @@
 	                    </div>
 		            </a>
                 </div>
-                
+
                 <div class="col-lg-4 col-md-6 my-lg-0 my-3">
 					 <a href="/category?category=도서">
 	                    <div class="box bg-white">
@@ -340,23 +339,23 @@
     <p class="text-muted text-center py-3" style="margin-top:-30px">작가의 정원에서 추천하는 글</p>
 
     <table cellspacing="0px" class="writing-list">
-    
+
     <% int faveriteTopSize = (int)request.getAttribute("faveriteTopSize");
         List<Search> faveriteTop = (List<Search>) request.getAttribute("faveriteTop");
-        
+
         	for(int i=0; i<faveriteTopSize; i++){
         		//객체 하나 가져온다
         		 Search recommend = faveriteTop.get(i);
-        		 
+
         		//timestamp 포멧팅
         		 Timestamp timestamp = Timestamp.valueOf(recommend.getCreatedate());
-        	     Date date = new Date(timestamp.getTime()); 
+        	     Date date = new Date(timestamp.getTime());
         	     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
         	     String formatDate = dateFormat.format(date);
-        	     
+
         	   //content html태그 빼기
-        	     String content = recommend.getContent().replaceAll("<[^>]*>", "");	   
-        	   
+        	     String content = recommend.getContent().replaceAll("<[^>]*>", "");
+
         	   //postnum Long타입으로 변환
         	   //String postnumStr =  recommend.getPostnum();
         	   //long postnum = Long.parseLong(postnumStr);
@@ -373,7 +372,7 @@
 	            </td>
 	        </tr>
         </form>
- 		<%	
+ 		<%
         	}
         %>
     </table>
@@ -385,24 +384,24 @@
     <div class="cardgrid">
         <div class="container" style="margin-top:10px">
       		<ul class="cards">
-      		
+
       		<% int TopCollectionSize = (int)request.getAttribute("TopCollectionSize");
-	      		
+
 	            List<Search> topcollection = (List<Search>) request.getAttribute("TopCollection");
-	            
+
 	            	for(int i=0; i<TopCollectionSize; i++){
 	            		//객체 하나 가져온다
 	            		 Search collection = topcollection.get(i);
-	            		 
+
 	            		//timestamp 포멧팅
 	            		 Timestamp timestamp = Timestamp.valueOf(collection.getCreatedate());
-	            	     Date date = new Date(timestamp.getTime()); 
+	            	     Date date = new Date(timestamp.getTime());
 	            	     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
 	            	     String formatDate = dateFormat.format(date);
-	            	     
+
 	            	   //content html태그 빼기
-	            	     String content = collection.getContent().replaceAll("<[^>]*>", "");	   
-						 
+	            	     String content = collection.getContent().replaceAll("<[^>]*>", "");
+
             %>
       			 <li class="card">
 			          <div>
@@ -417,17 +416,17 @@
 			            <a href="/post/<%=collection.getPostnum() %>" class="card-link" style="border-color:#007b5e;">Click me</a>
 			          </div>
 			        </li>
-		<%	
+		<%
         	}
         %>
 			</ul>
     	</div>
     </div>
 	<!-- Writer Collection 영역 --------------------------------------------->
-	
-	
-	
-	
+
+
+
+
 </div><!-- body end -->
 
 <!-- FOOTER -->

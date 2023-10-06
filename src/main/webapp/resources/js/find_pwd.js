@@ -1,33 +1,26 @@
-$(() => {
-	const backURL = "http://localhost:8888/back";
-
-	//아이디 입력란 객체찾기
-	const inputloginIdObj = $('form.find-pwd>input[name=loginId]')
-
-	//이메일 입력란 객체찾기
-	const inputEmailObj = $('form.find-pwd>input[name=email]')
+$(document).ready(() => {
+	const url = "http://localhost:8888";
 
 	//비밀번호 찾기 버튼 객체 찾기
 	const btFindpwd = $('form.find-pwd button.bt-find-pwd')
-
-
+	
 	btFindpwd.click(() => {
-		const loginId = $("input[name='loginId']").val();
+		const id = $("input[name='loginId']").val();
 		const email = $("input[name='email']").val();
 		$.ajax({
-			url: 'http://localhost:8888/back/findpwd',
-			method: 'post',
-			data: { 'loginId': loginId, email: email },
-			success: (responseData) => {
-				if (responseData != '0') {
-					alert('고객님의 비밀번호는 ' + responseData + ' 입니다')					
-					location.href =`${backURL}/front/html/login.html`
+			url: "http://localhost:8888/find_pwd",
+			method: "post",
+			data: { loginid: id, email: email },
+			success: (response) => {								
+				if (response != '0') {
+					alert('고객님의 비밀번호는 ' + response + ' 입니다')					
+					location.href ="/login";
 				} else {
-					alert('잘못된 정보입니다, 다시 입력해주세요')
+					alert('잘못된 정보입니다. 다시 입력해주세요')
 				}
 			},
 			error: ()=> {
-				alert("에러발생~ㄹㄹ홇~~~")
+				alert('잘못된 정보입니다. 다시 입력해주세요')
 			}
 		})
 		return false;
