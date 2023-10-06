@@ -1,4 +1,16 @@
 $(() => {
+  
+  //모달 창 띄우기
+  $('li.nav-item.ms-5 a.nav-link[href="/signup"]').click(function(e) {
+	e.preventDefault(); 	
+	$('#signupModal').modal('show');
+  });	
+	
+  //모달 close버튼
+  $("#signupClosebtn").on("click", () =>{
+  location.href = "/"; //페이지 이동
+  })	 
+
   //DOM트리에서 form객체찾기
   const formObj = $("form.signup");  
   
@@ -15,7 +27,7 @@ $(() => {
   const pwdCfm =$("form.signup input.confirm");
   
   //이메일
-  const email = $("form.signup input[name=loginid]");
+  const email = $("form.signup input[name=signupid]");
   
   //필명
   const nickname = $("form.signup input[name=nickname]");
@@ -25,8 +37,10 @@ $(() => {
 
   //가입버튼 객체 찾기
   const btSignup = $("form.signup.bt-Signup"); 	
-  
-  
+
+ 
+
+
   //프로필 업로드
    profile.click(() => {    	
  	 $("#img").click();
@@ -45,21 +59,21 @@ $(() => {
         }   	
   });
   
-  //ID 중복확인  
-  btIdDupChk.click(() => {     
-    const loginid = $("input[name='loginid']").val();
-  	const iddupchk = $("input[name='iddupchk']").val();
+  //ID 중복확인    
+  btIdDupChk.click(() => {   
+    const signupid = $("form.signup input[name='signupid']").val();
 
   	//아이디 입력란이 빈칸인 경우
-  	if (loginid == '') {
+  	if (signupid == '') {
   	  swal('ID를 입력하세요');
   	  return;
   	}
   	
+  
     $.ajax({
       url: "/id_chk",
       method: "get",
-      data: "loginid=" + loginid , //`idcheck=${loginId}`
+      data: "loginid=" + signupid , 
       success: (response) => {
         console.log(response);
         if (!response) {
@@ -87,7 +101,7 @@ $(() => {
 	  $.ajax({
 	    url: "/name_chk",
 	  	method: "get",
-	    data: "nickname=" + nickname,  //"nickname=${nickname}",
+	    data: "nickname=" + nickname,  
 	    success: (response) => {	      
 	      if (!response) {
 	        swal("사용 가능한 필명 입니다");
@@ -99,7 +113,9 @@ $(() => {
  });
 
   //회원가입
-  formObj.submit((e) => {      
+  formObj.submit((e) => {    
+  	e.preventDefault();
+    
   	//1.비밀번호 확인
 	if (pwd.val() != pwdCfm.val()){	
 		alert("비밀번호를 다시 입력해주세요");
@@ -127,19 +143,23 @@ $(() => {
   		
    	   	
   	//3. 회원가입  
- 	const data = $(e.target).serialize();	
-    $.ajax({
-      url: "/signup",
-      method: "post",
-      data: data,
-      success: (data) => {      	    
-          alert("회원가입이 되었습니다");
-          window.location.href = "/";//페이지 이동
-      },
-      error: (xhr) => {
-        alert("회원가입 실패했습니다");
-      },
-    });
-    return false;
+ 	let data = $(e.target).serialize();
+	data += `&loginid=${$('.id').val()}`; // id.val() 값을 data에 추가
+	
+	$.ajax({
+	  url: "/signup",
+	  method: "post",
+	  data: data,
+	  success: (response) => {	    
+	      alert("회원가입이 되었습니다");
+	      window.location.href = "/"; // 페이지 이동
+	  },
+	  error: (xhr) => {
+	    alert("회원가입 실패했습니다");
+	  },
+	});
+	
+	return false;
+
   });
 });

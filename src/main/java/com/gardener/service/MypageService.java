@@ -29,6 +29,14 @@ public class MypageService {
 		}
 	}
 
+	public void updateprofile(Member member) throws UpdateException {
+		try {
+			mapper.updateMember(member);
+		} catch (Exception e) {
+			throw new UpdateException("Failed to update member information.", e);
+		}
+	}
+
 	public boolean deleteMember(String loginid) {
 		return mapper.deleteMember(loginid);
 	}

@@ -59,7 +59,6 @@ const replyService = (() => {
         if (callback) {
           callback(response);
         }
-        alert(response);
       }
     })
   }
@@ -104,9 +103,6 @@ postService = (() => {
       url    : `/post/${postnum}`,
       method : "DELETE",
       success: (response) => {
-        console.log(response)
-        console.log(typeof response)
-        location.href = "/";
         callback(response);
       },
       error  : (xhr, status) => {

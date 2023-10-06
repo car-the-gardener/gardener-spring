@@ -43,12 +43,12 @@ public class PostApiController {
    * @return post -> json
    * 게시물 상세보기
    */
-  @GetMapping("/{postnum}")
+  @GetMapping(value = "/{postnum}")
   public ModelAndView findPostBypostnum(@PathVariable Long postnum, HttpSession session) throws FindException {
     Member member = (Member) session.getAttribute("member");
     Post post = postService.findPostByPostnum(postnum);
+    Gson gson = new Gson();
     String result = "";
-    
     if (member != null) {
       result = libraryService.findSubscribe(member.getLoginid(), post.getLoginid());
     }
@@ -56,9 +56,7 @@ public class PostApiController {
     if (post == null) {
       throw new FindException();
     }
-
     ModelAndView mv = new ModelAndView();
-    Gson gson = new Gson();
     mv.addObject("post", gson.toJson(post));
     mv.addObject("subscribe", result);
     mv.setViewName("/post");
