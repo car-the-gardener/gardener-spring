@@ -19,8 +19,7 @@ h1>a>img {
 }
 
 .profile {
-  display: flex;
-  justify-content: center;
+  display: right;
   width: 120px;
   height: 120px;
   margin-left: 9%;
@@ -96,7 +95,7 @@ body>header {
 	width: 500px;
 	border: solid 2px rgb(192, 192, 192);
 	border-radius: 12px;
-	height: 600px;
+	height: 550px;
 	display: flex;
 	align-items: center;
 	margin: 0 auto;

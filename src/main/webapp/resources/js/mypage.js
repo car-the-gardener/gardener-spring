@@ -1,8 +1,24 @@
-$(document).ready(() => {
-  let clickStatus = 0;
+$(document).ready((e) => {
+  let clickStatus = 0;  
+ 
+  const profile = $(".profile");  
   
-  const profile =  $(".profile");  
-  
+  //확장자크기 설정 및 검사
+   	function checkExtention(fileName, fileSize){
+    var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|txt)$");
+    var maxSize = 1024 * 1024 * 5; 
+
+    if (fileSize > maxSize) {
+        alert("파일 사이즈 초과");
+        return false;
+    }
+    
+    if (regex.test(fileName)) {
+        alert("해당 종류의 파일은 업로드할 수 없습니다.");
+        return false;
+    }
+        return true;
+  } 
 
   alert("마이페이지로 이동");
   /* mypage 사용자 정보 가져오기 */
@@ -21,6 +37,7 @@ $(document).ready(() => {
         $("#email").val(userInfo.email);
         $("#createDate").val(userInfo.createDate);
         $("#intro").val(userInfo.intro);
+        $("#profile").val(userInfo.profile);
       },
       error: (xhr, status, error) => {
         console.log(
@@ -32,7 +49,7 @@ $(document).ready(() => {
       },
     });
   }
-  getUserInfo();
+  
 
   /*정보수정 시작하기*/
   $(".modifybtn.btn").on("click", function () {
@@ -45,9 +62,9 @@ $(document).ready(() => {
           $(this).removeAttr("readonly");
         }
       });
-       textareas.each(function () {
-      $(this).removeAttr("readonly");
-    });
+      textareas.each(function () {
+        $(this).removeAttr("readonly");
+      });
       $(".modifybtn.btn").text("정보 완료");
 
       alert("정보수정 시작");
@@ -57,9 +74,9 @@ $(document).ready(() => {
         $(this).prop("readonly", true);
       });
       textareas.each(function () {
-      $(this).prop("readonly", true);
+        $(this).prop("readonly", true);
       });
-    
+
       $(".modifybtn.btn").text("정보 수정");
       clickStatus = 0;
 
@@ -69,67 +86,72 @@ $(document).ready(() => {
       $("input").each(function () {
         data[this.id] = $(this).val();
       });
-<<<<<<< HEAD
-      $("textarea").each(function () {      
-       data[this.id] = $(this).val();
+      $("textarea").each(function () {
+        data[this.id] = $(this).val();
       });
-=======
->>>>>>> e7ebcd59cef560557ab0949aaac28080f29263ec
 
       $.ajax({
-        url    : "/mypage/update",
-        method : "POST",
-        data   : data,
+        url: "/mypage/update",
+        method: "POST",
+        data: data,
         success: function (response) {
           console.log("Data successfully sent to the server!");
-          getUserInfo();
+          
         },
-        error  : function (error) {
+        error: function (error) {
           console.log("Failed to send data to the server:", error);
-        }
+        },
       });
     }
   });
 
   $("#joinDate").prop("readonly", true);
-<<<<<<< HEAD
-  
-  //프로필 업로드
-   profile.click(() => {       
-     $("#img").click();
+
+
+   //프로필 업로드
+   profile.click((e) => {       
+    $("#img").click();
    });
+   
+   $('#img').change((e) => {
+    var selectedFile = e.target.files[0]; 
+    
+    if (!selectedFile) {
+    return;   }
+     
 
-  $('#img').change((e) => {  
-   var selectedFile = e.target.files[0];   
-
-    // 이미지 요소의 src 속성을 선택한 파일의 URL로 설정
-    if (selectedFile) {
+    if (!checkExtention(selectedFile.name, selectedFile.size)) {
+      return false;
+     }
+      
         var fileReader = new FileReader();
         fileReader.onload = function (e) {
-            $(".profile").attr("src", e.target.result);
+          $(".profile").attr("src", e.target.result);
         };
         fileReader.readAsDataURL(selectedFile);
-        }      
-  });
-  var formData = new FormData();
+          
+                  
+     //프로필 이미지 저장  
+     var formData = new FormData();
      var inputFile = $("input[name = 'uploadFile']");     
-    var files = inputFile[0].files; 
-  
+     var files = inputFile[0].files;   
      formData.append("uploadFile", files[0]);
   
      $.ajax({
-        url: "/profile",
-        processData: false,
-        contentType: false,
-        data: formData,
-        type: "post",
-        success: function(result){           
-        }     
-      });
-  
-  
-=======
+      url: "/mypage/profile",
+      processData: false,
+      contentType: false,
+      data: formData,
+      type: "post",
+      success: function (result) {
+        console.log("Profile image successfully uploaded to the server!");
+      },
+      error: function (error) {
+        console.log("Failed to upload profile image:", error);
+      }   
+     });
+   });
+   
 
 
->>>>>>> e7ebcd59cef560557ab0949aaac28080f29263ec
 });

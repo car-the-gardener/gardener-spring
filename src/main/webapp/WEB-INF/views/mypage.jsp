@@ -46,19 +46,13 @@
     <!--본문 내용 시작-->
     <header>
       <dl>
-        <!--프로필 사진 시작
-        <div class="profile-photo" style="margin-left: 140px">
-          <img id="imgThumb" src="https://i.imgur.com/qyTEOBF.jpg" style="height: 150px" width="150px" />
-          <span class="mask"></span>
-          
-        </div>-->
         <p>
-          <div class="img-pic">
-            <label for="imgBtn">
-                <img class="profile" src="/resources/images/profile.png" >
-            </label>
-            <input id="img" type="file" name="profile" style="display:none" >
-        </div>
+        <div>
+       <img class="profile" src="${member.profile}" />   
+         <input type="file" id=img name="uploadFile" style="display:none" >        
+        <div class="profileText">프로필변경</div>
+     </div>
+      
         </p>
         <!--프로필 사진 끝-->
         <!--내 정보 내용 시작-->
@@ -107,7 +101,6 @@
     </div>
     
     <!--버튼 클릭 끝-->
-<%@ include file="./common/footer.jsp" %>
   </body>
 
   </html>
