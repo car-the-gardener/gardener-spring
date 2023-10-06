@@ -29,7 +29,8 @@
     <select id="findBypostnum" resultMap="PostResultMap">
         select postnum, m.loginid, p.main_title, p.sub_title, p.content, p.main_title_img, p.category, p.total_cnt,
         p.public_yn,
-        p.favorite, to_char(p.create_date,'yyyy-MM-dd') create_date, m.email, m.nickname, m.intro from post p join
+        p.favorite, to_char(p.create_date,'yyyy-MM-dd') create_date, m.email, m.nickname, m.intro, m.profile from post p
+        join
         member m on
         p.loginid =
         m.loginid where postnum = #{p.postnum}

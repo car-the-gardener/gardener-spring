@@ -104,6 +104,7 @@ loginid: <c:out value="${sessionScope.member.loginid}"/>
 <script>
   const postResponse = ${post};
   const subscribeResponse = '${subscribe}';
+  console.log(postResponse);
   const writerBtn = $(".writer-profile-pic > button")
   let pageNum = 1;
 
