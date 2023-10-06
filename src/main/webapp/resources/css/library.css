@@ -8,10 +8,6 @@ main {
     margin: 0 auto;
 }
 
-img {
-
-}
-
 p {
     overflow: hidden;
 }
@@ -37,8 +33,9 @@ li > span:hover {
 
 .section-post {
     display: flex;
-    width: 100%;
     height: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .section-post > div:first-child {
@@ -74,14 +71,14 @@ li > span:hover {
     text-overflow: ellipsis;
     white-space: normal;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     width: 700px;
     height: 100%;
 }
 
 .section-post > div:last-child {
-    width: 45%;
+    width: 200px;
     height: 100%;
 }
 

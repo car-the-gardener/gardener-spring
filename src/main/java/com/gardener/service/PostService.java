@@ -22,11 +22,6 @@ public class PostService {
     return postMapper.findBypostnum(postnum);
   }
 
-  public List<Post> findAllMyPost(String loginid) {
-    List<Post> posts = postMapper.findAllMyPost(loginid);
-    return posts;
-  }
-
   public Long updatePostByPostnum(Post post) {
     return postMapper.updatePost(post);
   }

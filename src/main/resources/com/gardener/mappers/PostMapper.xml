@@ -35,10 +35,6 @@
         m.loginid where postnum = #{p.postnum}
     </select>
 
-    <select id="findAllMyPost" resultType="post">
-        select * from post where loginid = #{loginid}
-    </select>
-
     <update id="updatePost">
         update post
         set main_title = #{mainTitle}, sub_title = #{subTitle}, content = #{content}, main_title_img = #{mainTitleImg},
