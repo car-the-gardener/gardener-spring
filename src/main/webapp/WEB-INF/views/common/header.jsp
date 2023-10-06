@@ -2,13 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/views/login.jsp" %>
 
-<c:out value="${sessionScope.member.loginid}"/>
 
 <h1 style="text-align: center; margin-top: 10px;">
   <a href="./"><img src="https://i.imgur.com/2enY1dP.png"/></a>
 </h1>
 
-<jsp:include page="/WEB-INF/views/login.jsp"/>
 
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container">
@@ -23,6 +21,9 @@
       <ul class="navbar-nav ms-auto">
         <c:choose>
           <c:when test="${!empty sessionScope.member.loginid}">
+            <li class="nav-item ms-5">
+              <a class="nav-link" href="/magazine" style="font-size: 20px">매거진</a>
+            </li>
             <li class="nav-item ms-5">
               <a class="nav-link" href="/posting" style="font-size: 20px">글쓰기</a>
             </li>
