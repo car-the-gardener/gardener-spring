@@ -87,8 +87,11 @@ public class LoginController {
 
   @GetMapping("/logout")
   public String logout(HttpSession session) {
-    session.removeAttribute("member");
-    session.invalidate();
-    return "index";
+    Object member = session.getAttribute("member");
+    if (member != null) {
+      session.removeAttribute("member");
+      session.invalidate();
+    }
+    return "redirect:/";
   }
 }

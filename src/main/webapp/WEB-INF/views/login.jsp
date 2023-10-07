@@ -33,12 +33,12 @@
 
       <!--링크-->
       <div class="sign-wrap">
-					<span class="signup"> <a href="http://localhost:8888/signup">회원
+					<span class="signup"> <a href="/signup">회원
 							가입</a>
 					</span> <span class="find-loginId"> <a
-              href="http://localhost:8888/find_id">아이디 찾기</a>
+              href="/find_id">아이디 찾기</a>
 					</span> <span class="find-pwd"> <a
-              href="http://localhost:8888/find_pwd">비밀번호 찾기</a>
+              href="/find_pwd">비밀번호 찾기</a>
 					</span>
       </div>
     </form>
