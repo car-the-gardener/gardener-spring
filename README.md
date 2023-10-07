@@ -1,4 +1,4 @@
-# gardener-spring
+# gardener-spring (작업기간 - 2023.09.14 ~ 2023.10.13)
 
 final spring project
 let's go
