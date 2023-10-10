@@ -25,9 +25,8 @@
 			FROM MEMBER m
 			        JOIN POST p ON (m.LOGINID = p.LOGINID)
 			WHERE m.nickname = (
-				    SELECT m2.nickname
-				    FROM MEMBER m2
-				             JOIN POST p2 ON (m2.LOGINID = p2.LOGINID)
+				    SELECT distinct m2.nickname
+				    FROM MEMBER m2 JOIN POST p2 ON (m2.LOGINID = p2.LOGINID)
 				    WHERE p2.favorite = (SELECT MAX(favorite) FROM POST)
 			)
         ]]>

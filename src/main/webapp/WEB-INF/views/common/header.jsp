@@ -23,6 +23,9 @@
             <ul class="navbar-nav ms-auto">
                 <c:choose>
                 <c:when test="${!empty sessionScope.member.loginid}">
+		            <li class="nav-item ms-5">
+		              <a class="nav-link" href="/magazine" style="font-size: 20px">매거진</a>
+		            </li>
                     <li class="nav-item ms-5">
                         <a class="nav-link" href="/posting" style="font-size: 20px">글쓰기</a>
                     </li>
@@ -33,13 +36,13 @@
                         <a class="nav-link" href="/mygarden" style="font-size: 20px">나의 정원</a>
                     </li>
                     <li class="nav-item ms-5">
-                        <a class="nav-link" href="/mypage" style="font-size: 20px">작가신청</a>
+                        <a class="nav-link" href="/apply" style="font-size: 20px">작가신청</a>
                     </li>
                     <li class="nav-item ms-5">
                         <a class="nav-link" href="/mypage" style="font-size: 20px">마이페이지</a>
                     </li>
                     <li class="nav-item ms-5">
-                        <a class="nav-link" href="/login" style="font-size: 20px">로그아웃</a>
+                        <a class="nav-link" href="/logout" style="font-size: 20px">로그아웃</a>
                     </li>
                 </c:when>
                 <c:otherwise>

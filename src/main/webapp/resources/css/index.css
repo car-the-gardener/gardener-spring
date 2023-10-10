@@ -111,6 +111,13 @@ h3 {
   	
 }
 
+.search-postnum:hover{
+	cursor: pointer;
+	opacity: 1.0; 	/*불투명도*/
+	-webkit-transform: scale(1.15);
+	transform: scale(1.15);
+}
+
 
 /*body CSS*/
 

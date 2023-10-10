@@ -78,5 +78,15 @@ public class LoginController {
 			throw new FindException();
 		}
 	}
+	
+	@GetMapping("/logout")
+	  public String logout(HttpSession session) {
+	    Object member = session.getAttribute("member");
+	    if (member != null) {
+	      session.removeAttribute("member");
+	      session.invalidate();
+	    }
+	    return "redirect:/";
+	  }
 
 }

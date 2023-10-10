@@ -81,66 +81,11 @@
 </div>
 <!-- search 영역------------------------------------------------------------------------ -->
 
-<!-- main img carousel 영역 ------------------------------------------------------------ -->
+<!-- main img carousel 광고 영역 ------------------------------------------------------------ -->
 <div class="body" style="margin-top:-70px">
-
-    <div id="carousel img" >
-        <div class="content">
-            <div class="container">
-                <div class="owl-carousel slide-one-item">
-                    <div class="d-md-flex testimony-29101 align-items-stretch">
-                        <div class="image" style="background-image: url('/resources/images/main1.png')"></div>
-                        <div class="text">
-                            <blockquote>
-                            	<h4>사랑의 물리학</h4>
-                                <p style="margin-top:30px">
-                                    질량의 크기는 부피와 비례하지 않는다<br>
-                                    제비꽃같이 조그마한 그 계집애가<br>
-                                    꽃잎처럼 하늘거리는 그 계집애가<br>
-                                    지구보다 더 큰 질량으로 나를 끌어당긴다<br>
-                                    순간 나는<br>
-                                    뉴턴의 사과처럼<br>
-                                    사정없이 그녀에게로 굴러 떨어졌다<br>
-                                    쿵 소리를 내며 쿵쿵 소리를 내며<br>
-                                    심장이<br>
-                                    하늘에서 땅까지<br>
-                                    아찔한 진자운동을 하였다.<br>
-                                    첫사랑이었다.
-                                </p>
-
-                                <div class="author">&mdash; 김인육</div>
-                            </blockquote>
-                        </div>
-                    </div>
-
-                    <!-- .item -->
-                    <div class="d-md-flex testimony-29101 align-items-stretch">
-                        <div class="image" style="background-image: url('/resources/images/main3.png')"></div>
-                        <div class="text">
-                            <blockquote>
-                            	<h4>이유</h4>
-                                <p style="margin-top:30px">
-                                    네 눈이 그리도 이뻣던 것은<br>
-                                    가을 햇빛 탓이었을 것이다<br><br>                                 
-                                    네 눈이 그리도 맑았던 것은<br>
-                                    가을바람 탓이었을 것이다<br><br>
-                                    아니다 우리 앞에 이별의 시간이<br>
-                                    다가왔기 때문이다<br><br>
-                                    눈물이 하늘 강물이 너의 눈을<br>
-                                    더 이쁘게 맑게 보이도록 했던 것이다.
-                                </p>
-
-                                <div class="author">&mdash; 나태주</div>
-                            </blockquote>
-                        </div>
-                    </div> <!-- .item -->
-
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-<!-- main img carousel 영역 ------------------------------------------------------------ -->
+	<%@ include file="./mainimg.jsp" %>
+    
+<!-- main img carousel 광고 영역 ------------------------------------------------------------ -->
 
 <!-- category ----------------------------------------------------------------------영역 -->
     <div class="category" style="margin-top:-70px">
