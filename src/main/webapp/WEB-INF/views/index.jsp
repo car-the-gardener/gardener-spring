@@ -33,11 +33,17 @@
   <link rel="stylesheet" href="/resources/css/img.css">
   <link rel="stylesheet" href="/resources/css/category.css">
   <link rel="stylesheet" href="/resources/css/cardgrid.css">
+  <link rel="stylesheet" href="/resources/css/login.css"/>
+  <link rel="stylesheet" href="/resources/css/signup.css"/>
+  <link rel="stylesheet" href="/resources/css/header.css"/>
 
 
   <!-- JS파일 -->
   <script src="/resources/js/indextest.js"></script>
   <script src="/resources/js/indexsub.js" defer></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="/resources/js/loginModal.js"></script>
+  <script src="/resources/js/signupModal.js"></script>
 
   <title>작가의 정원</title>
 </head>
