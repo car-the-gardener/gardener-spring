@@ -1,5 +1,5 @@
 $(() => {
-  const url = "http://localhost:8888";  
+  const url = "http://localhost:8888";
   const formObj = $("form.login");
 
   //아이디저장 체크박스
@@ -10,7 +10,7 @@ $(() => {
   }
 
   formObj.submit((e) => {
-    if (cbObj.prop("chekced")) {
+    if (cbObj.prop("checked")) {
       //체크된 경우
       const idValue = formObj.find("input[name=id]").val();
       localStorage.setItem("savedId", idValue);
@@ -18,14 +18,15 @@ $(() => {
       //체크 해제된 경우
       localStorage.removeItem("savedId");
     }
-    
-    
-  /*로그인*/
+
+
+    /*로그인*/
     const data = $(e.target).serialize();
+    alert(data);
     $.ajax({
-      url: "/login",
-      method: "post",
-      data: data,
+      url    : "/login",
+      method : "post",
+      data   : data,
       success: (response) => {
         console.log(response, "response")
         if (response.trim() == 1) {
@@ -37,14 +38,11 @@ $(() => {
           $("form.login>input[name=id]").focus();
         }
       },
-      error: (xhr) => {
-          swal("잘못된 정보입니다. 다시 입력해주세요.");
-       
+      error  : (xhr) => {
+        swal("잘못된 정보입니다. 다시 입력해주세요.");
+
       },
     });
     return false;
   });
-  
-
-
 });
