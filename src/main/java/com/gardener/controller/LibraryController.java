@@ -24,7 +24,7 @@ public class LibraryController {
 
   private final LibraryService libraryService;
 
-  @GetMapping
+  @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public void getAllFavoritePost(HttpSession session, Model model) throws FindException {
     String allFavoritePostWithPaging = getAllFavoritePostWithPaging(session, 1);
     model.addAttribute("post", allFavoritePostWithPaging);
@@ -38,10 +38,10 @@ public class LibraryController {
     List<Post> allPost = libraryService.findAllFavoritePostWithPaging(member.getLoginid(), num);
 
     // 이 부분 수정이 필요함,
-    if (allPost.isEmpty()) {
+    /*if (allPost.isEmpty()) {
       throw new FindException("가져올 글이 없습니다.");
     }
-
+*/
     allPost.forEach(post -> {
       String s = post.getContent().replaceAll("<[^>]*>", "");
       post.setContent(s);
@@ -60,7 +60,7 @@ public class LibraryController {
   public @ResponseBody String getAllSubscribeWithPaging(HttpSession session, @PathVariable int num) throws FindException {
     Member member = (Member) session.getAttribute("member");
     List<Member> allSubscribe = libraryService.findAllSubscribeWithPaging(member.getLoginid(), num);
-    log.info("allSubscribe => {}", allSubscribe);
+    
     Gson gson = new Gson();
 
     if (allSubscribe.isEmpty()) {

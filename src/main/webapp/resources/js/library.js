@@ -10,8 +10,16 @@ if ($(".nickname").val() === "") {
 
 // 좋아요 버튼
 $(".favorite").click(() => {
+  postResponse = JSON.parse($(".postResponse").val()); // 없으면 안됨 ..
+  console.log(postResponse.length, " ")
   type = "favorite";
   $(".hr").css("display", "block");
+  if (postResponse.length === 0) {
+    $(".hr").css("display", "none");
+    $.get("/resources/exception-page/favorite-exception.html", (response) => {
+      $("section").html(response);
+    });
+  }
   if (num !== 1) {
     num = 1;
   }
@@ -37,14 +45,16 @@ const printFavorite = () => {
 }
 
 const firstRequest = (() => {
+  console.log(postResponse.length, "postResponse.length")
   target = $(".hr")[0];
   if (postResponse.length === 0) {
-    console.log("가져올 글이 없습니다.");
+    $(".hr").css("display", "none");
     $.get("/resources/exception-page/favorite-exception.html", (response) => {
       $("section").html(response);
     });
+  } else {
+    $("section").html(printFavorite());
   }
-  $("section").html(printFavorite());
 })()
 
 // 뫈스크롤
@@ -73,15 +83,33 @@ showFavorite();
 
 // 구독 버튼
 $(".subscribe").click(() => {
-  // 바로 지우지 않으면, $("section").html(response); 이게 채워지는데 hr이 화면에 보이게 되므로 관찰 대상이되어 요청을 해버리게 된다.
+  let memberResponse = "";
   $(".hr").css("display", "none");
   type = "subscribe";
 
-  $.get("/library/subscribe", (response) => {
-    $("section").html(response);
-    let memberResponse = $(".memberResponse").val();
-    printSubscribe(memberResponse);
+  $.ajax({
+    url    : "/library/subscribe",
+    success: (response) => {
+      $("section").html(response);
+      printSubscribe($(".memberResponse").val());
+    },
+    error  : (xhr, status) => {
+      $.get("/resources/exception-page/subscribe-exception.html", (response) => {
+        $("section").html(response);
+      });
+    },
   })
+
+  /*  $.get("/library/subscribe", (response) => {
+      $("section").html(response);
+      let memberResponse = $(".memberResponse").val();
+      printSubscribe(memberResponse);
+      if (memberResponse === 0) {
+        $.get("/resources/exception-page/subscribe-exception.html", (response) => {
+          $("section").html(response);
+        });
+      }
+    })*/
 })
 
 const printSubscribe = (response) => {

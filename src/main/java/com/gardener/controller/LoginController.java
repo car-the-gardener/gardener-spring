@@ -40,7 +40,7 @@ public class LoginController {
       session.setAttribute("member", member);
       session.setAttribute("writer", member.getWriter().isType());
       System.out.println(member.getWriter().isType());
-      // session.setMaxInactiveInterval(1800); // 유효시간설정 (1800초 = 30분)
+      session.setMaxInactiveInterval(1800); // 유효시간설정 (1800초 = 30분)
       return new ResponseEntity("1", HttpStatus.OK);
     } else {
       return new ResponseEntity("0", HttpStatus.INTERNAL_SERVER_ERROR);

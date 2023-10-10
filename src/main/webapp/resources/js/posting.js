@@ -92,7 +92,7 @@ const setPost = (sort, postnum) => {
   const mainTitleImgUrl = $(".main-image").css("background-image");
   const mainTitleImg = mainTitleImgUrl.slice(mainTitleImgUrl.indexOf("/image"), mainTitleImgUrl.lastIndexOf("\""));
   const content = editor.getHTML();
-  
+
   if (mainTitle.length === 0) {
     alert("제목을 적어주세요")
   }

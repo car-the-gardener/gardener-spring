@@ -174,7 +174,6 @@ public class PostController {
     String content = post.getContent();
 
     postService.deletePostByPostnum(postnum);
-    System.out.println(postnum + "삭제 번호");
     return postnum;
   }
 

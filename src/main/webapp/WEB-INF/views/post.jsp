@@ -15,6 +15,12 @@
 
 <body>
 
+<div style="margin: 0 auto;  text-align: center;">
+  <a href="/">
+    <img src="/resources/images/logo_small.png" alt="로고이미지">
+  </a>
+</div>
+
 <!-- 섹션 시작 -->
 <section>
   <!-- 섹션 헤더 시작 -->
@@ -101,10 +107,14 @@
 <div class="footer"></div>
 <input type="hidden" value="${sessionScope.member.nickname}" class="nickname">
 <script>
-  const postResponse = ${post};
+  let postResponse = "";
+  try {
+    postResponse = ${post};
+  } catch (error) {
+    postResponse = "";
+  }
   const subscribeResponse = '${subscribe}';
   console.log(postResponse);
-  console.log(JSON.stringify(postResponse));
   const writerBtn = $(".writer-profile-pic > button")
   let pageNum = 1;
 
@@ -209,22 +219,18 @@
     let prev = startPage != 1; // 첫 번째 페이지(1) 이상이면 prev가 존재하게 (2 페이지부터 존재)
     let next = false;
 
-    // 음 .. 10을 왜 곱해주지??
     if (endPage * 5 >= replyCnt) {
       endPage = Math.ceil(replyCnt / 5.0);
     }
 
-    // next 버튼이 생겨야 됨
     if (endPage * 5 < replyCnt) {
       next = true;
     }
 
-    // 이전 버튼
     if (prev) {
       pn += `<li class='page-item'><a class='page-link' href=\${startPage -1}>Prev</a></li>`
     }
 
-    // pagination 그리기
     for (let i = startPage; i <= endPage; i++) {
       let active = pageNum === i ? "active" : "";
       pn += `<li class='page-item \${active}'><a class='page-link' href=\${i}>\${i}</a></li>`;
@@ -348,7 +354,6 @@
   if ($(".nickname").val() === postResponse.member.nickname) {
     $(".section-header-icon img[alt='신고 이미지']").css("display", "none");
   } else {
-    $(".modify-btn").css("display", "none");
   }
 
   // 구독
