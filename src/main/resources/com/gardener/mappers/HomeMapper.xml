@@ -12,6 +12,7 @@
                   SELECT p.postnum, p.main_title, p.main_title_img, p.sub_title, p.content, p.category, p.total_cnt, p.favorite, p.create_date, m.nickname, m.intro
                   FROM MEMBER m
                            JOIN POST p ON (m.LOGINID = p.LOGINID)
+                  WHERE p.PUBLIC_YN = 1         
                   ORDER BY p.favorite DESC
               )
 			WHERE ROWNUM <= 4
@@ -28,7 +29,7 @@
 				    SELECT distinct m2.nickname
 				    FROM MEMBER m2 JOIN POST p2 ON (m2.LOGINID = p2.LOGINID)
 				    WHERE p2.favorite = (SELECT MAX(favorite) FROM POST)
-			)
+			) AND p.PUBLIC_YN = 1
         ]]>
     </select>
 

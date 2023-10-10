@@ -10,7 +10,7 @@
         <![CDATA[
 	        SELECT p.postnum, p.main_title, p.main_title_img, p.sub_title, p.content, p.category, p.total_cnt, p.favorite, p.create_date, m.nickname, m.intro
 			FROM MEMBER m JOIN POST p ON (m.LOGINID = p.LOGINID)
-			WHERE p.main_title LIKE '%'|| #{text} ||'%'
+			WHERE p.main_title LIKE '%'|| #{text} ||'%' AND p.PUBLIC_YN = 1
         ]]>
     </select>
 
@@ -19,7 +19,7 @@
        <![CDATA[
 	        SELECT p.postnum, p.main_title, p.main_title_img, p.sub_title, p.content, p.category, p.total_cnt, p.favorite, p.create_date, m.nickname, m.intro
 			FROM MEMBER m JOIN POST p ON (m.LOGINID = p.LOGINID)
-			WHERE m.nickname LIKE '%'|| #{text} ||'%'
+			WHERE m.nickname LIKE '%'|| #{text} ||'%' AND p.PUBLIC_YN = 1
         ]]>
     </select>
 
@@ -28,7 +28,7 @@
         <![CDATA[
 	        SELECT p.postnum, p.main_title, p.main_title_img, p.sub_title, p.content, p.category, p.total_cnt, p.favorite, p.create_date, m.nickname, m.intro
 			FROM MEMBER m JOIN POST p ON (m.LOGINID = p.LOGINID)
-			WHERE p.content LIKE '%'|| #{text} ||'%'
+			WHERE p.content LIKE '%'|| #{text} ||'%' AND p.PUBLIC_YN = 1
         ]]>
     </select>
     
@@ -38,7 +38,8 @@
         <![CDATA[
 	        SELECT p.postnum, p.main_title, p.main_title_img, p.sub_title, p.content, p.category, p.total_cnt, p.favorite, p.create_date, m.nickname, m.intro
 			FROM MEMBER m JOIN POST p ON (m.LOGINID = p.LOGINID)
-			WHERE p.main_title LIKE '%'|| #{text} ||'%' OR m.nickname LIKE '%'|| #{text} ||'%' OR p.content LIKE '%'|| #{text} ||'%'
+			WHERE (p.main_title LIKE '%'|| #{text} ||'%' OR m.nickname LIKE '%'|| #{text} ||'%' OR p.content LIKE '%'|| #{text} ||'%')
+			AND p.PUBLIC_YN = 1
         ]]>
     </select>
     
@@ -47,6 +48,7 @@
         <![CDATA[
 	        SELECT p.postnum, p.main_title, p.main_title_img, p.sub_title, p.content, p.category, p.total_cnt, p.favorite, p.create_date, m.nickname, m.intro
 			FROM MEMBER m JOIN POST p ON (m.LOGINID = p.LOGINID)
+			WHERE p.PUBLIC_YN = 1
 			ORDER BY p.create_date desc
         ]]>
     </select>

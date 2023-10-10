@@ -53,6 +53,31 @@
                     
                     <!-- .item -->
                     <div class="d-md-flex testimony-29101 align-items-stretch">
+                        <div class="image" style="background-image: url('https://i.imgur.com/nisZElE.jpg')"></div>
+                        <div class="text">
+                            <blockquote>
+                            	<h4>그러므로</h4>
+                                <p style="margin-top:30px">
+                                    너는 비둘기를 사랑하고<br>
+									초롱꽃을 사랑하고<br>
+									너는 애기를 사랑하고<br>
+									또시냇물 소리와 산들바람과<br>
+									흰 구름까지를 사랑한다<br><br>
+									그러한 너를 내가 사랑하므로<br>
+									나는 저절로<br>
+									비둘기를 사랑하고 <br>
+									초롱꽃, 애기, 시냇물 소리,<br>
+									산들바람, 흰 구름까지를 또<br>
+									사랑하는 사람이 된다.
+                                </p>
+
+                                <div class="author">&mdash; 나태주</div>
+                            </blockquote>
+                        </div>
+                    </div> <!-- .item -->
+                    
+                    <!-- .item -->
+                    <div class="d-md-flex testimony-29101 align-items-stretch">
                         <div class="image" style="background-image: url('https://i.imgur.com/n8TCHZW.jpg')"></div>
                         <div class="text">
                             <blockquote>
@@ -70,6 +95,7 @@
                             </blockquote>
                         </div>
                     </div> <!-- .item -->
+                    
 
                     
                 </div>
