@@ -5,6 +5,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="/resources/css/login.css" />
+ <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="/resources/js/login.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <title>로그인</title>
@@ -16,7 +17,8 @@
 		<!--로고-->
 		<body>
 			<div class="logo">
-				<img src="/resources/images/logo.png" />
+				<a href="./"><img src="/resources/images/logo.png"></a>
+			
 			</div>
 
 			<!--내용 입력란-->

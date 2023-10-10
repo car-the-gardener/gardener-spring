@@ -10,7 +10,7 @@ $(() => {
   }
 
   formObj.submit((e) => {
-    if (cbObj.prop("chekced")) {
+    if (cbObj.prop("checked")) {
       //체크된 경우
       const idValue = formObj.find("input[name=id]").val();
       localStorage.setItem("savedId", idValue);
@@ -22,6 +22,7 @@ $(() => {
     
   /*로그인*/
     const data = $(e.target).serialize();
+    alert(data);
     $.ajax({
       url: "/login",
       method: "post",
