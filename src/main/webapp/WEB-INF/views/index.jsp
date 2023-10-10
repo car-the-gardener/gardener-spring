@@ -23,7 +23,7 @@
 
   <!-- Carousel CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-  
+
   <!-- Font Awesome CDN -->
   <script src="https://kit.fontawesome.com/a00fe672c7.js" crossorigin="anonymous"></script>
 
@@ -36,8 +36,8 @@
 
 
   <!-- JS파일 -->
-  <script src="/resources/js/indextest.js"></script>
-  <script src="/resources/js/indexsub.js"></script>
+  <script src="/resources/js/indextest.js" defer></script>
+  <script src="/resources/js/indexsub.js" defer></script>
 
   <title>작가의 정원</title>
 </head>
