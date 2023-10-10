@@ -1,6 +1,5 @@
 $(() => {
-  //carousel img event start
-  $('.slide-one-item').owlCarousel({
+  $('.owl-carousel.slide-one-item').owlCarousel({
     center            : false,
     autoplayHoverPause: true,
     items             : 1,
@@ -13,8 +12,8 @@ $(() => {
     dots              : true,
     nav               : true,
     navText           : ['<i class="fa fa-light fa-arrow-left"></i>', '<i class="fa fa-light fa-arrow-right"></i>']
-  });
-//carousel img event end
+  })
+
 
 //dropdown event start
   const dropdownItems = document.querySelectorAll('.dropdown-item');

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.gardener.domain.Search;
 import com.gardener.mappers.HomeMapper;
-import com.gardener.mappers.SearchMapper;
 
 @Service
 public class HomeService {

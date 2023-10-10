@@ -11,7 +11,7 @@
      <![CDATA[
 	        SELECT p.postnum, p.main_title, p.main_title_img, p.sub_title, p.content, p.category, p.total_cnt, p.favorite, p.create_date, m.nickname, m.intro
 			FROM MEMBER m JOIN POST p ON (m.LOGINID = p.LOGINID)
-			WHERE p.category = #{category}
+			WHERE p.category = #{category} AND p.PUBLIC_YN = 1
         ]]>
     </select>
 
