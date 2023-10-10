@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -116,7 +116,7 @@
 <input class="postResponse" type="hidden" value='${post}'>
 <script>
   const writerResponse = '${member}';
-  const postResponse = '${post}';
+  const postResponse = ${post};
 
   if (!writerResponse) {
     swal("로그인 해주세요")
@@ -134,7 +134,9 @@
   });
 
   if (postResponse) {
-    const postJson = JSON.parse(postResponse);
+    console.log(postResponse);
+    console.log(typeof postResponse);
+    const postJson = postResponse;
     $(".main-image").css(`background-image`, `url(\${postResponse.mainTitleImg})`);
     $(".section-header-title input[name='title']").val(postJson.mainTitle);
     $(".section-header-title input[name='subtitle']").val(postJson?.subTitle);

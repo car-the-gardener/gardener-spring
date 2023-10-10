@@ -1,11 +1,11 @@
 @font-face {
-	font-family: "Dotum";
+	font-family: "border-box";
 	src: url(../assets/font/KoPubDotumMedium.ttf);
 }
 
 * {
 	box-sizing: border-box;
-	font-family: "Dotum";
+	font-family: 'Orbit', sans-serif;
 }
 
 /*header CSS*/
@@ -19,8 +19,7 @@ h1>a>img {
 }
 
 .profile {
-  display: flex;
-  justify-content: center;
+  display: right;
   width: 120px;
   height: 120px;
   margin-left: 9%;
@@ -89,19 +88,33 @@ nav>p>span {
 }
 /*내용 작성 끝*/
 
+
 /*내용 크기 시작*/
 body>header {
 	text-align: center;
-	padding: 16px 17px 0;
-	width: 500px;
+	margin: 0 auto;
+	padding: 16px 40px ;
+	width: 480px;
 	border: solid 2px rgb(192, 192, 192);
 	border-radius: 12px;
-	height: 600px;
+	height: 550px;
 	display: flex;
 	align-items: center;
-	margin: 0 auto;
 	background-color: #ffffff;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.profile_img{
+	 text-align: right;
+	 margin-right: 70px;
+	 
+}
+.profile{
+	border-radius: 50%; 
+}
+
+nav p span {
+    display: inline-block; 
+    text-align: left;
 }
 /*내용 크기 끝*/
 body>header>nav {
@@ -114,6 +127,10 @@ body>header>nav {
 	resize: none;
 }
 
+p {
+    display: flex; 
+    align-items: center; 
+}
 /*버튼 위치 시작*/
 .container {
 	text-align: center;
@@ -125,18 +142,38 @@ body>header>nav {
 /*버튼 꾸미기 시작*/
 .btn {
 	text-align: center;
-	width: 162px;
-	height: 30px;
+	width: 150px;
+	height: 35px;
 	border: none;
 	background-color: rgb(121, 193, 150);
 	border-radius: 10px;
 	color: white;
 	font-weight: bold;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	 margin-right: 10px;
+	 margin-bottom: 50px;
 }
 /*readolny 강조하기*/
-input[readonly] {
+span {
      font-weight: bold;
+}
+
+input[readonly],
+textarea[readonly] {
+     color: #999;
+}
+
+.input-cintainer{
+	display: flex;
+	align-items: center;
+}
+.input-container input[type="text"],
+.input-container input[type="password"],
+.input-container textarea {
+    width: 100%; 
+    box-sizing: border-box; 
+    padding-left: 5px;
+    
 }
 
 .container {
@@ -145,16 +182,3 @@ input[readonly] {
     
     
 
-/*버튼 꾸미기 끝*/
-
-/*회원탈퇴 버튼 시작
-.delete>button {
-	margin-top: 10px;
-	right: 225px;
-}
-
-.delete {
-	position: relative;
-	left: 210px;*/
-}
-/*회원탈퇴 버튼 끝*/

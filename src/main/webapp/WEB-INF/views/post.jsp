@@ -14,7 +14,6 @@
 </head>
 
 <body>
-loginid: <c:out value="${sessionScope.member.loginid}"/>
 
 <!-- 섹션 시작 -->
 <section>
@@ -104,6 +103,8 @@ loginid: <c:out value="${sessionScope.member.loginid}"/>
 <script>
   const postResponse = ${post};
   const subscribeResponse = '${subscribe}';
+  console.log(postResponse);
+  console.log(JSON.stringify(postResponse));
   const writerBtn = $(".writer-profile-pic > button")
   let pageNum = 1;
 
@@ -311,7 +312,7 @@ loginid: <c:out value="${sessionScope.member.loginid}"/>
   // 포스트 삭제
   $(".modify-btn button:last-child").click((e) => {
     postService.deletePost(postResponse.postnum, (response) => {
-      location.href = "/";
+      location.href = "/magazine";
     });
   })
 

@@ -46,40 +46,34 @@
 <!--본문 내용 시작-->
 <header>
   <dl>
-    <!--프로필 사진 시작
-    <div class="profile-photo" style="margin-left: 140px">
-      <img id="imgThumb" src="https://i.imgur.com/qyTEOBF.jpg" style="height: 150px" width="150px" />
-      <span class="mask"></span>
-
-    </div>-->
     <p>
-    <div class="img-pic">
-      <label for="imgBtn">
-        <img class="profile" src="/resources/images/profile.png">
-      </label>
-      <input id="imgBtn" type="file" name="profile" style="display:none">
+    <div class="profile_img">
+      <img class="profile" src="${member.profile}"/>
+      <input type="file" id=img name="uploadFile" style="display:none">
+      <div class="profileText"></div>
     </div>
+
     </p>
     <!--프로필 사진 끝-->
     <!--내 정보 내용 시작-->
     <nav>
-      <p>
-        <span> 아이디 </span><input type="text" id="loginid" value="${member.loginid}" readonly/>
+      <p class="input-container">
+        <span>아이디</span><input type="text" id="loginid" value="${member.loginid}" readonly/>
       </p>
-      <p>
-        <span>비밀번호 </span><input type="password" id="pwd" value="${member.pwd}" readonly/>
+      <p class="input-container">
+        <span>비밀번호</span><input type="password" id="pwd" value="${member.pwd}" readonly/>
       </p>
-      <p>
-        <span>필 명 </span><input type="text" id="nickname" value="${member.nickname}" readonly/>
+      <p class="input-container">
+        <span>필명</span><input type="text" id="nickname" value="${member.nickname}" readonly/>
       </p>
-      <p>
-        <span>이메일 </span><input type="text" id="email" value="${member.email}" readonly/>
+      <p class="input-container">
+        <span>이메일</span><input type="text" id="email" value="${member.email}" readonly/>
       </p>
-      <p>
-        <span>가입날 </span><input type="text" id="createDate" value="${member.createDate.substring(0, 10)}" readonly/>
+      <p class="input-container">
+        <span>가입일</span><input type="text" id="createDate" value="${member.createDate.substring(0, 10)}" readonly/>
       </p>
-      <p>
-        <span>자기소개 </span>
+      <p class="input-container">
+        <span class="intro_">자기소개 </span>
         <textarea class="intro" id="intro" readonly rows="5">${member.intro}</textarea>
         <!--input type="hidden" id="profile"/-->
         <input type="hidden" id="type" value="${sessionScope.writer}"/>
@@ -106,7 +100,6 @@
 </div>
 
 <!--버튼 클릭 끝-->
-<%@ include file="./common/footer.jsp" %>
 </body>
 
 </html>

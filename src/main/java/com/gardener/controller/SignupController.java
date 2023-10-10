@@ -32,7 +32,7 @@ public class SignupController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<String> signup(Member m) {
-		log.info("회원가입 컨트롤러 => " + m);
+		log.warn("회원가입 컨트롤러 => " + m);
 		try {
 			service.signup(m);
 			return new ResponseEntity(HttpStatus.OK);
@@ -46,7 +46,7 @@ public class SignupController {
 	@GetMapping("/id_chk")
 	public ResponseEntity<String> idDupChk(String loginid) {
 		try {
-			log.info(loginid);
+			log.info("loginid:" + loginid);
 			String result = service.idDupChk(loginid);
 			log.info(result);
 			return new ResponseEntity(result, HttpStatus.OK);
@@ -81,6 +81,7 @@ public class SignupController {
 			String uploadFileName = multipartFile.getOriginalFilename();
 
 			File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
+			log.warn(saveFile);
 
 			try {
 				multipartFile.transferTo(saveFile);
