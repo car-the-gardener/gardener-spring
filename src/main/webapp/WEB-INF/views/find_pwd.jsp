@@ -15,7 +15,9 @@
 
   <body>
     <div class="logo">
-      	<a href="./"><img src="/resources/images/logo.png"></a>
+     	<a href="./">
+	      <img src="/resources/images/logo.png">
+	    </a>
     </div>
 
     <!--내용 입력란-->
