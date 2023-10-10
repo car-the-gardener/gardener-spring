@@ -27,17 +27,25 @@
     <!-- Font Awesome CDN -->
     <script src="https://kit.fontawesome.com/a00fe672c7.js" crossorigin="anonymous"></script>
 
+	<!-- sweetalert CDN -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
     <!-- CSS파일 -->
     <link rel="stylesheet" href="/resources/css/index.css">
     <link rel="stylesheet" href="/resources/css/carousel.css">
     <link rel="stylesheet" href="/resources/css/img.css">
     <link rel="stylesheet" href="/resources/css/category.css">
     <link rel="stylesheet" href="/resources/css/cardgrid.css">
+    <link rel="stylesheet" href="/resources/css/login.css" />
+    <link rel="stylesheet" href="/resources/css/signup.css" />
+	<link rel="stylesheet" href="/resources/css/header.css" />
 
 
     <!-- JS파일 -->
     <script src="/resources/js/indextest.js"></script>
     <script src="/resources/js/indexsub.js"></script>
+ 	<script src="/resources/js/loginModal.js"></script>	
+ 	<script src="/resources/js/signupModal.js"></script>	
 
     <title>작가의 정원</title>
 </head>
@@ -67,7 +75,7 @@
 	                </div>
 
 
-	                    <input type="text" class="form-control" name="text" placeholder="검색할 단어를 입력해주세요..." value="${text}">
+	                    <input type="text" id ="search-text" class="form-control" name="text" placeholder="검색할 단어를 입력해주세요..." value="${text}">
 
 	                    <span class="input-group-btn">
 	                        <button class="btn btn-primary" type="button" id="searchbtn" style="background-color:#007b5e; border-color:#007b5e;">

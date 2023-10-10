@@ -36,7 +36,7 @@
               <a class="nav-link" href="/mygarden" style="font-size: 20px">나의 정원</a>
             </li>
             <li class="nav-item ms-5">
-              <a class="nav-link" href="/mypage" style="font-size: 20px">작가신청</a>
+              <a class="nav-link" href="/apply" style="font-size: 20px">작가신청</a>
             </li>
             <li class="nav-item ms-5">
               <a class="nav-link" href="/mypage" style="font-size: 20px">마이페이지</a>
