@@ -48,6 +48,10 @@
  	<script src="/resources/js/signupModal.js"></script>	
 
     <title>작가의 정원</title>
+    <style>
+    	#backmusic{
+    	}
+    </style>
 </head>
 <body>
 
@@ -56,11 +60,21 @@
 	
 	<!-- HEADER -->
 	<%@ include file="./common/header.jsp" %>
+	
+
+	
+	
+	<!-- background 음악 -->                              
 
 <!-- search 영역------------------------------------------------------------------------ -->
 <div id="search" style="margin-top:30px;">
     <div class="container">
         <div class="row justify-content-md-end">
+            	<div class="col-md-4">
+	                <audio autoplay loop controls>
+						<source src="/resources/backmusic/backmusic.mp3" type="audio/mp3" >
+					</audio>
+            	</div>
             <div class="col-md-8">
                 <div class="input-group">
 	            	<div class="input-group-prepend">
