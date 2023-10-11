@@ -58,6 +58,7 @@
             </li>
           </c:otherwise>
         </c:choose>
+        
         <!-- 회원가입 모달 태그 -->
         <div class="modal fade" id="signupModal" tabindex="-1" role="dialog"
              aria-hidden="true" aria-labelledby="signupModalLabel">
@@ -65,7 +66,7 @@
             <div class="modal-content" id="signupContent">
               <div class="modal-body">
                 <!-- 회원가입 모달 내용 입력란 -->
-                <form class="signup" method="post" name="f2">
+                <form class="signup"action="/signup" method="post" name="f2">
                   <!-- 회원가입 입력 필드들을 추가 -->
 
                   <div class="signupLogo">
@@ -133,7 +134,7 @@
                 </div>
 
                 <!--로그인 내용 입력란-->
-                <form class="login" method="post" name="f1">
+                <form class="login" action="/login" method="post" name="f1">
                   <input type="text" name="loginid" placeholder="아이디"/><br/>
                   <input type="password" name="password" placeholder="비밀번호"/><br/>
 
