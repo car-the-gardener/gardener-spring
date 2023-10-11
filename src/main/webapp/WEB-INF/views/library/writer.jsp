@@ -44,8 +44,10 @@
   {
     if (subscribe !== "") {
       for (s of JSON.parse(subscribe)) {
-        sub += `<div><img src="\${s.profile || '/resources/images/post/background1.jpg'}" alt='작가이미지'>`;
-        sub += `<p>\${s.nickname}</p></div>`;
+        if (s.nickname !== $(".section-writer-wrapper p:eq(0)").text()) {
+          sub += `<div style="text-align: center"><img src="\${s.profile || '/resources/images/post/background1.jpg'}" alt='작가이미지'>`;
+          sub += `<p>\${s.nickname}</p></div>`;
+        }
       }
       $(".section-subscribe-wrapper").html(sub);
     }
@@ -53,8 +55,6 @@
 
   {
     for (w of writer) {
-      console.log(w.postnum, "으헤헤");
-      console.log(typeof w.postnum, "으헤헤");
       if (w.postnum) {
         writerPost += `<hr><div class='section-post' data-postnum='\${w.postnum}'>`;
         writerPost += `<div><h4>\${w.mainTitle}</h4><h5>\${w.subTitle || ""}</h5><h6>\${w.member.nickname}</h6>`;
@@ -70,8 +70,6 @@
       }
     }
   }
-
-
 </script>
 </body>
 </html>
