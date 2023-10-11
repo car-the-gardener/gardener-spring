@@ -36,20 +36,26 @@
   let sub = "";
   let writerPost = "";
 
-  $(".section-writer-wrapper img").attr("src", `\${writer[0].member.profile}` === "undefined" ? `/resources/images/post/background3.jpg` : `\${writer[0].member.profile}`);
-  $(".section-writer-wrapper p:eq(0)").text(`\${writer[0].member.nickname}`)
-  $(".section-writer-wrapper p:eq(1)").text(`\${writer[0].member.email}`)
-  $(".section-writer-wrapper p:eq(2)").text(`\${writer[0].member.intro}`)
+  $(".section-writer-wrapper").attr("data-writerid", writer[0].member.writer.loginid)
+  $(".section-writer-wrapper img").attr("src", writer[0].member.profile === "undefined" ? `/resources/images/post/background3.jpg` : `\${writer[0].member.profile}`);
+  $(".section-writer-wrapper p:eq(0)").text(writer[0].member.nickname)
+  $(".section-writer-wrapper p:eq(1)").text(writer[0].member.email)
+  $(".section-writer-wrapper p:eq(2)").text(writer[0].member.intro)
 
   {
     if (subscribe !== "") {
+      console.log(JSON.parse(subscribe), "subscribe");
       for (s of JSON.parse(subscribe)) {
         if (s.nickname !== $(".section-writer-wrapper p:eq(0)").text()) {
-          sub += `<div style="text-align: center"><img src="\${s.profile || '/resources/images/post/background1.jpg'}" alt='작가이미지'>`;
+          sub += `<div class="sb" data-writerid="\${s.loginid}" style="text-align: center; cursor: pointer"><img src="\${s.profile || '/resources/images/post/background1.jpg'}" alt='작가이미지'>`;
           sub += `<p>\${s.nickname}</p></div>`;
         }
       }
       $(".section-subscribe-wrapper").html(sub);
+      $(".sb").click((e) => {
+        const url = $(e.currentTarget).data("writerid");
+        location.href = `/library/writer/\${url}`
+      })
     }
   }
 
@@ -64,7 +70,7 @@
         $("article").html(writerPost);
       } else {
         $(".hr").css("display", "none");
-        $.get("/resources/exception-page/subscribe-exception.html", (response) => {
+        $.get("/resources/exception-page/library-exception.html", (response) => {
           $("article").html(response);
         })
       }

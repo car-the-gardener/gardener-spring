@@ -23,9 +23,11 @@
     </resultMap>
 
     <resultMap id="memberResultMap" type="Member">
+        <result property="loginid" column="loginid"/>
         <result property="email" column="email"/>
         <result property="nickname" column="nickname"/>
         <result property="intro" column="intro"/>
+        <result property="profile" column="profile"/>
         <association property="writer" autoMapping="true" resultMap="writerResultMap"/>
     </resultMap>
 
@@ -58,9 +60,10 @@
     </select>
 
     <select id="getAllSubscribedWriter" resultType="Member">
-        select m.nickname, m.profile
+        select m.loginid, m.nickname, m.profile
         from SUBSCRIBE s
-        join member m on s.writer_id = m.loginid where s.loginid=#{loginid}
+        join member m on s.writer_id = m.loginid
+        where s.loginid=#{loginid}
     </select>
 
     <select id="getAllSubscribedWriterPost" resultMap="postResultMap">
