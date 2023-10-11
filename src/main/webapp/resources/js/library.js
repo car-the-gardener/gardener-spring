@@ -94,6 +94,7 @@ $(".subscribe").click(() => {
       printSubscribe($(".memberResponse").val());
     },
     error  : (xhr, status) => {
+      console.log(xhr, "구독 예외?")
       $.get("/resources/exception-page/subscribe-exception.html", (response) => {
         $("section").html(response);
       });
@@ -125,6 +126,7 @@ const printSubscribe = (response) => {
       subscribe += `<div class="section-subscribe-wrapper--writer" data-writer="${m.loginid}"><div><img src="${m.profile}" alt='프로필 이미지'></div>`;
       subscribe += `<div><p>${m.nickname}</p><hr><p>${m.intro}</p></div></div>`;
     }
+
     $(".section-subscribe-wrapper").append(subscribe);
     target = $(".section-subscribe-wrapper > div:last-child")[0];
     observer.observe(target);

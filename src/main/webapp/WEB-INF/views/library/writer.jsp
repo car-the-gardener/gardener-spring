@@ -32,7 +32,7 @@
 <script>
   const writer = ${writer};
   const subscribe = '${subscribe}';
-  console.log(subscribe);
+  console.log(writer, " writer ");
   let sub = "";
   let writerPost = "";
 
@@ -53,13 +53,22 @@
 
   {
     for (w of writer) {
-      writerPost += `<hr><div class='section-post' data-postnum='\${w.postnum}'>`;
-      writerPost += `<div><h4>\${w.mainTitle}</h4><h5>\${w.subTitle || ""}</h5><h6>\${w.member.nickname}</h6>`;
-      writerPost += `<p>\${w.content}</p></div>`;
-      writerPost += `<div><img src='\${w.mainTitleImg || "/resources/images/post/background9.png"}' alt='게시글이미지'></div>`;
-      writerPost += `</div>`;
+      console.log(w.postnum, "으헤헤");
+      console.log(typeof w.postnum, "으헤헤");
+      if (w.postnum) {
+        writerPost += `<hr><div class='section-post' data-postnum='\${w.postnum}'>`;
+        writerPost += `<div><h4>\${w.mainTitle}</h4><h5>\${w.subTitle || ""}</h5><h6>\${w.member.nickname}</h6>`;
+        writerPost += `<p>\${w.content}</p></div>`;
+        writerPost += `<div><img src='\${w.mainTitleImg || "/resources/images/post/background9.png"}' alt='게시글이미지'></div>`;
+        writerPost += `</div>`;
+        $("article").html(writerPost);
+      } else {
+        $(".hr").css("display", "none");
+        $.get("/resources/exception-page/subscribe-exception.html", (response) => {
+          $("article").html(response);
+        })
+      }
     }
-    $("article").html(writerPost);
   }
 
 

@@ -114,7 +114,6 @@
     postResponse = "";
   }
   const subscribeResponse = '${subscribe}';
-  console.log(postResponse);
   const writerBtn = $(".writer-profile-pic > button")
   let pageNum = 1;
 
@@ -136,8 +135,6 @@
     $(".section-reply p:last-child").text(`(\${reply}/200)`)
 
     if (reply > 200) {
-      console.log($(e.target).val().substring(0, 201))
-      console.log($(e.target).val().substring(0, 200).length)
       $(e.target).val($(e.target).val().substring(0, 200));
       $(".section-reply p:last-child").text(`(200/200)`)
       swal("200글자 이하만 가능합니다.")
@@ -275,9 +272,14 @@
   // 댓글 삭제
   $(".section-reply-list").on("click", ".reply-list--btn--remove", (e) => {
     replyService.removeReply($(e.currentTarget).data("id"), (response) => {
-      showList(pageNum);
+      if ($(".section-reply-list").find(".section-reply-list--top")) {
+        let pageNumMinus = pageNum - 1;
+        showList(pageNumMinus);
+      } else {
+        showList(pageNum);
+      }
     })
-  })
+  });
 
   // 댓글 수정
   $(".section-reply-list").on("click", ".reply-list--btn--modify", (e) => {

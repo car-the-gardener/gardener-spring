@@ -52,7 +52,7 @@
         <![CDATA[
         select rn, id, writer_id loginid, nickname, intro, profile from
         (select /*+ INDEX_DESC(s SYS_C007880)*/ rownum rn ,s.id, s.writer_id,nickname,intro,profile
-        from SUBSCRIBE s join member m on s.WRITER_ID = m.LOGINID where s.loginid = 'suwan' and rownum <= #{num} * 9)
+        from SUBSCRIBE s join member m on s.WRITER_ID = m.LOGINID where s.loginid = #{loginid} and rownum <= #{num} * 9)
         where rn > (#{num} - 1) * 9
         ]]>
     </select>
@@ -69,7 +69,7 @@
         (select /*+INDEX_DESC(p POST_INDEX)*/ rownum rn, m.loginid, m.nickname, m.email, m.intro, m.profile, p.postnum, p.main_title, p.main_title_img, p.sub_title,
         p.content
         from member m
-        join post p on m.loginid = p.loginid where m.loginid = #{writerId} and rownum <= #{num}*4)
+        left join post p on m.loginid = p.loginid where m.loginid = #{writerId} and rownum <= #{num}*4)
         where rn > (#{num} - 1)*4
         ]]>
     </select>
