@@ -12,7 +12,7 @@
   <section>
     <header>
       <div class="section-writer-wrapper">
-        <img src="/resources/images/post/background7.jpg" alt="">
+        <img src="/resources/images/profile.png" alt="">
         <div>
           <p>필명</p>
           <p>이메일</p>
@@ -47,7 +47,7 @@
       console.log(JSON.parse(subscribe), "subscribe");
       for (s of JSON.parse(subscribe)) {
         if (s.nickname !== $(".section-writer-wrapper p:eq(0)").text()) {
-          sub += `<div class="sb" data-writerid="\${s.loginid}" style="text-align: center; cursor: pointer"><img src="\${s.profile || '/resources/images/post/background1.jpg'}" alt='작가이미지'>`;
+          sub += `<div class="sb" data-writerid="\${s.loginid}" style="text-align: center; cursor: pointer"><img src="\${s.profile || '/resources/images/profile.png'}" alt='작가이미지'>`;
           sub += `<p>\${s.nickname}</p></div>`;
         }
       }

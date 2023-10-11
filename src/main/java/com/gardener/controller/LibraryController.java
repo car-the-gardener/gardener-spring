@@ -44,9 +44,9 @@ public class LibraryController {
     List<Post> allPost = libraryService.findAllFavoritePostWithPaging(member.getLoginid(), num);
 
     // 이 부분 수정이 필요함,
-    if (allPost.isEmpty()) {
-      throw new FindException("가져올 글이 없습니다.");
-    }
+    /*if (allPost.isEmpty()) {
+      //throw new FindException("가져올 글이 없습니다.");
+    }*/
 
     allPost.forEach(post -> {
       String s = post.getContent().replaceAll("<[^>]*>", "");

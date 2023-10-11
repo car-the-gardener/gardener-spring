@@ -187,7 +187,7 @@
       for (let i = 0, len = response.list.length || 0; i < len; i++) {
         let dateTime = replyService.displyTime(response.list[i].createDate);
         reply += `<div class='section-reply-list--top'>`
-        reply += `<div><img src="https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg" alt="유저 이미지">`
+        reply += `<div><img src="/resources/images/profile.png" alt="유저 이미지">`
         reply += `<div><p class='reply-list--name'>\${response.list[i].member.nickname}</p>`
         reply += `<p class='reply-list--date'><small>\${dateTime}</small></p></div></div>`
         if (response.list[i].member.nickname === $(".nickname").val()) {
@@ -272,9 +272,9 @@
   // 댓글 삭제
   $(".section-reply-list").on("click", ".reply-list--btn--remove", (e) => {
     replyService.removeReply($(e.currentTarget).data("id"), (response) => {
-      if ($(".section-reply-list").find(".section-reply-list--top")) {
-        let pageNumMinus = pageNum - 1;
-        showList(pageNumMinus);
+      // 여기 수정
+      if (Number($(".section-reply p:first-child").text().split("개")[0]) % 5 - 1 === 0) {
+        showList(pageNum - 1);
       } else {
         showList(pageNum);
       }

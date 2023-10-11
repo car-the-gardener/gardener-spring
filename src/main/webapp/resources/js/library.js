@@ -36,7 +36,7 @@ const printFavorite = () => {
     post += `<h6>${p.member.nickname}</h6>`;
     post += `<p>${p.content}</p></div>`;
     if (p.mainTitleImg === undefined) {
-      post += `<div><img src='/resources/images/post/background7.jpg' alt='메인이미지'/></div></div>`;
+      post += `<div><img src='/resources/images/background9.png' alt='메인이미지'/></div></div>`;
     } else {
       post += `<div><img src='${p.mainTitleImg}' alt='메인이미지'/></div></div>`;
     }
