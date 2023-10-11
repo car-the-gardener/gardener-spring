@@ -32,12 +32,14 @@
 <script>
   const writer = ${writer};
   const subscribe = '${subscribe}';
+  const sessionLoginid = '${sessionScope.member.loginid}';
+
   console.log(writer, " writer ");
   let sub = "";
   let writerPost = "";
 
   $(".section-writer-wrapper").attr("data-writerid", writer[0].member.writer.loginid)
-  $(".section-writer-wrapper img").attr("src", writer[0].member.profile === "undefined" ? `/resources/images/post/background3.jpg` : `\${writer[0].member.profile}`);
+  $(".section-writer-wrapper img").attr("src", "/resources/images/profile.png");
   $(".section-writer-wrapper p:eq(0)").text(writer[0].member.nickname)
   $(".section-writer-wrapper p:eq(1)").text(writer[0].member.email)
   $(".section-writer-wrapper p:eq(2)").text(writer[0].member.intro)
@@ -61,18 +63,28 @@
 
   {
     for (w of writer) {
-      if (w.postnum) {
+      if (w.postnum && w.publicYn === true) {
         writerPost += `<hr><div class='section-post' data-postnum='\${w.postnum}'>`;
         writerPost += `<div><h4>\${w.mainTitle}</h4><h5>\${w.subTitle || ""}</h5><h6>\${w.member.nickname}</h6>`;
         writerPost += `<p>\${w.content}</p></div>`;
-        writerPost += `<div><img src='\${w.mainTitleImg || "/resources/images/post/background9.png"}' alt='게시글이미지'></div>`;
+        writerPost += `<div><img src='\${w.mainTitleImg || "/resources/images/background9.png"}' alt='게시글이미지'></div>`;
         writerPost += `</div>`;
         $("article").html(writerPost);
       } else {
         $(".hr").css("display", "none");
         $.get("/resources/exception-page/library-exception.html", (response) => {
           $("article").html(response);
-        })
+        });
+      }
+
+      if (sessionLoginid === $(".section-writer-wrapper").data("writerid") && w.postnum) {
+        writerPost += `<hr><div class='section-post' data-postnum='\${w.postnum}'>`;
+        writerPost += `<div><h4>\${w.mainTitle}</h4><h5>\${w.subTitle || ""}</h5><h6>\${w.member.nickname}</h6>`;
+        writerPost += `<p>\${w.content}</p></div>`;
+        writerPost += `<div><img src='\${w.mainTitleImg || "/resources/images/background9.png"}' alt='게시글이미지'></div>`;
+        writerPost += `</div>`;
+        $("article").html(writerPost);
+        $(".hr").css("display", "block")
       }
     }
   }

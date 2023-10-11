@@ -75,7 +75,7 @@
       <div class="writer-profile-intro">충남 보령시에서 왔수다</div>
     </div>
     <div class="writer-profile-pic">
-      <img src="https://thumb.mt.co.kr/06/2023/06/2023062717453220668_1.jpg/dims/optimize/" alt="작가 프로필 이미지">
+      <img src="/resources/images/profile.png" alt="작가 프로필 이미지">
       <button>구독하기</button>
     </div>
   </div>
