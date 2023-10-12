@@ -78,7 +78,7 @@
 	<!-- Team -->
     <section id="team" class="pb-5">
       <div class="container">
-        <h5 class="section-title h2" style="color:black;">나의정원</h5>
+        <h5 class="section-title h2" style="color:black;">나의 정원</h5>
         <div class="row">
         
         <% int resultTotal = (int)request.getAttribute("mygardenSize");

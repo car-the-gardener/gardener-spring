@@ -40,7 +40,6 @@
     <link rel="stylesheet" href="/resources/css/signup.css" />
 	<link rel="stylesheet" href="/resources/css/header.css" />
 
-
     <!-- JS파일 -->
     <script src="/resources/js/indextest.js"></script>
     <script src="/resources/js/indexsub.js"></script>
@@ -48,10 +47,6 @@
  	<script src="/resources/js/signupModal.js"></script>	
 
     <title>작가의 정원</title>
-    <style>
-    	#backmusic{
-    	}
-    </style>
 </head>
 <body>
 
@@ -70,11 +65,15 @@
 <div id="search" style="margin-top:30px;">
     <div class="container">
         <div class="row justify-content-md-end">
+        
+        <!--  background 음악 영역 -->
             	<div class="col-md-4">
 	                <audio autoplay loop controls>
 						<source src="/resources/backmusic/backmusic.mp3" type="audio/mp3" >
 					</audio>
             	</div>
+         <!-- background 음악 영역 -->  
+          	
             <div class="col-md-8">
                 <div class="input-group">
 	            	<div class="input-group-prepend">
