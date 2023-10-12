@@ -22,15 +22,24 @@ const observer = new IntersectionObserver((entries, observer) => {
       $.ajax({
         url    : `/library/writer/${writerId}/${num}`,
         success: (response) => {
-          console.log(response)
+          console.log(response, " response => js")
+          console.log($(".loginyn").val(), "너?")
           let writerPost = "";
           num++;
           for (w of JSON.parse(response[0])) {
-            writerPost += `<hr><div class='section-post' data-postnum='${w.postnum}'>`;
-            writerPost += `<div><h4>${w.mainTitle}</h4><h5>${w.subTitle || ""}</h5><h6>${w.member.nickname}</h6>`;
-            writerPost += `<p>${w.content}</p></div>`;
-            writerPost += `<div><img src='${w.mainTitleImg || '/resources/images/background9.png'}' alt='게시글이미지'></div>`;
-            writerPost += `</div>`;
+            if ($(".loginyn").val() === "" && w.publicYn === true) {
+              writerPost += `<hr><div class='section-post' data-postnum='${w.postnum}' style="cursor: pointer" onclick="movePage(${w.postnum})">`;
+              writerPost += `<div><h4>${w.mainTitle}</h4><h5>${w.subTitle || ""}</h5><h6>${w.member.nickname}</h6>`;
+              writerPost += `<p>${w.content}</p></div>`;
+              writerPost += `<div><img src='${w.mainTitleImg || '/resources/images/background9.png'}' alt='게시글이미지'></div>`;
+              writerPost += `</div>`;
+            } else if ($(".loginyn").val() !== "") {
+              writerPost += `<hr><div class='section-post' data-postnum='${w.postnum}' style="cursor: pointer" onclick="movePage(${w.postnum})">`;
+              writerPost += `<div><h4>${w.mainTitle}</h4><h5>${w.subTitle || ""}</h5><h6>${w.member.nickname}</h6>`;
+              writerPost += `<p>${w.content}</p></div>`;
+              writerPost += `<div><img src='${w.mainTitleImg || '/resources/images/background9.png'}' alt='게시글이미지'></div>`;
+              writerPost += `</div>`;
+            }
           }
           $("article").append(writerPost);
         },
@@ -43,3 +52,7 @@ const observer = new IntersectionObserver((entries, observer) => {
   })
 }, option);
 observer.observe(target);
+
+const movePage = (postnum) => {
+  location.href = `/post/${postnum}`
+}

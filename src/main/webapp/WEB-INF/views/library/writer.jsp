@@ -8,6 +8,13 @@
   <script src="/resources/js/writer.js" defer></script>
 </head>
 <body>
+
+<div style="margin: 0 auto;  text-align: center;">
+  <a href="/">
+    <img src="/resources/images/logo_small.png" alt="로고이미지">
+  </a>
+</div>
+
 <main>
   <section>
     <header>
@@ -33,8 +40,9 @@
   const writer = ${writer};
   const subscribe = '${subscribe}';
   const sessionLoginid = '${sessionScope.member.loginid}';
+  const inputObj = $(`<input type='hidden' value='\${sessionLoginid}' class='loginyn'>`)
+  $("body").append(inputObj);
 
-  console.log(writer, " writer ");
   let sub = "";
   let writerPost = "";
 
@@ -46,7 +54,6 @@
 
   {
     if (subscribe !== "") {
-      console.log(JSON.parse(subscribe), "subscribe");
       for (s of JSON.parse(subscribe)) {
         if (s.nickname !== $(".section-writer-wrapper p:eq(0)").text()) {
           sub += `<div class="sb" data-writerid="\${s.loginid}" style="text-align: center; cursor: pointer"><img src="\${s.profile || '/resources/images/profile.png'}" alt='작가이미지'>`;
@@ -63,21 +70,18 @@
 
   {
     for (w of writer) {
-      if (w.postnum && w.publicYn === true) {
-        writerPost += `<hr><div class='section-post' data-postnum='\${w.postnum}'>`;
+      if (sessionLoginid !== $(".section-writer-wrapper").data("writerid") && w.publicYn === true) {
+        console.log(w.postnum, "왜 하나씩 더 나오지?")
+        writerPost += `<hr><div class='section-post' data-postnum='\${w.postnum}' style="cursor: pointer">`;
         writerPost += `<div><h4>\${w.mainTitle}</h4><h5>\${w.subTitle || ""}</h5><h6>\${w.member.nickname}</h6>`;
         writerPost += `<p>\${w.content}</p></div>`;
         writerPost += `<div><img src='\${w.mainTitleImg || "/resources/images/background9.png"}' alt='게시글이미지'></div>`;
         writerPost += `</div>`;
+        $("article").html("");
         $("article").html(writerPost);
-      } else {
-        $(".hr").css("display", "none");
-        $.get("/resources/exception-page/library-exception.html", (response) => {
-          $("article").html(response);
-        });
       }
 
-      if (sessionLoginid === $(".section-writer-wrapper").data("writerid") && w.postnum) {
+      if (sessionLoginid === $(".section-writer-wrapper").data("writerid")) {
         writerPost += `<hr><div class='section-post' data-postnum='\${w.postnum}'>`;
         writerPost += `<div><h4>\${w.mainTitle}</h4><h5>\${w.subTitle || ""}</h5><h6>\${w.member.nickname}</h6>`;
         writerPost += `<p>\${w.content}</p></div>`;
@@ -86,6 +90,15 @@
         $("article").html(writerPost);
         $(".hr").css("display", "block")
       }
+
+      if (typeof w.postnum === "undefined") {
+        $(".hr").css("display", "none");
+        $.get("/resources/exception-page/library-exception.html", (response) => {
+          $("article").html(response);
+        });
+      }
+
+
     }
   }
 </script>

@@ -108,6 +108,8 @@ public class LibraryController {
     model.addAttribute("writer", gson.toJson(allSubscribedWriterPost));
     list.add(gson.toJson(allSubscribedWriterPost));
 
+    log.info("allSubscribedWriterPost => {}", allSubscribedWriterPost);
+
     if (member != null && num == 1) {
       model.addAttribute("subscribe", gson.toJson(libraryService.findAllSubscribedWriter(member.getLoginid())));
       list.add(gson.toJson(libraryService.findAllSubscribedWriter(member.getLoginid())));

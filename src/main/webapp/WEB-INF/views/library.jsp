@@ -11,9 +11,13 @@
   <title>찜</title>
 </head>
 <body>
-<h1 style="text-align: center; margin-top:10px;">
-  <a href="./"><img src="https://i.imgur.com/2enY1dP.png"/></a>
-</h1>
+
+<div style="margin: 0 auto;  text-align: center;">
+  <a href="/">
+    <img src="/resources/images/logo_small.png" alt="로고이미지">
+  </a>
+</div>
+
 <main>
   <ul>
     <li><span class="favorite">좋아요</span></li>

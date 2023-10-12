@@ -19,6 +19,7 @@
         <result property="content" column="content"/>
         <result property="mainTitleImg" column="main_title_img"/>
         <result property="category" column="category"/>
+        <result property="publicYn" column="public_yn"/>
         <collection property="member" resultMap="memberResultMap"/>
     </resultMap>
 
