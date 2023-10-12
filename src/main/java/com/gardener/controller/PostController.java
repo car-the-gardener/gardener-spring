@@ -53,7 +53,6 @@ public class PostController {
   public String updatePosting(@PathVariable Long postnum, HttpServletRequest request) {
     Gson gson = new Gson();
     Post post = postService.findPostByPostnum(postnum);
-    log.info("(post) => {}", post);
     log.info("gson.toJson(post) => {}", gson.toJson(post));
     request.setAttribute("post", gson.toJson(post));
     return "/posting";

@@ -131,7 +131,7 @@
   }
 
   $(".secret-toggle").click(() => {
-    if (JSON.parse(writerResponse).type !== true) {
+    if (writerResponse.type !== true) {
       $("input:checkbox[id='secret']").prop("checked", false);
       $(".secret-toggle").css("background-color", "#fff")
       $(".secret-toggle-btn").css("background-color", "rgb(121, 193, 150)");
