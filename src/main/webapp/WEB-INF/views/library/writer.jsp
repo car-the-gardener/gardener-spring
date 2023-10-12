@@ -71,7 +71,6 @@
   {
     for (w of writer) {
       if (sessionLoginid !== $(".section-writer-wrapper").data("writerid") && w.publicYn === true) {
-        console.log(w.postnum, "왜 하나씩 더 나오지?")
         writerPost += `<hr><div class='section-post' data-postnum='\${w.postnum}' style="cursor: pointer">`;
         writerPost += `<div><h4>\${w.mainTitle}</h4><h5>\${w.subTitle || ""}</h5><h6>\${w.member.nickname}</h6>`;
         writerPost += `<p>\${w.content}</p></div>`;
@@ -90,15 +89,12 @@
         $("article").html(writerPost);
         $(".hr").css("display", "block")
       }
-
-      if (typeof w.postnum === "undefined") {
-        $(".hr").css("display", "none");
-        $.get("/resources/exception-page/library-exception.html", (response) => {
-          $("article").html(response);
-        });
-      }
-
-
+    }
+    if ($("article").text() === "") {
+      $(".hr").css("display", "none");
+      $.get("/resources/exception-page/library-exception.html", (response) => {
+        $("article").html(response);
+      });
     }
   }
 </script>
