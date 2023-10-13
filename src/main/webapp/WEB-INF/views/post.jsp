@@ -15,6 +15,12 @@
 
 <body>
 
+<div style="margin: 0 auto;  text-align: center;">
+  <a href="/">
+    <img src="/resources/images/logo_small.png" alt="로고이미지">
+  </a>
+</div>
+
 <!-- 섹션 시작 -->
 <section>
   <!-- 섹션 헤더 시작 -->
@@ -69,7 +75,7 @@
       <div class="writer-profile-intro">충남 보령시에서 왔수다</div>
     </div>
     <div class="writer-profile-pic">
-      <img src="https://thumb.mt.co.kr/06/2023/06/2023062717453220668_1.jpg/dims/optimize/" alt="작가 프로필 이미지">
+      <img src="/resources/images/profile.png" alt="작가 프로필 이미지">
       <button>구독하기</button>
     </div>
   </div>
@@ -101,10 +107,13 @@
 <div class="footer"></div>
 <input type="hidden" value="${sessionScope.member.nickname}" class="nickname">
 <script>
-  const postResponse = ${post};
+  let postResponse = "";
+  try {
+    postResponse = ${post};
+  } catch (error) {
+    postResponse = "";
+  }
   const subscribeResponse = '${subscribe}';
-  console.log(postResponse);
-  console.log(JSON.stringify(postResponse));
   const writerBtn = $(".writer-profile-pic > button")
   let pageNum = 1;
 
@@ -126,8 +135,6 @@
     $(".section-reply p:last-child").text(`(\${reply}/200)`)
 
     if (reply > 200) {
-      console.log($(e.target).val().substring(0, 201))
-      console.log($(e.target).val().substring(0, 200).length)
       $(e.target).val($(e.target).val().substring(0, 200));
       $(".section-reply p:last-child").text(`(200/200)`)
       swal("200글자 이하만 가능합니다.")
@@ -180,7 +187,7 @@
       for (let i = 0, len = response.list.length || 0; i < len; i++) {
         let dateTime = replyService.displyTime(response.list[i].createDate);
         reply += `<div class='section-reply-list--top'>`
-        reply += `<div><img src="https://blog.kakaocdn.net/dn/dJIAmM/btsn88UFln2/RaUhk0ofYyEuIl3SK7bhN0/img.jpg" alt="유저 이미지">`
+        reply += `<div><img src="/resources/images/profile.png" alt="유저 이미지">`
         reply += `<div><p class='reply-list--name'>\${response.list[i].member.nickname}</p>`
         reply += `<p class='reply-list--date'><small>\${dateTime}</small></p></div></div>`
         if (response.list[i].member.nickname === $(".nickname").val()) {
@@ -209,22 +216,18 @@
     let prev = startPage != 1; // 첫 번째 페이지(1) 이상이면 prev가 존재하게 (2 페이지부터 존재)
     let next = false;
 
-    // 음 .. 10을 왜 곱해주지??
     if (endPage * 5 >= replyCnt) {
       endPage = Math.ceil(replyCnt / 5.0);
     }
 
-    // next 버튼이 생겨야 됨
     if (endPage * 5 < replyCnt) {
       next = true;
     }
 
-    // 이전 버튼
     if (prev) {
       pn += `<li class='page-item'><a class='page-link' href=\${startPage -1}>Prev</a></li>`
     }
 
-    // pagination 그리기
     for (let i = startPage; i <= endPage; i++) {
       let active = pageNum === i ? "active" : "";
       pn += `<li class='page-item \${active}'><a class='page-link' href=\${i}>\${i}</a></li>`;
@@ -269,9 +272,14 @@
   // 댓글 삭제
   $(".section-reply-list").on("click", ".reply-list--btn--remove", (e) => {
     replyService.removeReply($(e.currentTarget).data("id"), (response) => {
-      showList(pageNum);
+      // 여기 수정
+      if (Number($(".section-reply p:first-child").text().split("개")[0]) % 5 - 1 === 0) {
+        showList(pageNum - 1);
+      } else {
+        showList(pageNum);
+      }
     })
-  })
+  });
 
   // 댓글 수정
   $(".section-reply-list").on("click", ".reply-list--btn--modify", (e) => {

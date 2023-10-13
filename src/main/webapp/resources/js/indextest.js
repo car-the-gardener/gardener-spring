@@ -12,7 +12,7 @@ $(()=>{
     function search(){
     
 		//검색할 텍스트 값
-	    const textValue = $(".form-control").val();
+	    const textValue = $("#search-text").val();
     	
     
 		//text창에 아무것도 입력을 안한 경우

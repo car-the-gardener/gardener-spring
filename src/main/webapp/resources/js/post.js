@@ -35,6 +35,7 @@ const replyService = (() => {
   }
 
   const removeReply = (id, callback, error) => {
+    //return;
     $.ajax({
       url    : `/reply/${id}`,
       method : "DELETE",

@@ -1,19 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/WEB-INF/views/login.jsp" %>
 
-
-<h1 style="text-align: center; margin-top: 10px;">
+<h1 style="text-align: center; margin-top:10px;">
   <a href="./"><img src="https://i.imgur.com/2enY1dP.png"/></a>
 </h1>
 
-
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container">
-    <a class="navbar-brand" href="#" style="font-size: 30px">작가의 정원</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarNav" aria-controls="navbarNav"
-            aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="./" style="font-size: 30px;">작가의 정원</a>
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -34,7 +36,7 @@
               <a class="nav-link" href="/mygarden" style="font-size: 20px">나의 정원</a>
             </li>
             <li class="nav-item ms-5">
-              <a class="nav-link" href="/mypage" style="font-size: 20px">작가신청</a>
+              <a class="nav-link apply" href="/apply" style="font-size: 20px">작가신청</a>
             </li>
             <li class="nav-item ms-5">
               <a class="nav-link" href="/mypage" style="font-size: 20px">마이페이지</a>
@@ -57,6 +59,7 @@
             </li>
           </c:otherwise>
         </c:choose>
+
         <!-- 회원가입 모달 태그 -->
         <div class="modal fade" id="signupModal" tabindex="-1" role="dialog"
              aria-hidden="true" aria-labelledby="signupModalLabel">
@@ -64,7 +67,7 @@
             <div class="modal-content" id="signupContent">
               <div class="modal-body">
                 <!-- 회원가입 모달 내용 입력란 -->
-                <form class="signup" method="post" name="f2">
+                <form class="signup" action="/signup" method="post" name="f2">
                   <!-- 회원가입 입력 필드들을 추가 -->
 
                   <div class="signupLogo">
@@ -132,7 +135,7 @@
                 </div>
 
                 <!--로그인 내용 입력란-->
-                <form class="login" method="post" name="f1">
+                <form class="login" action="/login" method="post" name="f1">
                   <input type="text" name="loginid" placeholder="아이디"/><br/>
                   <input type="password" name="password" placeholder="비밀번호"/><br/>
 
@@ -167,3 +170,17 @@
     </div>
   </div>
 </nav>
+
+<script>
+  const status = '${member}';
+  if (status) {
+    const writerStatus = status.slice(status.lastIndexOf("type") + 5, status.lastIndexOf("type") + 9)
+    if (writerStatus === "true") {
+      $(".apply").click((e) => {
+        e.preventDefault();
+        alert("이미 신청되었습니다.")
+        return;
+      })
+    }
+  }
+</script>

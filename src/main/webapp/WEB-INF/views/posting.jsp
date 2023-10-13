@@ -15,6 +15,13 @@
 </head>
 
 <body>
+
+<div style="margin: 0 auto;  text-align: center;">
+  <a href="/">
+    <img src="/resources/images/logo_small.png" alt="로고이미지">
+  </a>
+</div>
+
 <!-- 섹션 시작 -->
 <section>
   <!-- 섹션 헤더 시작 -->
@@ -94,7 +101,7 @@
       <li><input type="radio" name="cate" value="운동" hidden>
         <span>운동</span>
       </li>
-      <li><input type="radio" name="cate" value="독서" hidden>
+      <li><input type="radio" name="cate" value="도서" hidden>
         <span>독서</span>
       </li>
     </ul>
@@ -116,7 +123,7 @@
 <input class="postResponse" type="hidden" value='${post}'>
 <script>
   const writerResponse = '${member}';
-  const postResponse = ${post};
+  const postResponse = '${post}';
 
   if (!writerResponse) {
     swal("로그인 해주세요")
@@ -134,10 +141,8 @@
   });
 
   if (postResponse) {
-    console.log(postResponse);
-    console.log(typeof postResponse);
-    const postJson = postResponse;
-    $(".main-image").css(`background-image`, `url(\${postResponse.mainTitleImg})`);
+    const postJson = JSON.parse(postResponse);
+    $(".main-image").css(`background-image`, `url(\${postJson.mainTitleImg})`);
     $(".section-header-title input[name='title']").val(postJson.mainTitle);
     $(".section-header-title input[name='subtitle']").val(postJson?.subTitle);
     $(".ProseMirror").html(postJson.content);

@@ -49,6 +49,7 @@ public class LibraryService {
   }
 
   public List<Member> findAllSubscribedWriter(String loginid) {
+    log.info("libraryMapper.getAllSubscribedWriter(loginid) => {}", libraryMapper.getAllSubscribedWriter(loginid));
     return libraryMapper.getAllSubscribedWriter(loginid);
   }
 
