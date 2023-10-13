@@ -356,6 +356,7 @@
   if ($(".nickname").val() === postResponse.member.nickname) {
     $(".section-header-icon img[alt='신고 이미지']").css("display", "none");
   } else {
+    $(".modify-btn").css("display", "none");
   }
 
   // 구독

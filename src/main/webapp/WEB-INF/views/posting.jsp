@@ -141,7 +141,6 @@
   });
 
   if (postResponse) {
-    console.log(postResponse);
     const postJson = JSON.parse(postResponse);
     $(".main-image").css(`background-image`, `url(\${postJson.mainTitleImg})`);
     $(".section-header-title input[name='title']").val(postJson.mainTitle);
