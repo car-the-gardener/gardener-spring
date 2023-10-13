@@ -4,6 +4,7 @@ import com.gardener.aop.exception.FindException;
 import com.gardener.domain.Member;
 import com.gardener.domain.Post;
 import com.gardener.domain.dto.MainImgDTO;
+import com.gardener.service.MemberService;
 import com.gardener.service.PostService;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
@@ -37,15 +38,17 @@ import java.util.UUID;
 public class PostController {
   private final PostService postService;
   private final String uploadDir = Paths.get("C:", "tui-editor", "upload").toString();
+  private final MemberService memberService;
 
   @GetMapping("/posting")
   public void posting(HttpSession session, Model model) throws FindException {
     Member member = (Member) session.getAttribute("member");
+    Member login = memberService.login(member.getLoginid(), member.getPwd());
     Gson gson = new Gson();
     if (member == null) {
       throw new FindException();
     }
-    model.addAttribute("member", gson.toJson(member.getWriter()));
+    model.addAttribute("member", gson.toJson(login.getWriter()));
   }
 
   // 수정 시 페이지 이동

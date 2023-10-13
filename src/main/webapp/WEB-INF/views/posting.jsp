@@ -101,7 +101,7 @@
       <li><input type="radio" name="cate" value="운동" hidden>
         <span>운동</span>
       </li>
-      <li><input type="radio" name="cate" value="독서" hidden>
+      <li><input type="radio" name="cate" value="도서" hidden>
         <span>독서</span>
       </li>
     </ul>
@@ -131,7 +131,7 @@
   }
 
   $(".secret-toggle").click(() => {
-    if (writerResponse.type !== true) {
+    if (JSON.parse(writerResponse).type !== true) {
       $("input:checkbox[id='secret']").prop("checked", false);
       $(".secret-toggle").css("background-color", "#fff")
       $(".secret-toggle-btn").css("background-color", "rgb(121, 193, 150)");

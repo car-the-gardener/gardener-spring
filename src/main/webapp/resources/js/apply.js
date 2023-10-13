@@ -11,7 +11,6 @@ $(document).ready(() => {
       data   : data,
       success: (response) => {
         if (response === "true") {
-          console.log("작가 정보 등록 성공");
           alert("제출되었습니다");
           window.location.href = "/";
         }
