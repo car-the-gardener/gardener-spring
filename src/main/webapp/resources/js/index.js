@@ -1,69 +1,118 @@
 $(() => {
-  const header = $("body>div.header");
-  header.load("/resources/common/header.jsp");
 
-  const body = $("div.search-body");
+  //search  결과를 보여줄 위치
+  const body = $("div.body");
 
-  const searchbtn = $("input.search-button");
 
-  searchbtn.click(() => {
-    const textValue = $("input.search-text").val();
-    const selectValue = $("select.dropdown").val();
+ //전체적인 검색기능 영역 start --------------------------------------------------
+  //search 버튼객체 찾기
+  const searchbtn = $("#searchbtn");
 
-    $.ajax({
-      url: "/back/search",
-      method: "get",
-      data: { select: selectValue, text: textValue },
-      success: (resultData) => {
-        if (resultData.length != 0) {
-          const resultlength = resultData.length;
+  //검색 버튼을 클릭 or Enter를 클릭하면 할 함수 Start
+  function Search() {
 
-          body.load("./search.html", () => {
-            const viewtable = $("table.writing-list");
+    //검색할 텍스트 값
+    const textValue = $(".form-control").val();
 
-            for (var i = 0; i < resultlength; i++) {
-              const tabletr = document.createElement("tr");
-              tabletr.setAttribute("class", `num ${resultData[i].postnum}`);
-              tabletr.innerHTML = `
-                  <td>
-                    <a>
-                      <img src="${resultData[i].mainTitleImg}" alt="제목이미지" 
-                                style="display: block; width: 200px; height: 150px;">
-                    </a>
-                  </td>
-                  <td class="test">
-                    <h2>${resultData[i].mainTitle} -</h2>
-                    <h3>${resultData[i].name}</h3>
-                    <p>${resultData[i].content}</p>
-                  </td>`;
+    //검색할 optionValue 값
+    const selectValue = $(".form-select").val();
 
-              $(viewtable).append(tabletr);
-            }
-          });
-        } else {
-          alert("검색하는 결과가 없습니다.");
-        }
-      },
-      error: function () {
-        alert("검색 실패");
-      },
-    });
-  });
+    //alert(textValue);
+    //alert(selectValue);
+
+    //text창에 아무것도 입력을 안한 경우
+    if(textValue == ""){
+    	alert("검색할려는 키워드를 입력해주세요");
+    }
+    
+    var resultValue = getParameterByName('result');
+    alert(resultValue);
+    
+
+
+
+    // $.ajax({
+    //   url:"/search",
+    //   method:"get",
+    //   data:{select:selectValue, text:textValue},
+    //   success: (resultData) => {
+    //     if(resultData.equals("[]")){
+    //       alert('검색 결과가 없습니다.');
+    //     }else{
+    //       alert('검색한 결과');
+    //       console.log(resultData);
+    //       document.documentElement.innerHtml = resultData;
+    //     }
+    //   },
+    //   error: function () {
+    //            alert("검색하는 과정에서 오류가 났습니다.");
+    //          },
+    // });
+
+  }//search() end
+
+	//검색버튼을 클릭하면 할 일 Start
+		searchbtn.click(() => {
+          $('form').submit();
+	      Search();
+	  });
+	//검색버튼을 클릭하면 할 일 End
+
+	//입력창에 엔터를 누르면 할 일 start
+	  const txtobj = $("input[type=text]");
+	
+	  txtobj.keyup((e) => {
+	    if (e.key == "Enter") {
+	      //Enter에 입력하면 할 일
+	      Search();
+	    }
+	  });
+  	//입력창에 엔터를 누르면 할 일 end
+//전체적인 검색기능 영역 end --------------------------------------------------------------------
+
+  //
+  //   $.ajax({
+  //     url: "/back/search",
+  //     method: "get",
+  //     data: { select: selectValue, text: textValue },
+  //     success: (resultData) => {
+  //       if (resultData.length != 0) {
+  //         const resultlength = resultData.length;
+  //
+  //         body.load("./search.html", () => {
+  //           const viewtable = $("table.writing-list");
+  //
+  //           for (var i = 0; i < resultlength; i++) {
+  //             const tabletr = document.createElement("tr");
+  //             tabletr.setAttribute("class", `num ${resultData[i].postnum}`);
+  //             tabletr.innerHTML = `
+  //                 <td>
+  //                   <a>
+  //                     <img src="${resultData[i].mainTitleImg}" alt="제목이미지"
+  //                               style="display: block; width: 200px; height: 150px;">
+  //                   </a>
+  //                 </td>
+  //                 <td class="test">
+  //                   <h2>${resultData[i].mainTitle} -</h2>
+  //                   <h3>${resultData[i].name}</h3>
+  //                   <p>${resultData[i].content}</p>
+  //                 </td>`;
+  //
+  //             $(viewtable).append(tabletr);
+  //           }
+  //         });
+  //       } else {
+  //         alert("검색하는 결과가 없습니다.");
+  //       }
+  //     },
+  //     error: function () {
+  //       alert("검색 실패");
+  //     },
+  //   });
+  // });
   //검색버튼을 클릭하면 할 일 end
 
-  //입력창에 엔터를 누르면 할 일 start
-  const txtobj = $("input[type=text]");
 
-  txtobj.keyup((e) => {
-    if (e.key == "Enter") {
-      //Enter에 입력하면 할 일
-
-      this.alert("enter 입력");
-
-      this.alert("enter입력");
-    }
-  });
-  //입력창에 엔터를 누르면 할 일 start
 
   //카테고리 하나를 누르면 할 일 start
   const category = $(".category");
@@ -124,4 +173,8 @@ $(() => {
     }); //ajax end
   }); //click event end
   //카테고리 하나를 누르면 할 일 end
+  
+  
+   
+   
 }); //ready end
