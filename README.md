@@ -15,7 +15,7 @@ Etc : Git hub, Notion, Discord<br>
 
 <h2>작업기간 - 2023.07.21 ~ 2023.10.13</h2>
 
-<h2>팀원 - 이수완 이문행 임지윤 정겨운</h2>
+<h2>팀원 - 이문행 이수완 임지윤 정겨운</h2>
 
 <h3>spring project let's go</h3>
 
