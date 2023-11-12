@@ -1,21 +1,20 @@
 <h1>gardener-spring (작업기간 - 2023.07.21 ~ 2023.10.13)</h1>
 
+<h2>팀명 - Gardener</h2>
+
+<h2>목적 - 작가와 독자의 만남</h2>
+
+<h2>Skills - CSS HTML JAVA Javascipt</h2>
+
+<h2>작업기간 - 2023.07.21 ~ 2023.10.13</h2>
+
+<h2>팀원 - 이수완 이문행 임지윤 정겨운</h2>
+
 spring project let's go
-
-팀명 - Gardener
-
-목적 - 작가와 독자의 만남
-
-Skills - CSS HTML JAVA Javascipt
-
-작업기간 - 2023.09.14 ~ 2023.10.13
-
-팀원 - 이수완 이문행 임지윤 정겨운
-
 
 <details>
 <summary>
-  <h2>팀 규</h2>
+  <h2>팀 규칙</h2>
 </summary>
     중간에 탈주 하지말기
     싸우지 말기 (불만은 당사자들끼리 해결)
