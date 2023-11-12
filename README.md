@@ -4,7 +4,13 @@
 
 <h2>목적 - 작가와 독자의 만남</h2>
 
-<h2>Skills - CSS HTML JAVA Javascipt</h2>
+<h2>개발환경 - Language : HTML, CSS, Javascript, Java<br>
+Database : Oracle<br>
+Server : Tomcat<br>
+Library : jQuery, Maven, Mybatis, Bootstrap<br>
+IDE : STS, Intellij<br>
+Etc : Git hub, Notion, Discord<br>
+</h2>
 
 <h2>작업기간 - 2023.07.21 ~ 2023.10.13</h2>
 
@@ -24,7 +30,7 @@ spring project let's go
     6. 본인이 작성한 코드(메서드, 변수이름) 주석 달기!!<br>
     7. 디스코드 확인 꼭하기
 </details>
-<br><br>
+<br>
 
 <details>
 <summary>
