@@ -1,8 +1,8 @@
-# gardener-spring (작업기간 - 2023.07.21 ~ 2023.10.13)
+<h1>gardener-spring (작업기간 - 2023.07.21 ~ 2023.10.13)</h1>
 
 final spring project let's go
 
-# 팀명 - Gardener
+팀명 - Gardener
 
 # 목적 - 작가와 독자의 만남
 
