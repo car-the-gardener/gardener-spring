@@ -17,7 +17,7 @@ Etc : Git hub, Notion, Discord<br>
 
 <h2>팀원 - 이수완 이문행 임지윤 정겨운</h2>
 
-spring project let's go
+<h3>spring project let's go</h3>
 
 <details>
 <summary>
