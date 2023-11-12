@@ -4,7 +4,8 @@
 
 <h2>목적 - 작가와 독자의 만남</h2>
 
-<h2>개발환경 - Language : HTML, CSS, Javascript, Java<br>
+<h2>개발환경<br>
+Language : HTML, CSS, Javascript, Java<br>
 Database : Oracle<br>
 Server : Tomcat<br>
 Library : jQuery, Maven, Mybatis, Bootstrap<br>
